@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" class="tw-dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FetchViews - Inscription</title>
+        <link rel="stylesheet" href="css/tailwind-runtime.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        />
+    </head>
+    <body class="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white">
+        
+        <main class="tw-flex tw-min-h-screen tw-w-full tw-items-center tw-justify-center tw-p-4">
+            <div class="tw-flex tw-w-full tw-max-w-[1000px] tw-overflow-hidden tw-rounded-2xl tw-bg-white dark:tw-bg-[#171717] tw-shadow-xl">
+                
+                <!-- Formulaire à gauche -->
+                <div class="tw-w-full md:tw-w-1/2 tw-p-8 lg:tw-p-12">
+                    <div class="tw-mb-8">
+                        <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                            <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
+                            <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+                        </a>
+                    </div>
+
+                    <h2 class="tw-mb-2 tw-text-3xl tw-font-bold">Create an account</h2>
+                    <p class="tw-mb-8 tw-text-gray-600 dark:tw-text-gray-400">Join our community of creators</p>
+
+                    <form id="registerForm" class="tw-space-y-6">
+                        <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+                            <div>
+                                <label class="tw-block tw-text-sm tw-font-medium tw-mb-2" for="first_name">First Name</label>
+                                <div class="tw-relative">
+                                    <i class="bi bi-person tw-absolute tw-left-3 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                                    <input 
+                                        type="text" 
+                                        id="first_name" 
+                                        name="first_name"
+                                        class="tw-w-full tw-rounded-lg tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                               tw-bg-transparent tw-py-3 tw-pl-10 tw-pr-4 tw-outline-none 
+                                               focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                        placeholder="John"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="tw-block tw-text-sm tw-font-medium tw-mb-2" for="last_name">Last Name</label>
+                                <div class="tw-relative">
+                                    <i class="bi bi-person tw-absolute tw-left-3 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                                    <input 
+                                        type="text" 
+                                        id="last_name" 
+                                        name="last_name"
+                                        class="tw-w-full tw-rounded-lg tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                               tw-bg-transparent tw-py-3 tw-pl-10 tw-pr-4 tw-outline-none 
+                                               focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                        placeholder="Doe"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2" for="email">Email</label>
+                            <div class="tw-relative">
+                                <i class="bi bi-envelope tw-absolute tw-left-3 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email"
+                                    class="tw-w-full tw-rounded-lg tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                           tw-bg-transparent tw-py-3 tw-pl-10 tw-pr-4 tw-outline-none 
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                    placeholder="john.doe@example.com"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2" for="password">Password</label>
+                            <div class="tw-relative">
+                                <i class="bi bi-lock tw-absolute tw-left-3 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password"
+                                    class="tw-w-full tw-rounded-lg tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                           tw-bg-transparent tw-py-3 tw-pl-10 tw-pr-4 tw-outline-none 
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                    placeholder="Minimum 8 characters"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2" for="confirm_password">Confirm Password</label>
+                            <div class="tw-relative">
+                                <i class="bi bi-lock-fill tw-absolute tw-left-3 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                                <input 
+                                    type="password" 
+                                    id="confirm_password" 
+                                    name="confirm_password"
+                                    class="tw-w-full tw-rounded-lg tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                           tw-bg-transparent tw-py-3 tw-pl-10 tw-pr-4 tw-outline-none 
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                    placeholder="Confirm Password"
+                                />
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="tw-w-full tw-rounded-lg tw-bg-[#6366f1] tw-py-3 tw-text-white 
+                                   hover:tw-bg-[#5457e5] tw-transition-colors"
+                        >
+                            Create an account
+                        </button>
+                    </form>
+
+                    <div class="tw-mt-6 tw-text-center tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">
+                        Already registered ? 
+                        <a href="login.html" class="tw-text-[#6366f1] hover:tw-underline">Login</a>
+                    </div>
+
+                    <div class="tw-relative tw-mt-8">
+                        <div class="tw-absolute tw-left-0 tw-top-1/2 tw-w-full tw-border-t dark:tw-border-gray-700 tw--z-10"></div>
+                        <div class="tw-relative tw-text-center">
+                            <span class="tw-bg-white dark:tw-bg-[#171717] tw-px-2 tw-text-sm tw-text-gray-500">Or sign in with</span>
+                        </div>
+                    </div>
+
+                    <div class="tw-mt-6">
+                        <button id="googleLogin" class="tw-flex tw-w-full tw-items-center tw-justify-center tw-gap-3 
+                                       tw-rounded-lg tw-bg-white dark:tw-bg-gray-800 tw-py-3 
+                                       tw-shadow-md hover:tw-shadow-lg tw-transition-all tw-duration-200
+                                       tw-border tw-border-gray-200 dark:tw-border-gray-700
+                                       hover:tw-bg-gray-50 dark:hover:tw-bg-gray-700">
+                            <img class="tw-w-6 tw-h-6" 
+                                 src="https://www.svgrepo.com/show/475656/google-color.svg" 
+                                 loading="lazy" 
+                                 alt="google logo">
+                            <span class="tw-text-sm tw-font-medium tw-text-gray-700 dark:tw-text-gray-200">
+                                Login with Google
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image à droite -->
+                <div class="tw-hidden md:tw-block md:tw-w-1/2">
+                    <div class="tw-relative tw-h-full">
+                        <img 
+                            src="https://images.unsplash.com/photo-1616763355548-1b606f439f86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                            class="tw-h-full tw-w-full tw-object-cover"
+                            alt="Register background"
+                        />
+                        <div class="tw-absolute tw-inset-0 tw-bg-[#6366f1] tw-opacity-10"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <script src="./scripts/auth.js"></script>
+    </body>
+</html>
