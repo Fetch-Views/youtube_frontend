@@ -38,14 +38,13 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
 
 
 document.getElementById('loginForm')?.addEventListener('submit', async function (event) {
-    event.preventDefault(); // Empêche le rechargement de la page
+    event.preventDefault();
 
-    // Récupérer les valeurs des champs
     const email = document.getElementById('emailInput').value;
     const password = document.getElementById('passwordInput').value;
 
     try {
-        // Envoi de la requête POST au backend Django
+        // Envoi de la requête POST pour authentifier
         const response = await fetch('http://127.0.0.1:8000/api/users/login/', {
             method: 'POST',
             headers: {
@@ -57,23 +56,55 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
             }),
         });
 
-        // Traitement de la réponse
         const data = await response.json();
 
         if (response.ok) {
-            // Succès de la connexion
+            // Stocker les tokens et infos utilisateur dans le localStorage
+            localStorage.setItem('accessToken', data.access);
+            localStorage.setItem('refreshToken', data.refresh);
+            localStorage.setItem('userId', data.user_id);
+            localStorage.setItem('userEmail', data.email);
+
             alert('Login successful!');
-            console.log('User ID:', data.user_id);
-            // Redirection vers une page protégée (par exemple, le dashboard)
-            window.location.href = '/index.html';
+            window.location.href = '/gallery.html';
         } else {
-            // Afficher l'erreur
             alert(data.error || 'Invalid credentials.');
         }
     } catch (error) {
-        // Gérer les erreurs de connexion réseau
         console.error('Error:', error);
         alert('Failed to connect to the server.');
     }
 });
 
+async function refreshAccessToken() {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+        alert('Session expired. Please log in again.');
+        window.location.href = '/login.html';
+        return;
+    }
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/users/token/refresh/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ refresh: refreshToken }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('accessToken', data.access); // Mettre à jour le token d'accès
+        } else {
+            alert('Session expired. Please log in again.');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            window.location.href = '/login.html';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to refresh access token.');
+    }
+}

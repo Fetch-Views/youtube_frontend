@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en" class="tw-dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FetchViews - Gallery</title>
+        <link rel="stylesheet" href="css/tailwind-runtime.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        />
+    </head>
+    <body class="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white">
+        
+        <!-- Header avec filtres -->
+        <div class="tw-sticky tw-top-0 tw-z-40 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800">
+            <!-- Logo et recherche -->
+            <div class="tw-px-6 tw-py-4">
+                <div class="tw-flex tw-items-center tw-justify-between">
+                    <!-- Logo et Dashboard -->
+                    <div class="tw-flex tw-items-center">
+                        <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                            <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
+                            <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+                        </a>
+                    </div>
+
+                    <!-- Barre de recherche -->
+                    <div class="tw-flex tw-max-w-xl tw-w-full tw-mx-auto tw-absolute tw-left-1/2 tw--translate-x-1/2">
+                        <div class="tw-relative tw-w-full">
+                            <input 
+                                type="text" 
+                                placeholder="Search thumbnails..."
+                                class="tw-w-full tw-pl-10 tw-pr-4 tw-py-2.5 tw-rounded-full tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-bg-transparent tw-outline-none 
+                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
+                                       tw-shadow-[0_2px_8px_rgba(99,102,241,0.15)] hover:tw-shadow-[0_4px_12px_rgba(99,102,241,0.2)]
+                                       tw-transition-all"
+                            />
+                            <i class="bi bi-search tw-absolute tw-left-3.5 tw-top-1/2 tw--translate-y-1/2 tw-text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Actions à droite -->
+                    <div class="tw-flex tw-items-center tw-gap-6">
+                        <a href="#" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
+                            Dashboard
+                        </a>
+                        <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                        <!-- Menu profil avec dropdown -->
+                        <div class="tw-relative">
+                            <button 
+                                class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors"
+                                onclick="document.getElementById('profileDropdown').classList.toggle('tw-hidden')"
+                            >
+                                <i class="bi bi-person"></i>
+                            </button>
+                            <!-- Dropdown menu amélioré avec flèche -->
+                            <div id="profileDropdown" 
+                                 class="tw-hidden tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-2xl tw-bg-white/70 
+                                        dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl tw-shadow-[0_4px_20px_rgba(0,0,0,0.1)] 
+                                        dark:tw-shadow-[0_4px_20px_rgba(0,0,0,0.3)] tw-border tw-border-gray-200/50 
+                                        dark:tw-border-gray-700/50 tw-py-2 tw-z-50 
+                                        tw-transform tw-origin-top-right tw-transition-all">
+                                <!-- Flèche du dropdown -->
+                                <div class="tw-absolute tw-right-4 tw--top-2 tw-w-4 tw-h-4 tw-rotate-45 
+                                            tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl 
+                                            tw-border-l tw-border-t tw-border-gray-200/50 dark:tw-border-gray-700/50">
+                                </div>
+                                <div class="tw-px-4 tw-py-3 tw-border-b tw-border-gray-200/50 dark:tw-border-gray-700/50">
+                                    <p class="tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">
+                                        My account
+                                    </p>
+                                    <p class="tw-text-xs tw-text-gray-500 dark:tw-text-gray-400 tw-mt-0.5" id="profileEmail">
+                                        user@example.com
+                                    </p>                                    
+                                </div>
+                                <div class="tw-py-1">
+                                    <a href="#"
+                                       id="signOutButton"
+                                       class="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2.5 tw-text-sm tw-text-gray-700 
+                                              dark:tw-text-gray-200 hover:tw-bg-gray-100/50 dark:hover:tw-bg-gray-800/50 
+                                              tw-transition-colors">
+                                        <i class="bi bi-box-arrow-right tw-text-gray-400"></i>
+                                        Sign out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtres horizontaux -->
+            <div class="tw-flex tw-items-center tw-gap-2 tw-px-6 tw-py-3 tw-overflow-x-auto">
+                    <!-- Bouton Sort by avec états changeants -->
+                    <div class="tw-relative">
+                        <button 
+                            id="sortButton"
+                            class="tw-px-4 tw-py-2 tw-rounded-full tw-text-sm tw-border tw-border-gray-300 
+                                   dark:tw-border-gray-600 hover:tw-border-gray-400 tw-transition-colors
+                                   focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                            onclick="toggleSortOrder()"
+                        >
+                            <i id="sortIcon" class="bi bi-shuffle"></i>
+                            <span class="tw-ml-2">Sort by</span>
+                        </button>
+                    </div>
+                    <button 
+                        id="trendingButton"
+                        onclick="toggleTrendingActive()"
+                        class="tw-px-4 tw-py-2 tw-rounded-full tw-text-sm tw-text-white 
+                               tw-bg-[#E94B64] hover:tw-bg-[#E63553] tw-transition-all
+                               tw-shadow-[0_2px_8px_rgba(233,75,100,0.25)]
+                               active:tw-scale-95 active:tw-shadow-none
+                               data-[active=true]:tw-ring-4 data-[active=true]:tw-ring-[#E94B64]/30"
+                        data-active="false"
+                    >
+                        <span>Trending now</span>
+                    </button>
+                    <button 
+                        id="seasonalButton"
+                        onclick="toggleSeasonalActive()"
+                        class="tw-px-4 tw-py-2 tw-rounded-full tw-text-sm tw-text-white 
+                               tw-bg-[#3b82f6] hover:tw-bg-[#2563eb] tw-transition-all
+                               tw-shadow-[0_2px_8px_rgba(59,130,246,0.25)]
+                               active:tw-scale-95 active:tw-shadow-none
+                               data-[active=true]:tw-ring-4 data-[active=true]:tw-ring-[#3b82f6]/30"
+                        data-active="false"
+                    >
+                        <span>Seasonal winners</span>
+                    </button>
+                    <div class="tw-flex tw-items-center tw-gap-2">
+                        <div class="tw-flex tw-gap-2">
+                            <!-- x1.0-x1.5 -->
+                            <button onclick="toggleMultiplier(this)"
+                                    class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                        tw-bg-gradient-to-r tw-from-sky-400 tw-to-blue-400
+                                        tw-text-white tw-transition-all tw-ring-1 tw-ring-white/50
+                                        hover:tw-ring-2 hover:tw-ring-white/50
+                                        data-[active=true]:tw-ring-2 data-[active=true]:tw-ring-white"
+                                    data-active="false">
+                                x1.0-1.5
+                            </button>
+
+                            <!-- x1.5-x2.0 -->
+                            <button onclick="toggleMultiplier(this)"
+                                    class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                        tw-bg-gradient-to-r tw-from-purple-400 tw-to-purple-600
+                                        tw-text-white tw-transition-all tw-ring-1 tw-ring-white/50
+                                        hover:tw-ring-2 hover:tw-ring-white/50
+                                        data-[active=true]:tw-ring-2 data-[active=true]:tw-ring-white"
+                                    data-active="false">
+                                x1.5-2.0
+                            </button>
+
+                            <!-- x2.0-x4.0 -->
+                            <button onclick="toggleMultiplier(this)"
+                                    class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                        tw-bg-gradient-to-r tw-from-green-400 tw-to-emerald-400
+                                        tw-text-white tw-transition-all tw-ring-1 tw-ring-white/50
+                                        hover:tw-ring-2 hover:tw-ring-white/50
+                                        data-[active=true]:tw-ring-2 data-[active=true]:tw-ring-white"
+                                    data-active="false">
+                                x2.0-4.0
+                            </button>
+
+                            <!-- x4.0-x10.0 -->
+                            <button onclick="toggleMultiplier(this)"
+                                    class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                        tw-bg-gradient-to-r tw-from-orange-500 tw-to-yellow-500
+                                        tw-text-white tw-transition-all tw-ring-1 tw-ring-white/50
+                                        hover:tw-ring-2 hover:tw-ring-white/50
+                                        data-[active=true]:tw-ring-2 data-[active=true]:tw-ring-white"
+                                    data-active="false">
+                                x4.0-10.0
+                            </button>
+
+                            <!-- +x10.0 -->
+                            <button onclick="toggleMultiplier(this)"
+                                    class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                        tw-bg-gradient-to-r tw-from-red-500 tw-via-orange-500 tw-to-yellow-500
+                                        tw-text-white tw-transition-all tw-animate-pulse tw-shadow-lg tw-shadow-red-500/50
+                                        tw-ring-1 tw-ring-white/50
+                                        hover:tw-ring-2 hover:tw-ring-white/50
+                                        data-[active=true]:tw-ring-2 data-[active=true]:tw-ring-white"
+                                    data-active="false">
+                                +x10.0 🔥
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenu principal avec filtres et galerie -->
+        <div class="tw-flex tw-gap-8 tw-p-6">
+            <!-- Sidebar Filtres -->
+            <div class="tw-w-64 tw-shrink-0">
+                <div class="tw-sticky tw-top-[120px] tw-bg-white dark:tw-bg-[#17181b] tw-rounded-2xl 
+                            tw-p-6 tw-shadow-lg dark:tw-shadow-gray-900">
+                    <!-- En-tête des filtres centré -->
+                    <div class="tw-mb-6 tw-text-center">
+                        <h2 class="tw-text-lg tw-font-medium">Filters :</h2>
+                    </div>
+
+                    <!-- Catégories -->
+                    <div class="tw-mb-8">
+                        <h3 class="tw-text-sm tw-font-medium tw-mb-3">Categories</h3>
+                        <div class="tw-space-y-2">
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Entertainment</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">2.4K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Comedy</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.8K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Science</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">956</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Automobile</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">956</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Video games</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">2.1K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Food</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.7K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Informative</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.3K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Blog</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">890</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">News</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.9K</span>
+                            </label>
+
+                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                <input type="checkbox" class="tw-hidden peer">
+                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                            tw-rounded tw-flex tw-items-center tw-justify-center
+                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                         viewBox="0 0 16 16">
+                                        <path fill="currentColor" 
+                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <span class="tw-ml-3 tw-text-sm">Tech</span>
+                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.6K</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Date Range -->
+                    <div class="tw-mb-8">
+                        <h3 class="tw-text-sm tw-font-medium tw-mb-3">Date Published</h3>
+                        <div class="tw-space-y-3">
+                            <!-- Bouton pour ouvrir le calendrier -->
+                            <button 
+                                onclick="toggleDatePicker()"
+                                class="tw-w-full tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-2.5 
+                                       tw-text-sm tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                       tw-rounded-lg hover:tw-border-[#6366f1] tw-transition-colors
+                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                            >
+                                <span id="dateRangeText">Select dates...</span>
+                                <i class="bi bi-calendar3"></i>
+                            </button>
+
+                            <!-- Calendrier (caché par défaut) -->
+                            <div id="datePicker" class="tw-hidden tw-absolute tw-z-50 tw-mt-1 tw-p-4 tw-bg-white 
+                                                       dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg 
+                                                       tw-border tw-border-gray-200 dark:tw-border-gray-700">
+                                <!-- En-tête du calendrier avec navigation -->
+                                <div class="tw-flex tw-items-center tw-justify-between tw-mb-4">
+                                    <button onclick="changeMonth(-1)" 
+                                            class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </button>
+                                    <h3 id="currentMonth" class="tw-text-sm tw-font-medium"></h3>
+                                    <button onclick="changeMonth(1)"
+                                            class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="tw-grid tw-grid-cols-7 tw-gap-1">
+                                    <!-- En-têtes des jours -->
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Mo</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Tu</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">We</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Th</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Fr</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Sa</div>
+                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Su</div>
+
+                                    <!-- Les jours seront générés ici par JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Views Range avec icône -->
+                    <div class="tw-mb-8">
+                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                            <i class="bi bi-eye tw-text-[#6366f1]"></i>
+                            Number of Views
+                        </h3>
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <input 
+                                type="number" 
+                                id="minViews"
+                                placeholder="Min"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#6366f1] tw-transition-colors
+                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
+                                       focus:tw-outline-none"
+                                oninput="updateViewsRange()"
+                            />
+                            <span class="tw-text-gray-400">-</span>
+                            <input 
+                                type="number" 
+                                id="maxViews"
+                                placeholder="Max"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#6366f1] tw-transition-colors
+                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
+                                       focus:tw-outline-none"
+                                oninput="updateViewsRange()"
+                            />
+                        </div>
+                        <p id="viewsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                            Maximum views must be greater than minimum views
+                        </p>
+                    </div>
+
+                    <!-- Comments Range avec icône -->
+                    <div class="tw-mb-8">
+                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                            <i class="bi bi-chat-dots tw-text-[#E94B64]"></i>
+                            Number of Comments
+                        </h3>
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <input 
+                                type="number" 
+                                id="minComments"
+                                placeholder="Min"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#E94B64] tw-transition-colors
+                                       focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
+                                       focus:tw-outline-none"
+                                oninput="updateCommentsRange()"
+                            />
+                            <span class="tw-text-gray-400">-</span>
+                            <input 
+                                type="number" 
+                                id="maxComments"
+                                placeholder="Max"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#E94B64] tw-transition-colors
+                                       focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
+                                       focus:tw-outline-none"
+                                oninput="updateCommentsRange()"
+                            />
+                        </div>
+                        <p id="commentsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                            Maximum comments must be greater than minimum comments
+                        </p>
+                    </div>
+
+                    <!-- Likes Range avec icône -->
+                    <div class="tw-mb-8">
+                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                            <i class="bi bi-heart tw-text-[#3b82f6]"></i>
+                            Number of Likes
+                        </h3>
+                        <div class="tw-flex tw-items-center tw-gap-2">
+                            <input 
+                                type="number" 
+                                id="minLikes"
+                                placeholder="Min"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#3b82f6] tw-transition-colors
+                                       focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
+                                       focus:tw-outline-none"
+                                oninput="updateLikesRange()"
+                            />
+                            <span class="tw-text-gray-400">-</span>
+                            <input 
+                                type="number" 
+                                id="maxLikes"
+                                placeholder="Max"
+                                min="0"
+                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                       hover:tw-border-[#3b82f6] tw-transition-colors
+                                       focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
+                                       focus:tw-outline-none"
+                                oninput="updateLikesRange()"
+                            />
+                        </div>
+                        <p id="likesError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                            Maximum likes must be greater than minimum likes
+                        </p>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <button 
+                        onclick="clearAllFilters()"
+                        class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400 
+                               tw-border tw-border-gray-300 dark:tw-border-gray-600 tw-rounded-lg
+                               hover:tw-bg-gray-50 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                        Clear All Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grille d'images -->
+            <div class="tw-flex-1">
+                <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5 tw-gap-6">
+                    <!-- Image Card 1 -->
+                    <div class="tw-group">
+                        <div class="tw-relative tw-aspect-[4/3] tw-rounded-xl tw-overflow-hidden">
+                            <img 
+                                src="https://picsum.photos/300/225?random=1" 
+                                alt="Thumbnail"
+                                class="tw-w-full tw-h-full tw-object-cover tw-transition-transform 
+                                       group-hover:tw-scale-110 tw-duration-700"
+                            />
+                        </div>
+                        <div class="tw-mt-3">
+                            <div class="tw-flex tw-justify-between tw-items-start">
+                                <h3 class="tw-font-medium tw-text-sm">Epic Gaming Moments</h3>
+                                <span class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                           tw-bg-purple-100 tw-text-purple-600 dark:tw-bg-purple-950 dark:tw-text-purple-400">
+                                    x3.2
+                                </span>
+                            </div>
+                            <div class="tw-mt-1 tw-text-xs tw-text-gray-500">Gaming</div>
+                            <div class="tw-mt-1 tw-flex tw-items-center tw-gap-4 tw-text-xs">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    <span>15.2K</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    <span>234</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-heart"></i>
+                                    <span>3.4K</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Card 2 -->
+                    <div class="tw-group">
+                        <div class="tw-relative tw-aspect-[4/3] tw-rounded-xl tw-overflow-hidden">
+                            <img 
+                                src="https://picsum.photos/300/225?random=2" 
+                                alt="Thumbnail"
+                                class="tw-w-full tw-h-full tw-object-cover tw-transition-transform 
+                                       group-hover:tw-scale-110 tw-duration-700"
+                            />
+                        </div>
+                        <div class="tw-mt-3">
+                            <div class="tw-flex tw-justify-between tw-items-start">
+                                <h3 class="tw-font-medium tw-text-sm">Legendary Content</h3>
+                                <span class="tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-rounded-full 
+                                           tw-bg-gradient-to-r tw-from-red-500 tw-via-orange-500 tw-to-yellow-500
+                                           tw-text-white tw-animate-pulse tw-shadow-lg tw-shadow-red-500/50">
+                                    x12.4 🔥
+                                </span>
+                            </div>
+                            <div class="tw-mt-1 tw-text-xs tw-text-gray-500">Tech</div>
+                            <div class="tw-mt-1 tw-flex tw-items-center tw-gap-4 tw-text-xs">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    <span>12.8K</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    <span>186</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-heart"></i>
+                                    <span>2.8K</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Card 3 -->
+                    <div class="tw-group">
+                        <div class="tw-relative tw-aspect-[4/3] tw-rounded-xl tw-overflow-hidden">
+                            <img 
+                                src="https://picsum.photos/300/225?random=3" 
+                                alt="Thumbnail"
+                                class="tw-w-full tw-h-full tw-object-cover tw-transition-transform 
+                                       group-hover:tw-scale-110 tw-duration-700"
+                            />
+                        </div>
+                        <div class="tw-mt-3">
+                            <div class="tw-flex tw-justify-between tw-items-start">
+                                <h3 class="tw-font-medium tw-text-sm">Morning Routine 2024</h3>
+                                <div class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-star-fill tw-text-xs"></i>
+                                    <span class="tw-text-xs">4.8</span>
+                                </div>
+                            </div>
+                            <div class="tw-mt-1 tw-text-xs tw-text-gray-500">Lifestyle</div>
+                            <div class="tw-mt-1 tw-flex tw-items-center tw-gap-4 tw-text-xs">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    <span>9.4K</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    <span>142</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-heart"></i>
+                                    <span>1.8K</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Card 4 -->
+                    <div class="tw-group">
+                        <div class="tw-relative tw-aspect-[4/3] tw-rounded-xl tw-overflow-hidden">
+                            <img 
+                                src="https://picsum.photos/300/225?random=4" 
+                                alt="Thumbnail"
+                                class="tw-w-full tw-h-full tw-object-cover tw-transition-transform 
+                                       group-hover:tw-scale-110 tw-duration-700"
+                            />
+                        </div>
+                        <div class="tw-mt-3">
+                            <div class="tw-flex tw-justify-between tw-items-start">
+                                <h3 class="tw-font-medium tw-text-sm">Setup Tour 2024</h3>
+                                <div class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-star-fill tw-text-xs"></i>
+                                    <span class="tw-text-xs">4.6</span>
+                                </div>
+                            </div>
+                            <div class="tw-mt-1 tw-text-xs tw-text-gray-500">Tech</div>
+                            <div class="tw-mt-1 tw-flex tw-items-center tw-gap-4 tw-text-xs">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    <span>8.7K</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    <span>98</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-heart"></i>
+                                    <span>1.2K</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Card 5 -->
+                    <div class="tw-group">
+                        <div class="tw-relative tw-aspect-[4/3] tw-rounded-xl tw-overflow-hidden">
+                            <img 
+                                src="https://picsum.photos/300/225?random=5" 
+                                alt="Thumbnail"
+                                class="tw-w-full tw-h-full tw-object-cover tw-transition-transform 
+                                       group-hover:tw-scale-110 tw-duration-700"
+                            />
+                        </div>
+                        <div class="tw-mt-3">
+                            <div class="tw-flex tw-justify-between tw-items-start">
+                                <h3 class="tw-font-medium tw-text-sm">Best Games 2024</h3>
+                                <div class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-star-fill tw-text-xs"></i>
+                                    <span class="tw-text-xs">4.9</span>
+                                </div>
+                            </div>
+                            <div class="tw-mt-1 tw-text-xs tw-text-gray-500">Gaming</div>
+                            <div class="tw-mt-1 tw-flex tw-items-center tw-gap-4 tw-text-xs">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    <span>20.1K</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    <span>312</span>
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-heart"></i>
+                                    <span>4.2K</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal des filtres (caché par défaut) -->
+        <div class="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50 tw-hidden" id="filterModal">
+            <div class="tw-absolute tw-right-0 tw-h-full tw-w-96 tw-bg-white dark:tw-bg-[#171717] tw-p-6">
+                <div class="tw-flex tw-justify-between tw-items-center tw-mb-6">
+                    <h3 class="tw-text-lg tw-font-semibold tw-border-b-2 tw-border-gray-400 dark:tw-border-gray-200 tw-pb-2">
+                        Filters
+                    </h3>
+                    <button class="tw-text-2xl">&times;</button>
+                </div>
+                <!-- Contenu des filtres -->
+            </div>
+        </div>
+
+        <script>
+            // Définir sortState en premier
+            let sortState = 0; // 0: random, 1: ascending, 2: descending
+
+            // Fonction pour changer l'état du tri
+            function toggleSortOrder() {
+                const icon = document.getElementById('sortIcon');
+                sortState = (sortState + 1) % 3;
+                
+                switch(sortState) {
+                    case 0: // Random
+                        icon.className = 'bi bi-shuffle';
+                        break;
+                    case 1: // Ascending
+                        icon.className = 'bi bi-sort-up';
+                        break;
+                    case 2: // Descending
+                        icon.className = 'bi bi-sort-down';
+                        break;
+                }
+            }
+
+            // Gestionnaire pour les dropdowns (si nécessaire)
+            document.addEventListener('DOMContentLoaded', function() {
+                const dropdowns = ['profileDropdown'];
+                
+                window.addEventListener('click', function(e) {
+                    dropdowns.forEach(dropdownId => {
+                        const dropdown = document.getElementById(dropdownId);
+                        if (dropdown) {
+                            const button = dropdown.previousElementSibling;
+                            if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                                dropdown.classList.add('tw-hidden');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Fonctions pour gérer l'état des boutons
+            function toggleTrendingActive() {
+                const button = document.getElementById('trendingButton');
+                const isActive = button.getAttribute('data-active') === 'true';
+                button.setAttribute('data-active', !isActive);
+            }
+
+            function toggleSeasonalActive() {
+                const button = document.getElementById('seasonalButton');
+                const isActive = button.getAttribute('data-active') === 'true';
+                button.setAttribute('data-active', !isActive);
+            }
+
+            let startDate = null;
+            let endDate = null;
+            
+            function toggleDatePicker() {
+                const datePicker = document.getElementById('datePicker');
+                datePicker.classList.toggle('tw-hidden');
+                
+                if (!datePicker.classList.contains('tw-hidden')) {
+                    generateCalendar();
+                }
+            }
+
+            let currentDate = new Date();
+            
+            function changeMonth(delta) {
+                currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + delta, 1);
+                generateCalendar();
+            }
+
+            function generateCalendar() {
+                const datePicker = document.getElementById('datePicker');
+                const calendar = datePicker.querySelector('.tw-grid');
+                
+                // Mise à jour du mois affiché en anglais
+                const monthName = currentDate.toLocaleDateString('en-US', { 
+                    month: 'long',
+                    year: 'numeric'
+                });
+                document.getElementById('currentMonth').textContent = monthName;
+                
+                // Calcul des jours du mois
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                
+                // Vider le calendrier existant (sauf les en-têtes)
+                while (calendar.children.length > 7) {
+                    calendar.removeChild(calendar.lastChild);
+                }
+                
+                // Ajouter les espaces vides pour le début du mois
+                let firstDayIndex = firstDay.getDay() - 1;
+                if (firstDayIndex === -1) firstDayIndex = 6;
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const emptyDay = document.createElement('div');
+                    calendar.appendChild(emptyDay);
+                }
+                
+                // Ajouter les jours du mois
+                for (let day = 1; day <= lastDay.getDate(); day++) {
+                    const dayElement = document.createElement('button');
+                    const currentDateObj = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                    
+                    dayElement.className = `tw-w-8 tw-h-8 tw-rounded-full tw-text-sm tw-transition-colors
+                                          hover:tw-bg-[#6366f1]/10 focus:tw-outline-none
+                                          ${isDateSelected(currentDateObj) ? 'tw-bg-[#6366f1] tw-text-white' : ''}`;
+                    dayElement.textContent = day;
+                    
+                    dayElement.onclick = () => selectDate(currentDateObj);
+                    calendar.appendChild(dayElement);
+                }
+            }
+
+            function selectDate(date) {
+                if (!startDate || (startDate && endDate)) {
+                    startDate = date;
+                    endDate = null;
+                } else if (date > startDate) {
+                    endDate = date;
+                    // Fermer le calendrier seulement quand les deux dates sont sélectionnées
+                    setTimeout(() => {
+                        document.getElementById('datePicker').classList.add('tw-hidden');
+                    }, 200); // Petit délai pour voir la sélection
+                } else {
+                    endDate = startDate;
+                    startDate = date;
+                    // Fermer le calendrier seulement quand les deux dates sont sélectionnées
+                    setTimeout(() => {
+                        document.getElementById('datePicker').classList.add('tw-hidden');
+                    }, 200); // Petit délai pour voir la sélection
+                }
+                
+                updateDateRangeText();
+                generateCalendar();
+            }
+
+            function isDateSelected(date) {
+                if (!startDate) return false;
+                if (!endDate) return date.getTime() === startDate.getTime();
+                return date >= startDate && date <= endDate;
+            }
+
+            function updateDateRangeText() {
+                const dateRangeText = document.getElementById('dateRangeText');
+                if (!startDate) {
+                    dateRangeText.textContent = 'Select dates...';
+                } else if (!endDate) {
+                    dateRangeText.textContent = formatDate(startDate);
+                } else {
+                    dateRangeText.textContent = `${formatDate(startDate)} - ${formatDate(endDate)}`;
+                }
+            }
+
+            function formatDate(date) {
+                return date.toLocaleDateString('fr-FR', { 
+                    day: 'numeric',
+                    month: 'short'
+                });
+            }
+
+            // Fermer le calendrier si on clique en dehors
+            document.addEventListener('click', (e) => {
+                const datePicker = document.getElementById('datePicker');
+                const dateButton = document.querySelector('button[onclick="toggleDatePicker()"]');
+                
+                // Fermer seulement si :
+                // 1. On clique en dehors du calendrier ET du bouton
+                // 2. ET soit il n'y a pas de date sélectionnée, soit les deux dates sont sélectionnées
+                if (!datePicker.contains(e.target) && !dateButton.contains(e.target) && 
+                    !datePicker.classList.contains('tw-hidden') && 
+                    (!startDate || (startDate && endDate))) {
+                    datePicker.classList.add('tw-hidden');
+                }
+            });
+
+            // Fonctions de validation pour chaque range
+            function updateViewsRange() {
+                validateRange('Views');
+            }
+
+            function updateCommentsRange() {
+                validateRange('Comments');
+            }
+
+            function updateLikesRange() {
+                validateRange('Likes');
+            }
+
+            function validateRange(type) {
+                const minInput = document.getElementById(`min${type}`);
+                const maxInput = document.getElementById(`max${type}`);
+                const errorMessage = document.getElementById(`${type.toLowerCase()}Error`);
+                
+                let minValue = minInput.value ? parseInt(minInput.value) : 0;
+                let maxValue = maxInput.value ? parseInt(maxInput.value) : Infinity;
+                
+                // Si le max est inférieur au min
+                if (maxValue < minValue && maxValue !== 0) {
+                    errorMessage.classList.remove('tw-hidden');
+                    maxInput.classList.add('tw-border-red-500');
+                    // Forcer la valeur max à être égale au min
+                    maxInput.value = minValue;
+                    maxValue = minValue;
+                } else {
+                    errorMessage.classList.add('tw-hidden');
+                    maxInput.classList.remove('tw-border-red-500');
+                }
+
+                // Si le min est supérieur au max (sauf si max est vide)
+                if (maxInput.value && minValue > maxValue) {
+                    minInput.value = maxValue;
+                    minValue = maxValue;
+                }
+                
+                console.log(`Filtering ${type.toLowerCase()} between ${minValue} and ${maxValue === Infinity ? '∞' : maxValue}`);
+            }
+
+            function clearAllFilters() {
+                // Réinitialiser les checkboxes des catégories
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                // Réinitialiser la plage de dates
+                startDate = null;
+                endDate = null;
+                document.getElementById('dateRangeText').textContent = 'Select dates...';
+                generateCalendar(); // Rafraîchir l'affichage du calendrier
+
+                // Réinitialiser les plages de valeurs
+                const rangeInputs = [
+                    { min: 'minViews', max: 'maxViews' },
+                    { min: 'minComments', max: 'maxComments' },
+                    { min: 'minLikes', max: 'maxLikes' }
+                ];
+
+                rangeInputs.forEach(range => {
+                    document.getElementById(range.min).value = '';
+                    document.getElementById(range.max).value = '';
+                });
+
+                // Masquer tous les messages d'erreur
+                const errorMessages = [
+                    'viewsError',
+                    'commentsError',
+                    'likesError'
+                ];
+
+                errorMessages.forEach(errorId => {
+                    document.getElementById(errorId).classList.add('tw-hidden');
+                });
+
+                // Retirer les bordures rouges si présentes
+                const allInputs = document.querySelectorAll('input[type="number"]');
+                allInputs.forEach(input => {
+                    input.classList.remove('tw-border-red-500');
+                });
+
+                console.log('All filters have been cleared');
+            }
+
+            function toggleMultiplier(button) {
+                const allButtons = document.querySelectorAll('[onclick="toggleMultiplier(this)"]');
+                
+                if (button.dataset.active === "true") {
+                    // Si on désactive le bouton, on retire le contour blanc de tous les boutons
+                    button.dataset.active = "false";
+                    allButtons.forEach(btn => {
+                        btn.classList.remove('tw-ring-white');
+                        btn.classList.add('tw-ring-white/50');
+                    });
+                } else {
+                    // Si on active un bouton, on met le contour blanc sur tous les boutons
+                    // Désactive tous les autres boutons
+                    allButtons.forEach(btn => {
+                        btn.dataset.active = btn === button ? "true" : "false";
+                        btn.classList.remove('tw-ring-white/50');
+                        btn.classList.add('tw-ring-white');
+                    });
+                }
+            }
+
+            document.getElementById('signOutButton')?.addEventListener('click', function () {
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userEmail');
+
+                alert('You have been signed out.');
+                window.location.href = '/login.html';
+            });
+
+
+            document.addEventListener('DOMContentLoaded', async () => {
+                const accessToken = localStorage.getItem('accessToken');
+
+                if (!accessToken) {
+                    // Pas de jeton : redirection vers login.html
+                    alert('You need to log in to access this page.');
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                try {
+                    // Vérifiez si le jeton est valide en récupérant les infos de l'utilisateur
+                    const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                        },
+                    });
+
+                    if (response.ok) {
+                        // Si le jeton est valide, affichez l'email de l'utilisateur
+                        const userData = await response.json();
+                        const emailElement = document.querySelector('#profileEmail');
+                        if (emailElement) {
+                            emailElement.textContent = userData.email;
+                        }
+                    } else {
+                        // Si le jeton est invalide ou expiré
+                        alert('Your session has expired. Please log in again.');
+                        localStorage.removeItem('accessToken');
+                        window.location.href = '/login.html';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to connect to the server.');
+                }
+            });
+
+        </script>
+
+        <style>
+            /* Ajout de styles CSS spécifiques pour gérer l'état coché */
+            input[type="checkbox"]:checked + div {
+                background-color: #6366f1;
+                border-color: #6366f1;
+            }
+
+            input[type="checkbox"]:checked + div svg {
+                opacity: 1;
+            }
+        </style>
+    </body>
+</html>
