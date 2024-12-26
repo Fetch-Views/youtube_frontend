@@ -201,349 +201,363 @@
             <!-- Sidebar Filtres -->
             <div class="tw-w-64 tw-shrink-0">
                 <div class="tw-sticky tw-top-[120px] tw-bg-white dark:tw-bg-[#17181b] tw-rounded-2xl 
-                            tw-p-6 tw-shadow-lg dark:tw-shadow-gray-900">
-                    <!-- En-tête des filtres centré -->
-                    <div class="tw-mb-6 tw-text-center">
-                        <h2 class="tw-text-lg tw-font-medium">Filters :</h2>
-                    </div>
+                            tw-shadow-lg dark:tw-shadow-gray-900">
+                    <!-- Contenu des filtres avec scroll -->
+                    <div class="tw-max-h-[calc(100vh-160px)] tw-overflow-y-auto tw-p-6
+                                tw-scrollbar-thin tw-scrollbar-track-transparent 
+                                tw-scrollbar-thumb-gray-300 dark:tw-scrollbar-thumb-gray-600
+                                hover:tw-scrollbar-thumb-gray-400 dark:hover:tw-scrollbar-thumb-gray-500">
+                        
+                        <!-- Le contenu existant des filtres reste ici -->
+                        <!-- Catégories -->
+                        <div class="tw-mb-8">
+                            <h3 class="tw-text-sm tw-font-medium tw-mb-3">Categories</h3>
+                            <div class="tw-space-y-2">
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox" 
+                                           class="tw-hidden peer" 
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Entertainment</span>
+                                </label>
 
-                    <!-- Catégories -->
-                    <div class="tw-mb-8">
-                        <h3 class="tw-text-sm tw-font-medium tw-mb-3">Categories</h3>
-                        <div class="tw-space-y-2">
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Entertainment</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">2.4K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Comedy</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Comedy</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.8K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Science</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Science</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">956</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Automobile</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Automobile</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">956</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Video games</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Video games</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">2.1K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Food</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Food</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.7K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Informative</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Informative</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.3K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Blog</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Blog</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">890</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">News</span>
+                                </label>
 
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">News</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.9K</span>
-                            </label>
-
-                            <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
-                                <input type="checkbox" class="tw-hidden peer">
-                                <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
-                                            tw-rounded tw-flex tw-items-center tw-justify-center
-                                            peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
-                                            group-hover:tw-border-[#6366f1] tw-transition-colors">
-                                    <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
-                                         viewBox="0 0 16 16">
-                                        <path fill="currentColor" 
-                                              d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="tw-ml-3 tw-text-sm">Tech</span>
-                                <span class="tw-ml-auto tw-text-xs tw-text-gray-500">1.6K</span>
-                            </label>
+                                <label class="tw-flex tw-items-center tw-group tw-cursor-pointer">
+                                    <input type="checkbox"
+                                           class="tw-hidden peer"
+                                           onchange="filterByCategory(this)">
+                                    <div class="tw-w-5 tw-h-5 tw-border-2 tw-border-gray-300 dark:tw-border-gray-600 
+                                                tw-rounded tw-flex tw-items-center tw-justify-center
+                                                peer-checked:tw-border-[#6366f1] peer-checked:tw-bg-[#6366f1]
+                                                group-hover:tw-border-[#6366f1] tw-transition-colors">
+                                        <svg class="tw-w-3 tw-h-3 tw-text-white tw-opacity-0 peer-checked:tw-opacity-100 tw-transition-opacity"
+                                             viewBox="0 0 16 16">
+                                            <path fill="currentColor" 
+                                                  d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="tw-ml-3 tw-text-sm">Tech</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Date Range -->
-                    <div class="tw-mb-8">
-                        <h3 class="tw-text-sm tw-font-medium tw-mb-3">Date Published</h3>
-                        <div class="tw-space-y-3">
-                            <!-- Bouton pour ouvrir le calendrier -->
-                            <button 
-                                onclick="toggleDatePicker()"
-                                class="tw-w-full tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-2.5 
-                                       tw-text-sm tw-border tw-border-gray-300 dark:tw-border-gray-600 
-                                       tw-rounded-lg hover:tw-border-[#6366f1] tw-transition-colors
-                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
-                            >
-                                <span id="dateRangeText">Select dates...</span>
-                                <i class="bi bi-calendar3"></i>
-                            </button>
+                        <!-- Date Range -->
+                        <div class="tw-mb-8 tw-relative">
+                            <h3 class="tw-text-sm tw-font-medium tw-mb-3">Date Published</h3>
+                            <div class="tw-space-y-3">
+                                <!-- Bouton pour ouvrir le calendrier -->
+                                <button 
+                                    onclick="toggleDatePicker()"
+                                    class="tw-w-full tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-2.5 
+                                           tw-text-sm tw-border tw-border-gray-300 dark:tw-border-gray-600 
+                                           tw-rounded-lg hover:tw-border-[#6366f1] tw-transition-colors
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]"
+                                >
+                                    <span id="dateRangeText">Select dates...</span>
+                                    <i class="bi bi-calendar3"></i>
+                                </button>
 
-                            <!-- Calendrier (caché par défaut) -->
-                            <div id="datePicker" class="tw-hidden tw-absolute tw-z-50 tw-mt-1 tw-p-4 tw-bg-white 
-                                                       dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg 
-                                                       tw-border tw-border-gray-200 dark:tw-border-gray-700">
-                                <!-- En-tête du calendrier avec navigation -->
-                                <div class="tw-flex tw-items-center tw-justify-between tw-mb-4">
-                                    <button onclick="changeMonth(-1)" 
-                                            class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
-                                        <i class="bi bi-chevron-left"></i>
-                                    </button>
-                                    <h3 id="currentMonth" class="tw-text-sm tw-font-medium"></h3>
-                                    <button onclick="changeMonth(1)"
-                                            class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
-                                        <i class="bi bi-chevron-right"></i>
-                                    </button>
-                                </div>
-                                
-                                <div class="tw-grid tw-grid-cols-7 tw-gap-1">
-                                    <!-- En-têtes des jours -->
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Mo</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Tu</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">We</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Th</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Fr</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Sa</div>
-                                    <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Su</div>
+                                <!-- Calendrier (caché par défaut) -->
+                                <div id="datePicker" 
+                                     class="tw-hidden tw-absolute tw-left-0 tw-z-50 tw-mt-1 tw-p-4 
+                                            tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg 
+                                            tw-border tw-border-gray-200 dark:tw-border-gray-700">
+                                    <!-- En-tête du calendrier avec navigation -->
+                                    <div class="tw-flex tw-items-center tw-justify-between tw-mb-4">
+                                        <button onclick="changeMonth(-1)" 
+                                                class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </button>
+                                        <h3 id="currentMonth" class="tw-text-sm tw-font-medium"></h3>
+                                        <button onclick="changeMonth(1)"
+                                                class="tw-p-1 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="tw-grid tw-grid-cols-7 tw-gap-1">
+                                        <!-- En-têtes des jours -->
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Mo</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Tu</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">We</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Th</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Fr</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Sa</div>
+                                        <div class="tw-text-center tw-text-xs tw-font-medium tw-text-gray-500">Su</div>
 
-                                    <!-- Les jours seront générés ici par JavaScript -->
+                                        <!-- Les jours seront générés ici par JavaScript -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Views Range avec icône -->
-                    <div class="tw-mb-8">
-                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
-                            <i class="bi bi-eye tw-text-[#6366f1]"></i>
-                            Number of Views
-                        </h3>
-                        <div class="tw-flex tw-items-center tw-gap-2">
-                            <input 
-                                type="number" 
-                                id="minViews"
-                                placeholder="Min"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#6366f1] tw-transition-colors
-                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
-                                       focus:tw-outline-none"
-                                oninput="updateViewsRange()"
-                            />
-                            <span class="tw-text-gray-400">-</span>
-                            <input 
-                                type="number" 
-                                id="maxViews"
-                                placeholder="Max"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#6366f1] tw-transition-colors
-                                       focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
-                                       focus:tw-outline-none"
-                                oninput="updateViewsRange()"
-                            />
+                        <!-- Views Range avec icône -->
+                        <div class="tw-mb-8">
+                            <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                                <i class="bi bi-eye tw-text-[#6366f1]"></i>
+                                Number of Views
+                            </h3>
+                            <div class="tw-flex tw-items-center tw-gap-2">
+                                <input 
+                                    type="number" 
+                                    id="minViews"
+                                    placeholder="Min"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#6366f1] tw-transition-colors
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
+                                           focus:tw-outline-none"
+                                    oninput="updateViewsRange()"
+                                />
+                                <span class="tw-text-gray-400">-</span>
+                                <input 
+                                    type="number" 
+                                    id="maxViews"
+                                    placeholder="Max"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#6366f1] tw-transition-colors
+                                           focus:tw-border-[#6366f1] dark:focus:tw-border-[#6366f1]
+                                           focus:tw-outline-none"
+                                    oninput="updateViewsRange()"
+                                />
+                            </div>
+                            <p id="viewsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                                Maximum views must be greater than minimum views
+                            </p>
                         </div>
-                        <p id="viewsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
-                            Maximum views must be greater than minimum views
-                        </p>
-                    </div>
 
-                    <!-- Comments Range avec icône -->
-                    <div class="tw-mb-8">
-                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
-                            <i class="bi bi-chat-dots tw-text-[#E94B64]"></i>
-                            Number of Comments
-                        </h3>
-                        <div class="tw-flex tw-items-center tw-gap-2">
-                            <input 
-                                type="number" 
-                                id="minComments"
-                                placeholder="Min"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#E94B64] tw-transition-colors
-                                       focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
-                                       focus:tw-outline-none"
-                                oninput="updateCommentsRange()"
-                            />
-                            <span class="tw-text-gray-400">-</span>
-                            <input 
-                                type="number" 
-                                id="maxComments"
-                                placeholder="Max"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#E94B64] tw-transition-colors
-                                       focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
-                                       focus:tw-outline-none"
-                                oninput="updateCommentsRange()"
-                            />
+                        <!-- Comments Range avec icône -->
+                        <div class="tw-mb-8">
+                            <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                                <i class="bi bi-chat-dots tw-text-[#E94B64]"></i>
+                                Number of Comments
+                            </h3>
+                            <div class="tw-flex tw-items-center tw-gap-2">
+                                <input 
+                                    type="number" 
+                                    id="minComments"
+                                    placeholder="Min"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#E94B64] tw-transition-colors
+                                           focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
+                                           focus:tw-outline-none"
+                                    oninput="updateCommentsRange()"
+                                />
+                                <span class="tw-text-gray-400">-</span>
+                                <input 
+                                    type="number" 
+                                    id="maxComments"
+                                    placeholder="Max"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#E94B64] tw-transition-colors
+                                           focus:tw-border-[#E94B64] dark:focus:tw-border-[#E94B64]
+                                           focus:tw-outline-none"
+                                    oninput="updateCommentsRange()"
+                                />
+                            </div>
+                            <p id="commentsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                                Maximum comments must be greater than minimum comments
+                            </p>
                         </div>
-                        <p id="commentsError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
-                            Maximum comments must be greater than minimum comments
-                        </p>
-                    </div>
 
-                    <!-- Likes Range avec icône -->
-                    <div class="tw-mb-8">
-                        <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
-                            <i class="bi bi-heart tw-text-[#3b82f6]"></i>
-                            Number of Likes
-                        </h3>
-                        <div class="tw-flex tw-items-center tw-gap-2">
-                            <input 
-                                type="number" 
-                                id="minLikes"
-                                placeholder="Min"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#3b82f6] tw-transition-colors
-                                       focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
-                                       focus:tw-outline-none"
-                                oninput="updateLikesRange()"
-                            />
-                            <span class="tw-text-gray-400">-</span>
-                            <input 
-                                type="number" 
-                                id="maxLikes"
-                                placeholder="Max"
-                                min="0"
-                                class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
-                                       dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
-                                       hover:tw-border-[#3b82f6] tw-transition-colors
-                                       focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
-                                       focus:tw-outline-none"
-                                oninput="updateLikesRange()"
-                            />
+                        <!-- Likes Range avec icône -->
+                        <div class="tw-mb-8">
+                            <h3 class="tw-text-sm tw-font-medium tw-mb-3 tw-flex tw-items-center tw-gap-2">
+                                <i class="bi bi-heart tw-text-[#3b82f6]"></i>
+                                Number of Likes
+                            </h3>
+                            <div class="tw-flex tw-items-center tw-gap-2">
+                                <input 
+                                    type="number" 
+                                    id="minLikes"
+                                    placeholder="Min"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#3b82f6] tw-transition-colors
+                                           focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
+                                           focus:tw-outline-none"
+                                    oninput="updateLikesRange()"
+                                />
+                                <span class="tw-text-gray-400">-</span>
+                                <input 
+                                    type="number" 
+                                    id="maxLikes"
+                                    placeholder="Max"
+                                    min="0"
+                                    class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-border tw-border-gray-300 
+                                           dark:tw-border-gray-600 tw-rounded-lg tw-bg-transparent
+                                           hover:tw-border-[#3b82f6] tw-transition-colors
+                                           focus:tw-border-[#3b82f6] dark:focus:tw-border-[#3b82f6]
+                                           focus:tw-outline-none"
+                                    oninput="updateLikesRange()"
+                                />
+                            </div>
+                            <p id="likesError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
+                                Maximum likes must be greater than minimum likes
+                            </p>
                         </div>
-                        <p id="likesError" class="tw-hidden tw-text-xs tw-text-red-500 tw-mt-1">
-                            Maximum likes must be greater than minimum likes
-                        </p>
-                    </div>
 
-                    <!-- Clear Filters Button -->
-                    <button 
-                        onclick="clearAllFilters()"
-                        class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400 
-                               tw-border tw-border-gray-300 dark:tw-border-gray-600 tw-rounded-lg
-                               hover:tw-bg-gray-50 dark:hover:tw-bg-gray-800 tw-transition-colors">
-                        Clear All Filters
-                    </button>
+                        <!-- Clear Filters Button -->
+                        <button 
+                            onclick="clearAllFilters()"
+                            class="tw-w-full tw-px-4 tw-py-2.5 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400 
+                                   tw-border tw-border-gray-300 dark:tw-border-gray-600 tw-rounded-lg
+                                   hover:tw-bg-gray-50 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                            Clear All Filters
+                        </button>
+                    </div>
                 </div>
             </div>
 
