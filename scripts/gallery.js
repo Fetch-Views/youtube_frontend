@@ -5,7 +5,17 @@ let currentPage = 1;
 let totalPages = 1;
 let isLoading = false; // Pour éviter les chargements multiples
 let currentFilters = {
-    categories: []  // Initialisation du tableau des catégories
+    categories: [],
+    minLikes: null,
+    maxLikes: null,
+    minComments: null,
+    maxComments: null,
+    minViews: null,
+    maxViews: null,
+    startDate: null,
+    endDate: null,
+    search: null,
+    order: null  // Nouveau paramètre pour le tri
 };
 let hasMoreData = true; // Nouvelle variable pour suivre s'il reste des données
 
@@ -331,18 +341,26 @@ document.addEventListener('DOMContentLoaded', initGallery);
 window.toggleSortOrder = function() {
     const icon = document.getElementById('sortIcon');
     sortState = (sortState + 1) % 3;
-                
+    
     switch(sortState) {
         case 0: // Random
             icon.className = 'bi bi-shuffle';
+            currentFilters.order = null;  // Pas de tri spécifique
             break;
         case 1: // Ascending
             icon.className = 'bi bi-sort-up';
+            currentFilters.order = 'asc';
             break;
         case 2: // Descending
             icon.className = 'bi bi-sort-down';
+            currentFilters.order = 'desc';
             break;
     }
+    
+    // Réinitialiser la pagination et recharger
+    currentPage = 1;
+    hasMoreData = true;
+    initGallery();
 }
 
             // Gestionnaire pour les dropdowns (si nécessaire)
@@ -460,9 +478,24 @@ window.selectDate = function(date) {
             document.getElementById('datePicker').classList.add('tw-hidden');
         }, 200); 
     }
-                
+    
+    // Formater les dates pour l'API (YYYY-MM-DD)
+    const formatDateForAPI = (date) => {
+        return date.toISOString().split('T')[0];
+    };
+    
+    // Mettre à jour les filtres avec les dates formatées
+    currentFilters.startDate = startDate ? formatDateForAPI(startDate) : null;
+    currentFilters.endDate = endDate ? formatDateForAPI(endDate) : null;
+    
+    // Mettre à jour l'affichage du texte des dates
     updateDateRangeText();
     generateCalendar();
+    
+    // Si on a les deux dates, déclencher la mise à jour
+    if (startDate && endDate) {
+        debouncedUpdateFilters();
+    }
 }
 
 window.isDateSelected = function(date) {
@@ -501,16 +534,82 @@ document.addEventListener('click', (e) => {
 });
 
 window.updateViewsRange = function() {
-    validateRange('Views');
-}
-
-window.updateCommentsRange = function() {
-    validateRange('Comments');
-}
+    const minInput = document.getElementById('minViews');
+    const maxInput = document.getElementById('maxViews');
+    const errorMessage = document.getElementById('viewsError');
+    
+    let minValue = minInput.value ? parseInt(minInput.value) : null;
+    let maxValue = maxInput.value ? parseInt(maxInput.value) : null;
+    
+    // Validation
+    if (maxValue !== null && minValue !== null && maxValue < minValue) {
+        errorMessage.classList.remove('tw-hidden');
+        maxInput.classList.add('tw-border-red-500');
+        return;
+    } else {
+        errorMessage.classList.add('tw-hidden');
+        maxInput.classList.remove('tw-border-red-500');
+    }
+    
+    // Mise à jour des filtres
+    currentFilters.minViews = minValue;
+    currentFilters.maxViews = maxValue;
+    
+    // Utiliser la version debounced pour la mise à jour
+    debouncedUpdateFilters();
+};
 
 window.updateLikesRange = function() {
-    validateRange('Likes');
-}
+    const minInput = document.getElementById('minLikes');
+    const maxInput = document.getElementById('maxLikes');
+    const errorMessage = document.getElementById('likesError');
+    
+    let minValue = minInput.value ? parseInt(minInput.value) : null;
+    let maxValue = maxInput.value ? parseInt(maxInput.value) : null;
+    
+    // Validation
+    if (maxValue !== null && minValue !== null && maxValue < minValue) {
+        errorMessage.classList.remove('tw-hidden');
+        maxInput.classList.add('tw-border-red-500');
+        return;
+    } else {
+        errorMessage.classList.add('tw-hidden');
+        maxInput.classList.remove('tw-border-red-500');
+    }
+    
+    // Mise à jour des filtres
+    currentFilters.minLikes = minValue;
+    currentFilters.maxLikes = maxValue;
+    
+    // Utiliser la version debounced pour la mise à jour
+    debouncedUpdateFilters();
+};
+
+window.updateCommentsRange = function() {
+    const minInput = document.getElementById('minComments');
+    const maxInput = document.getElementById('maxComments');
+    const errorMessage = document.getElementById('commentsError');
+    
+    let minValue = minInput.value ? parseInt(minInput.value) : null;
+    let maxValue = maxInput.value ? parseInt(maxInput.value) : null;
+    
+    // Validation
+    if (maxValue !== null && minValue !== null && maxValue < minValue) {
+        errorMessage.classList.remove('tw-hidden');
+        maxInput.classList.add('tw-border-red-500');
+        return;
+    } else {
+        errorMessage.classList.add('tw-hidden');
+        maxInput.classList.remove('tw-border-red-500');
+    }
+    
+    // Mise à jour des filtres
+    currentFilters.minComments = minValue;
+    currentFilters.maxComments = maxValue;
+    
+    // Utiliser la version debounced pour la mise à jour
+    debouncedUpdateFilters();
+};
 
 function validateRange(type) {
     const minInput = document.getElementById(`min${type}`);
@@ -538,50 +637,38 @@ function validateRange(type) {
 }
 
 window.clearAllFilters = function() {
-    hasMoreData = true; // Réinitialiser l'état
+    hasMoreData = true;
     currentFilters = {
-        categories: []
+        categories: [],
+        minLikes: null,
+        maxLikes: null,
+        minComments: null,
+        maxComments: null,
+        minViews: null,
+        maxViews: null,
+        startDate: null,
+        endDate: null,
     };
+    
+    // Réinitialiser les inputs
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('minViews').value = '';
+    document.getElementById('maxViews').value = '';
+    document.getElementById('minLikes').value = '';
+    document.getElementById('maxLikes').value = '';
+    document.getElementById('minComments').value = '';
+    document.getElementById('maxComments').value = '';
+    
+    // Cacher les messages d'erreur
+    document.getElementById('dateError').classList.add('tw-hidden');
+    document.getElementById('viewsError').classList.add('tw-hidden');
+    document.getElementById('likesError').classList.add('tw-hidden');
+    document.getElementById('commentsError').classList.add('tw-hidden');
+    
     currentPage = 1;
     initGallery();
-    
-    // Décocher toutes les cases
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-
-    startDate = null;
-    endDate = null;
-    document.getElementById('dateRangeText').textContent = 'Select dates...';
-    generateCalendar(); 
-
-    const rangeInputs = [
-        { min: 'minViews', max: 'maxViews' },
-        { min: 'minComments', max: 'maxComments' },
-        { min: 'minLikes', max: 'maxLikes' }
-    ];
-
-    rangeInputs.forEach(range => {
-        document.getElementById(range.min).value = '';
-        document.getElementById(range.max).value = '';
-    });
-
-    const errorMessages = [
-        'viewsError',
-        'commentsError',
-        'likesError'
-    ];
-
-    errorMessages.forEach(errorId => {
-        document.getElementById(errorId).classList.add('tw-hidden');
-    });
-
-    const allInputs = document.querySelectorAll('input[type="number"]');
-    allInputs.forEach(input => {
-        input.classList.remove('tw-border-red-500');
-    });
-}
+};
 
 window.toggleMultiplier = function(button) {
     const allButtons = document.querySelectorAll('[onclick="toggleMultiplier(this)"]');
@@ -690,3 +777,110 @@ window.filterByCategory = function(checkbox) {
     currentPage = 1;
     initGallery();
 };
+
+// Utiliser debounce pour les mises à jour de filtres
+const debouncedUpdateFilters = debounce(() => {
+    currentPage = 1;
+    hasMoreData = true;
+    initGallery();
+}, 500); // Attendre 500ms après la dernière frappe
+
+window.updateDateRange = function() {
+    const startInput = document.getElementById('startDate');
+    const endInput = document.getElementById('endDate');
+    const errorMessage = document.getElementById('dateError');
+    
+    let startValue = startInput.value ? startInput.value : null;
+    let endValue = endInput.value ? endInput.value : null;
+    
+    console.log('Date values:', { startValue, endValue }); // Debug
+    
+    // Validation
+    if (startValue && endValue && new Date(endValue) < new Date(startValue)) {
+        errorMessage.classList.remove('tw-hidden');
+        endInput.classList.add('tw-border-red-500');
+        return;
+    } else {
+        errorMessage.classList.add('tw-hidden');
+        endInput.classList.remove('tw-border-red-500');
+    }
+    
+    // Mise à jour des filtres
+    currentFilters.startDate = startValue;
+    currentFilters.endDate = endValue;
+    
+    console.log('Updated filters:', currentFilters); // Debug
+    
+    // Utiliser la version debounced pour la mise à jour
+    debouncedUpdateFilters();
+};
+
+// Fonction pour gérer la sélection des dates
+window.handleDateSelection = function(date, isStart) {
+    if (isStart) {
+        document.getElementById('startDate').value = date;
+    } else {
+        document.getElementById('endDate').value = date;
+    }
+    
+    // Déclencher la mise à jour des filtres
+    updateDateRange();
+};
+
+// Assurez-vous que cette fonction est appelée quand une date est sélectionnée dans le calendrier
+window.onDateSelect = function(date) {
+    const startInput = document.getElementById('startDate');
+    const endInput = document.getElementById('endDate');
+    
+    if (!startInput.value || (startInput.value && endInput.value)) {
+        // Si pas de date de début ou si les deux dates sont déjà définies,
+        // on commence une nouvelle sélection
+        startInput.value = date;
+        endInput.value = '';
+    } else {
+        // Sinon, on définit la date de fin
+        endInput.value = date;
+    }
+    
+    updateDateRange();
+};
+
+// Nouvelle fonction pour gérer la recherche
+window.handleSearch = function(event) {
+    console.log('Search event triggered:', event.key); // Debug
+    
+    // Vérifier si c'est la touche Entrée
+    if (event.key === 'Enter') {
+        const searchInput = document.getElementById('searchInput');
+        const searchTerm = searchInput.value.trim();
+        
+        console.log('Search term:', searchTerm); // Debug
+        
+        // Mise à jour des filtres
+        currentFilters.search = searchTerm || null;
+        
+        console.log('Updated filters:', currentFilters); // Debug
+        
+        // Réinitialiser la pagination et recharger
+        currentPage = 1;
+        hasMoreData = true;
+        initGallery();
+    }
+};
+
+// S'assurer que l'événement est bien lié au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    // Chercher l'input de recherche par sa classe ou son attribut name si l'ID ne fonctionne pas
+    const searchInput = document.querySelector('input[type="search"]') || 
+                       document.querySelector('input[placeholder*="Search"]') ||
+                       document.getElementById('searchInput');
+                       
+    if (searchInput) {
+        console.log('Search input found:', searchInput); // Debug
+        searchInput.id = 'searchInput'; // S'assurer que l'ID est défini
+        searchInput.addEventListener('keyup', handleSearch);
+        console.log('Search event listener added'); // Debug
+    } else {
+        console.error('Search input not found'); // Debug
+    }
+});

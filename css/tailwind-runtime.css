@@ -955,8 +955,8 @@ video {
   max-height: 90%;
 }
 
-.tw-max-h-\[calc\(100vh-180px\)\] {
-  max-height: calc(100vh - 180px);
+.tw-max-h-\[calc\(100vh-160px\)\] {
+  max-height: calc(100vh - 160px);
 }
 
 .tw-max-h-fit {
@@ -966,10 +966,6 @@ video {
 
 .tw-max-h-full {
   max-height: 100%;
-}
-
-.tw-max-h-\[calc\(100vh-160px\)\] {
-  max-height: calc(100vh - 160px);
 }
 
 .tw-min-h-\[100vh\] {
