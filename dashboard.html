@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr" class="tw-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchViews - Dashboard</title>
+    <link rel="stylesheet" href="css/tailwind-runtime.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+</head>
+<body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
+    <!-- En-tête -->
+    <header class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-h-16 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800 tw-z-50">
+        <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
+            <!-- Logo -->
+            <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
+                <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+            </a>
+
+            <!-- Icônes Droite -->
+            <div class="tw-flex tw-items-center tw-gap-4">
+                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                    <i class="bi bi-gear tw-text-2xl"></i>
+                </button>
+                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                    <i class="bi bi-person-circle tw-text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="tw-flex tw-h-screen tw-pt-16">
+        <!-- Sidebar -->
+        <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
+            <nav class="tw-p-4 tw-pt-8">
+                <ul class="tw-space-y-2">
+                    <!-- Dashboard -->
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Workflow -->
+                    <li>
+                        <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-camera-video"></i>
+                            <span>Upload Video</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Billing -->
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-credit-card"></i>
+                            <span>Billing</span>
+                        </a>
+                    </li>
+
+                    <!-- My videos -->
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-collection-play"></i>
+                            <span>My videos</span>
+                        </a>
+                    </li>
+
+                    <!-- My heartlist -->
+                    <li>
+                        <a href="heartlist.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-heart"></i>
+                            <span>My heartlist</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Separator -->
+                <div class="tw-my-4 tw-border-t dark:tw-border-gray-800"></div>
+
+                <!-- YouTube Connect Button -->
+                <button 
+                    onclick="toggleYouTubeConnection()"
+                    id="youtubeButton"
+                    class="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-red-600 hover:tw-bg-red-700 tw-text-white tw-transition-colors">
+                    <i class="bi bi-youtube"></i>
+                    <span>Connect to YouTube</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="tw-flex-1 tw-ml-64 tw-p-6">
+            <!-- Stats Cards -->
+            <div class="tw-grid tw-grid-cols-3 tw-gap-6">
+                <!-- Rectangle 1 - CTR -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Earnings this month
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            2,500$
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">5% increase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rectangle 2 - Impressions ce mois-ci -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Total Subscribers
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            1,245,600
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">10% increase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rectangle 3 - Nombre de likes moyens -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Videos Published this month
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            5
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">7% increase</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscribers Chart et Scheduled Videos -->
+            <div class="tw-grid tw-grid-cols-3 tw-gap-6 tw-mt-6">
+                <!-- Subscribers Chart -->
+                <div class="tw-col-span-2 tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">Subscribers Growth</h2>
+                    <div class="tw-h-[400px]">
+                        <canvas id="subscribersChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Scheduled Videos -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4 flex tw-items-center">
+                        <i class="bi bi-calendar-event tw-mr-2"></i>Programmed Videos
+                    </h2>
+                    <ul class="tw-space-y-4">
+                        <!-- Video 1 -->
+                        <li class="tw-flex tw-justify-between tw-items-center tw-py-2 tw-border-b tw-border-gray-200 dark:tw-border-gray-700">
+                            <span class="tw-font-medium tw-text-gray-800 dark:tw-text-gray-200">Titre de la Vidéo 1</span>
+                            <span class="tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">25 Avril 2024, 14:00</span>
+                        </li>
+                        <!-- Video 2 -->
+                        <li class="tw-flex tw-justify-between tw-items-center tw-py-2 tw-border-b tw-border-gray-200 dark:tw-border-gray-700">
+                            <span class="tw-font-medium tw-text-gray-800 dark:tw-text-gray-200">Titre de la Vidéo 2</span>
+                            <span class="tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">26 Avril 2024, 10:30</span>
+                        </li>
+                        <!-- Video 3 -->
+                        <li class="tw-flex tw-justify-between tw-items-center tw-py-2">
+                            <span class="tw-font-medium tw-text-gray-800 dark:tw-text-gray-200">Titre de la Vidéo 3</span>
+                            <span class="tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">27 Avril 2024, 16:45</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTR Card -->
+            <div class="tw-grid tw-grid-cols-3 tw-gap-6 tw-mt-6">
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-col-span-1">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Average CTR
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            3.75%
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">5% increase</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Average Impressions
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            45,600
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">10% increase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rectangle 3 - Nombre de likes moyens -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-flex tw-flex-col">
+                        <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                            Average Likes
+                        </span>
+                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
+                            1,245,600
+                        </span>
+                        <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                            <i class="bi bi-arrow-up"></i>
+                            <span class="tw-text-sm">7% increase</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nouveau graphique des vues -->
+            <div class="tw-grid tw-grid-cols-3 tw-gap-6 tw-mt-6">
+                <!-- Top 10 Videos -->
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">
+                        <i class="bi bi-trophy tw-mr-2"></i>Top 5 Videos
+                    </h2>
+                    <div class="tw-space-y-4 tw-max-h-[400px] tw-overflow-y-auto">
+                        <!-- Répéter pour chaque vidéo -->
+                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
+                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">Comment devenir développeur en 2024</h3>
+                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    1.2M
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                    85K
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    2.3K
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Exemple de plusieurs entrées -->
+                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
+                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">Les secrets du JavaScript moderne</h3>
+                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    980K
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                    72K
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    1.8K
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
+                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">React vs Vue en 2024</h3>
+                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-eye"></i>
+                                    850K
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                    65K
+                                </span>
+                                <span class="tw-flex tw-items-center tw-gap-1">
+                                    <i class="bi bi-chat"></i>
+                                    1.5K
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Ajoutez plus d'entrées similaires pour compléter le top 4 -->
+                    </div>
+                </div>
+                
+                <!-- Graphique des vues -->
+                <div class="tw-col-span-2 tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">Views Growth</h2>
+                    <div class="tw-h-[400px]">
+                        <canvas id="viewsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Après le dernier grid -->
+            <div class="tw-mt-6 tw-bg-[#000000] tw-rounded-xl tw-shadow-lg tw-p-6">
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/components.js"></script>
+    <script src="scripts/api.js" type="module"></script>
+    <script src="scripts/dashboard.js" type="module"></script>
+
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        function toggleYouTubeConnection() {
+            const button = document.getElementById('youtubeButton');
+            if (button.classList.contains('tw-bg-red-600')) {
+                // Change to connected state
+                button.classList.remove('tw-bg-red-600', 'hover:tw-bg-red-700');
+                button.classList.add('tw-bg-green-600', 'hover:tw-bg-green-700');
+                button.querySelector('span').textContent = 'Connecté à YouTube';
+            } else {
+                // Change back to disconnect state
+                button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');
+                button.classList.add('tw-bg-red-600', 'hover:tw-bg-red-700');
+                button.querySelector('span').textContent = 'Connect to YouTube';
+            }
+        }
+
+        // Initialize the chart when the document is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('subscribersChart').getContext('2d');
+            
+            // Sample data for the last 7 days
+            const data = {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Subscribers',
+                    data: [124200, 124350, 124500, 124800, 124950, 125100, 124892],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+
+            // Initialisation du graphique des vues
+            const viewsCtx = document.getElementById('viewsChart').getContext('2d');
+            
+            // Données exemple pour les vues
+            const viewsData = {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Vues',
+                    data: [15000, 17500, 16800, 18200, 21000, 19500, 22000],
+                    borderColor: '#10B981', // Couleur verte
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            };
+
+            const viewsConfig = {
+                type: 'line',
+                data: viewsData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            };
+
+            new Chart(viewsCtx, viewsConfig);
+        });
+    </script>
+</body>
+</html>

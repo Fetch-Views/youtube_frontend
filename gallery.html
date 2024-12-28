@@ -44,7 +44,7 @@
 
                     <!-- Actions à droite -->
                     <div class="tw-flex tw-items-center tw-gap-6">
-                        <a href="#" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
+                        <a href="dashboard.html" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
                             Dashboard
                         </a>
                         <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
@@ -566,6 +566,11 @@
                 <div id="thumbnails-container" 
                      class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 
                             tw-gap-6 tw-auto-rows-max">
+                    <div class="tw-cursor-pointer tw-relative tw-group">
+                        <div class="tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-4 hover:tw-border-[#6366f1] tw-border-transparent tw-transition-colors">
+                            <img src="https://i.ytimg.com/vi/8YbZuaBP9B8/maxresdefault.jpg" alt="Thumbnail 1" class="tw-w-full tw-h-full tw-object-cover">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -599,5 +604,18 @@
                 opacity: 1;
             }
         </style>
+
+        <script>
+            function toggleLike(element) {
+                const heart = element.querySelector('i');
+                if (heart.classList.contains('tw-text-red-500')) {
+                    heart.classList.remove('tw-text-red-500');
+                    heart.classList.add('tw-text-gray-400');
+                } else {
+                    heart.classList.remove('tw-text-gray-400');
+                    heart.classList.add('tw-text-red-500');
+                }
+            }
+        </script>
     </body>
 </html>

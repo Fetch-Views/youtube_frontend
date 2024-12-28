@@ -90,6 +90,17 @@ const renderThumbnails = (thumbnails, append = false) => {
                      class="tw-w-full tw-h-48 tw-object-cover tw-transition-transform 
                             group-hover:tw-scale-105" />
                 
+                <!-- Bouton cœur modifié -->
+                <button onclick="toggleLike(this); event.stopPropagation();" 
+                        class="tw-absolute tw-top-2 tw-right-2 tw-flex tw-items-center tw-justify-center 
+                               tw-w-8 tw-h-8 tw-rounded-full tw-bg-black/50 
+                               tw-transition-all hover:tw-scale-110 active:tw-scale-95
+                               group-hover:tw-opacity-100
+                               [&:not(.liked)]:tw-opacity-0
+                               [&.liked]:tw-opacity-100">
+                    <i class="bi bi-heart-fill tw-transition-colors"></i>
+                </button>
+                
                 <!-- Overlay avec les statistiques -->
                 <div class="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-p-3
                             tw-bg-gradient-to-t tw-from-black/70 tw-to-transparent">
@@ -117,7 +128,9 @@ const renderThumbnails = (thumbnails, append = false) => {
                     <span class="tw-text-xs tw-bg-gray-200 dark:tw-bg-gray-800 tw-px-2 tw-py-1 tw-rounded-full">
                         ${thumbnail.category}
                     </span>
-                    ${getMultiplierButton(thumbnail.views, thumbnail.channel.average_views)}
+                    <div class="tw-flex tw-items-center tw-gap-2">
+                        ${getMultiplierButton(thumbnail.views, thumbnail.channel.average_views)}
+                    </div>
                 </div>
             </div>
         </div>
@@ -884,3 +897,18 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Search input not found'); // Debug
     }
 });
+
+// Ajout de la fonction toggleLike si elle n'existe pas déjà
+window.toggleLike = function(element) {
+    const heart = element.querySelector('i');
+    if (heart.classList.contains('tw-text-red-500')) {
+        heart.classList.remove('tw-text-red-500');
+        heart.classList.add('tw-text-white');
+        element.classList.remove('liked');
+    } else {
+        heart.classList.remove('tw-text-white');
+        heart.classList.add('tw-text-red-500');
+        element.classList.add('liked');
+    }
+    event.stopPropagation();
+};

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr" class="tw-dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FetchViews - Thumbnails Generator</title>
+        <link rel="stylesheet" href="css/tailwind-runtime.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    </head>
+    <body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
+        <!-- En-tête -->
+        <header class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-h-16 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800 tw-z-50">
+            <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
+                <!-- Logo -->
+                <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                    <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
+                    <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+                </a>
+    
+                <!-- Icônes Droite -->
+                <div class="tw-flex tw-items-center tw-gap-4">
+                    <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <i class="bi bi-gear tw-text-2xl"></i>
+                    </button>
+                    <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <i class="bi bi-person-circle tw-text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="tw-flex tw-h-screen tw-pt-16">
+            <!-- Sidebar -->
+            <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
+                <nav class="tw-p-4 tw-pt-8">
+                    <ul class="tw-space-y-2">
+                        <!-- Dashboard -->
+                        <li>
+                            <a href="dashboard.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        
+                        <!-- Workflow -->
+                        <li>
+                            <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                                <i class="bi bi-camera-video"></i>
+                                <span>Upload Video</span>
+                            </a>
+                        </li>
+
+                        <!-- Billing -->
+                        <li>
+                            <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                                <i class="bi bi-credit-card"></i>
+                                <span>Billing</span>
+                            </a>
+                        </li>
+
+                        <!-- My videos -->
+                        <li>
+                            <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                                <i class="bi bi-collection-play"></i>
+                                <span>My videos</span>
+                            </a>
+                        </li>
+
+                        <!-- My heartlist -->
+                        <li>
+                            <a href="heartlist.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                                <i class="bi bi-heart"></i>
+                                <span>My heartlist</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Separator -->
+                    <div class="tw-my-4 tw-border-t dark:tw-border-gray-800"></div>
+
+                    <!-- YouTube Connect Button -->
+                    <button 
+                        onclick="toggleYouTubeConnection()"
+                        id="youtubeButton"
+                        class="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-red-600 hover:tw-bg-red-700 tw-text-white tw-transition-colors">
+                        <i class="bi bi-youtube"></i>
+                        <span>Connect to YouTube</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="tw-flex-1 tw-ml-64 tw-p-6">
+                <div class="tw-max-w-6xl tw-mx-auto tw-mt-8">
+                    <!-- Titre de la page -->
+                    <h1 class="tw-text-2xl tw-font-bold tw-mb-8 tw-text-center">Step 3: Select a thumbnail</h1>
+
+                    <!-- Zone des miniatures -->
+                    <div class="tw-grid tw-grid-cols-3 tw-gap-8 tw-mb-12">
+                        <!-- Miniature 1 -->
+                        <div class="tw-cursor-pointer tw-relative tw-group" onclick="selectThumbnail(this)">
+                            <div class="tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-4 hover:tw-border-[#6366f1] tw-border-transparent tw-transition-colors">
+                                <img src="https://i.ytimg.com/vi/8YbZuaBP9B8/maxresdefault.jpg" alt="Thumbnail 1" class="tw-w-full tw-h-full tw-object-cover">
+                                <a href="#" class="tw-absolute tw-top-2 tw-right-2 tw-bg-black/50 tw-p-2 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity" 
+                                   onclick="editThumbnail(this); event.stopPropagation()">
+                                    <i class="bi bi-pencil-fill tw-text-white"></i>
+                                </a>
+                            </div>
+                            <div class="tw-mt-2 tw-text-center">
+                                <span class="tw-px-3 tw-py-1 tw-rounded-md tw-text-white tw-font-bold grade-aaa">AAA</span>
+                            </div>
+                        </div>
+
+                        <!-- Miniature 2 -->
+                        <div class="tw-cursor-pointer tw-relative tw-group" onclick="selectThumbnail(this)">
+                            <div class="tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-4 hover:tw-border-[#6366f1] tw-border-transparent tw-transition-colors">
+                                <img src="https://i.ytimg.com/vi/jfKfPfyJRdk/maxresdefault.jpg" alt="Thumbnail 2" class="tw-w-full tw-h-full tw-object-cover">
+                                <a href="#" class="tw-absolute tw-top-2 tw-right-2 tw-bg-black/50 tw-p-2 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity" 
+                                   onclick="editThumbnail(this); event.stopPropagation()">
+                                    <i class="bi bi-pencil-fill tw-text-white"></i>
+                                </a>
+                            </div>
+                            <div class="tw-mt-2 tw-text-center">
+                                <span class="tw-px-3 tw-py-1 tw-rounded-md tw-text-white tw-font-bold grade-b">B</span>
+                            </div>
+                        </div>
+
+                        <!-- Miniature 3 -->
+                        <div class="tw-cursor-pointer tw-relative tw-group" onclick="selectThumbnail(this)">
+                            <div class="tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-4 hover:tw-border-[#6366f1] tw-border-transparent tw-transition-colors">
+                                <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Thumbnail 3" class="tw-w-full tw-h-full tw-object-cover">
+                                <a href="#" class="tw-absolute tw-top-2 tw-right-2 tw-bg-black/50 tw-p-2 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity" 
+                                   onclick="editThumbnail(this); event.stopPropagation()">
+                                    <i class="bi bi-pencil-fill tw-text-white"></i>
+                                </a>
+                            </div>
+                            <div class="tw-mt-2 tw-text-center">
+                                <span class="tw-px-3 tw-py-1 tw-rounded-md tw-text-white tw-font-bold grade-e">E</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boutons navigation -->
+                    <div class="tw-flex tw-justify-center tw-gap-4 tw-mt-12">
+                        <a href="thumbnails.html">
+                            <button class="tw-px-8 tw-py-3 tw-border dark:tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
+                                Previous step
+                            </button>
+                        </a>
+                        <a href="planify_video.html">
+                        <button class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
+                            Next step
+                        </button>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Scripts -->
+        <script src="scripts/components.js"></script>
+        <script src="scripts/api.js" type="module"></script>
+        <script>
+            function toggleYouTubeConnection() {
+                // ... script content ...
+            }
+
+            function selectThumbnail(element) {
+                // Retire la sélection de toutes les miniatures
+                document.querySelectorAll('.tw-cursor-pointer > div').forEach(el => {
+                    el.classList.remove('tw-border-[#6366f1]');
+                    el.classList.add('tw-border-transparent');
+                });
+                
+                // Ajoute la bordure à la miniature sélectionnée
+                element.querySelector('div').classList.remove('tw-border-transparent');
+                element.querySelector('div').classList.add('tw-border-[#6366f1]');
+
+                // Sauvegarde l'URL de l'image sélectionnée
+                const selectedImage = element.querySelector('img').src;
+                localStorage.setItem('selectedThumbnail', selectedImage);
+            }
+
+            function editThumbnail(element) {
+                // Récupère l'image à éditer
+                const imageToEdit = element.parentElement.querySelector('img').src;
+                
+                // Sauvegarde l'image et la page source dans le localStorage
+                localStorage.setItem('imageToEdit', imageToEdit);
+                localStorage.setItem('sourcePage', window.location.pathname.split('/').pop());
+                
+                // Redirige vers la page d'édition
+                window.location.href = 'edit_thumbnail.html?source=generator';
+            }
+
+            // Charger la miniature uploadée au chargement de la page
+            window.onload = function() {
+                // Vérifie si on revient de la page d'édition
+                const urlParams = new URLSearchParams(window.location.search);
+                const fromEdit = urlParams.get('from');
+                
+                if (fromEdit === 'edit') {
+                    const editedImage = localStorage.getItem('imageToEdit');
+                    if (editedImage) {
+                        // Mettre à jour l'image éditée
+                        const thumbnails = document.querySelectorAll('.tw-cursor-pointer img');
+                        thumbnails.forEach(img => {
+                            if (img.dataset.original === localStorage.getItem('originalImage')) {
+                                img.src = editedImage;
+                            }
+                        });
+                    }
+                }
+            }
+        </script>
+
+        <style>
+            /* Animation de base */
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            /* Style de base pour tous les grades */
+            [class^="grade-"] {
+                background-size: 200% 200%;
+                animation: gradient 3s ease infinite;
+            }
+
+            /* Couleurs des grades avec dégradés */
+            .grade-aaa {
+                background: linear-gradient(45deg, #00A300, #2ECC71, #00A300);
+            }
+            .grade-aa {
+                background: linear-gradient(45deg, #2ECC71, #27AE60, #2ECC71);
+            }
+            .grade-a {
+                background: linear-gradient(45deg, #3498DB, #2980B9, #3498DB);
+            }
+            .grade-b {
+                background: linear-gradient(45deg, #FFA500, #FF8C00, #FFA500);
+            }
+            .grade-c {
+                background: linear-gradient(45deg, #FF6B6B, #FF4757, #FF6B6B);
+            }
+            .grade-d {
+                background: linear-gradient(45deg, #FF4444, #FF1744, #FF4444);
+            }
+            .grade-e {
+                background: linear-gradient(45deg, #FF0000, #D50000, #FF0000);
+            }
+        </style>
+    </body>
+</html>

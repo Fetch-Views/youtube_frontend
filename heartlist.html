@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr" class="tw-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchViews - Heartlist</title>
+    <link rel="stylesheet" href="css/tailwind-runtime.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+</head>
+<body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
+    <!-- En-tête -->
+    <header class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-h-16 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800 tw-z-50">
+        <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
+            <!-- Logo -->
+            <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
+                <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+            </a>
+
+            <!-- Icônes Droite -->
+            <div class="tw-flex tw-items-center tw-gap-4">
+                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                    <i class="bi bi-gear tw-text-2xl"></i>
+                </button>
+                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                    <i class="bi bi-person-circle tw-text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="tw-flex tw-h-screen tw-pt-16">
+        <!-- Sidebar -->
+        <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
+            <nav class="tw-p-4 tw-pt-8">
+                <ul class="tw-space-y-2">
+                    <!-- Dashboard -->
+                    <li>
+                        <a href="dashboard.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Workflow -->
+                    <li>
+                        <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-camera-video"></i>
+                            <span>Upload Video</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Billing -->
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-credit-card"></i>
+                            <span>Billing</span>
+                        </a>
+                    </li>
+
+                    <!-- My videos -->
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-collection-play"></i>
+                            <span>My videos</span>
+                        </a>
+                    </li>
+
+                    <!-- My heartlist -->
+                    <li>
+                        <a href="heartlist.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                            <i class="bi bi-heart"></i>
+                            <span>My heartlist</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Separator -->
+                <div class="tw-my-4 tw-border-t dark:tw-border-gray-800"></div>
+
+                <!-- YouTube Connect Button -->
+                <button 
+                    onclick="toggleYouTubeConnection()"
+                    id="youtubeButton"
+                    class="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-red-600 hover:tw-bg-red-700 tw-text-white tw-transition-colors">
+                    <i class="bi bi-youtube"></i>
+                    <span>Connect to YouTube</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="tw-ml-64 tw-flex-1 tw-p-6">
+            <div class="tw-max-w-7xl tw-mx-auto">
+                <!-- Header Section -->
+                <div class="tw-mb-8">
+                    <h1 class="tw-text-2xl tw-font-bold tw-mb-2">My Heartlist</h1>
+                    <p class="tw-text-gray-600 dark:tw-text-gray-400">Manage your favorite YouTube ideas</p>
+                </div>
+
+                <!-- Grid de miniatures -->
+                <div id="heartlist-container" 
+                     class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 
+                            tw-gap-6 tw-auto-rows-max">
+                    <!-- Les miniatures likées seront chargées ici dynamiquement -->
+                </div>
+
+                <!-- Message si aucune miniature -->
+                <div id="empty-state" class="tw-hidden tw-text-center tw-py-12">
+                    <i class="bi bi-heart tw-text-4xl tw-text-gray-400 tw-mb-4"></i>
+                    <p class="tw-text-gray-600 dark:tw-text-gray-400">No liked thumbnails yet</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/components.js"></script>
+    <script src="scripts/api.js" type="module"></script>
+    <script src="scripts/heartlist.js" type="module"></script>
+</body>
+</html> 
