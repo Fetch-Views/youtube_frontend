@@ -20,12 +20,45 @@
 
             <!-- Icônes Droite -->
             <div class="tw-flex tw-items-center tw-gap-4">
+                <a href="gallery.html" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
+                    Thumbnails
+                </a>
                 <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
                     <i class="bi bi-gear tw-text-2xl"></i>
                 </button>
-                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
-                    <i class="bi bi-person-circle tw-text-2xl"></i>
-                </button>
+                <!-- Menu profil avec dropdown -->
+                <div class="tw-relative">
+                    <button 
+                        class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors"
+                        onclick="document.getElementById('profileDropdown').classList.toggle('tw-hidden')"
+                    >
+                        <i class="bi bi-person-circle tw-text-2xl"></i>
+                    </button>
+                    <!-- Dropdown menu amélioré avec flèche -->
+                    <div id="profileDropdown" 
+                         class="tw-hidden tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-2xl tw-bg-white/70 
+                                dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl tw-shadow-[0_4px_20px_rgba(0,0,0,0.1)] 
+                                dark:tw-shadow-[0_4px_20px_rgba(0,0,0,0.3)] tw-border tw-border-gray-200/50 
+                                dark:tw-border-gray-700/50 tw-py-2 tw-z-50">
+                        <!-- Flèche du dropdown -->
+                        <div class="tw-absolute tw-right-4 tw--top-2 tw-w-4 tw-h-4 tw-rotate-45 
+                                    tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-border-l tw-border-t 
+                                    tw-border-gray-200/50 dark:tw-border-gray-700/50"></div>
+                        <!-- Email de l'utilisateur -->
+                        <div class="tw-px-4 tw-py-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400" id="userEmail">
+                            <!-- L'email sera inséré ici via JavaScript -->
+                        </div>
+                        <!-- Séparateur -->
+                        <div class="tw-my-1 tw-border-t dark:tw-border-gray-700/50"></div>
+                        <!-- Bouton de déconnexion -->
+                        <button 
+                            onclick="signOut()"
+                            class="tw-w-full tw-text-left tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 dark:tw-text-gray-300 
+                                   hover:tw-bg-gray-100/50 dark:hover:tw-bg-gray-800/50 tw-transition-colors">
+                            Sign out
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -134,6 +167,7 @@
     <!-- Scripts -->
     <script src="scripts/components.js"></script>
     <script src="scripts/api.js" type="module"></script>
+    <script src="scripts/auth.js"></script>
     <script>
         function toggleYouTubeConnection() {
             const button = document.getElementById('youtubeButton');

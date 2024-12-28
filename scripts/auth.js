@@ -108,3 +108,66 @@ async function refreshAccessToken() {
         alert('Failed to refresh access token.');
     }
 }
+
+function checkAuth() {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        window.location.href = '/login.html';
+        return false;
+    }
+    return true;
+}
+
+function isProtectedPage() {
+    const protectedPages = [
+        'edit_thumbnail.html',
+        'dashboard.html',
+        'thumbnails.html',
+        'thumbnails_generator.html',
+        'thumbnails_generator_with_thumbnail.html',
+        'heartlist.html',
+        'workflow.html',
+        'planify_video.html'
+    ];
+    
+    const currentPage = window.location.pathname.split('/').pop();
+    return protectedPages.includes(currentPage);
+}
+
+// Fonction pour afficher l'email de l'utilisateur
+function displayUserEmail() {
+    const userEmail = localStorage.getItem('userEmail');
+    const emailElement = document.getElementById('userEmail');
+    if (emailElement && userEmail) {
+        emailElement.textContent = userEmail;
+    }
+}
+
+// Fonction de déconnexion
+function signOut() {
+    // Supprimer les tokens et infos utilisateur
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
+    
+    // Rediriger vers la page de login
+    window.location.href = '/login.html';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isProtectedPage()) {
+        checkAuth();
+        displayUserEmail(); // Afficher l'email de l'utilisateur
+    }
+    
+    // Fermer le dropdown quand on clique en dehors
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('profileDropdown');
+        const profileButton = event.target.closest('button');
+        
+        if (!profileButton && !dropdown?.contains(event.target)) {
+            dropdown?.classList.add('tw-hidden');
+        }
+    });
+});
