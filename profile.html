@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FetchViews - Edit Thumbnail</title>
+    <title>FetchViews - Dashboard</title>
     <link rel="stylesheet" href="css/tailwind-runtime.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
@@ -65,7 +65,7 @@
 
     <!-- Main Content -->
     <div class="tw-flex tw-h-screen tw-pt-16">
-        <!-- Sidebar -->
+        <!-- Sidebar principale -->
         <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
             <nav class="tw-p-4 tw-pt-8">
                 <ul class="tw-space-y-2">
@@ -79,15 +79,15 @@
                     
                     <!-- Workflow -->
                     <li>
-                        <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                        <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
                             <i class="bi bi-camera-video"></i>
                             <span>Upload Video</span>
                         </a>
                     </li>
-
+                    
                     <!-- Profile -->
                     <li>
-                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
                             <i class="bi bi-credit-card"></i>
                             <span>Profile</span>
                         </a>
@@ -124,101 +124,33 @@
             </nav>
         </aside>
 
-        <!-- Main Content Area -->
-        <main class="tw-flex-1 tw-ml-64">
-            <div class="tw-max-w-6xl tw-mx-auto tw-mt-4 tw-p-6">
-                <!-- Titre de la page -->
-                <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Step 3.5: Edit your thumbnail</h1>
-
-                <!-- Zone de la miniature -->
-                <div class="tw-mb-8">
-                    <div class="tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-4 tw-border-[#6366f1] tw-max-w-4xl tw-mx-auto">
-                        <img id="thumbnailToEdit" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Selected Thumbnail" class="tw-w-full tw-h-full tw-object-cover">
+        <div class="tw-flex-1 tw-ml-64 tw-bg-black tw-p-8">
+            <div class="tw-max-w-5xl tw-mx-auto tw-bg-[#1f1f1f] tw-rounded-lg tw-p-8">
+                <!-- Rectangle arrondi pour le profil -->
+                <div class="tw-flex tw-items-center tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-mb-8 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User Avatar" class="tw-w-20 tw-h-20 tw-rounded-full tw-mr-6">
+                    <div>
+                        <h3 class="tw-text-2xl tw-font-bold tw-text-white">Nom Prénom</h3>
+                        <p class="tw-text-gray-400">email@example.com</p>
                     </div>
                 </div>
-
-                <!-- Zone du prompt -->
-                <div class="tw-max-w-2xl tw-mx-auto">
-                    <label class="tw-block tw-text-sm tw-font-medium tw-mb-2">Prompt</label>
-                    <textarea 
-                        class="tw-w-full tw-h-32 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors"
-                        placeholder="Describe how you want to modify your thumbnail..."
-                    ></textarea>
-
-                    <!-- Boutons navigation -->
-                    <div class="tw-flex tw-justify-center tw-gap-4 tw-mt-6">
-                        <button onclick="goBack()" class="tw-px-8 tw-py-3 tw-border dark:tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors">
-                            Previous step
-                        </button>
-                        <button class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
-                            Generate
-                        </button>
-                        <a href="thumbnails_generator_with_thumbnail.html">
-                            <button class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
-                                Next step
-                            </button>
-                        </a>
-                    </div>
+        
+                <!-- Informations personnelles -->
+                <div class="tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-mb-8 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-4">Personal Information</h3>
+                    <p class="tw-text-gray-400"><strong>First Name:</strong> John</p>
+                    <p class="tw-text-gray-400"><strong>Last Name:</strong> Doe</p>
+                    <p class="tw-text-gray-400"><strong>Email Address:</strong> email@example.com</p>
+                    <p class="tw-text-gray-400"><strong>Password:</strong> ********</p>
+                </div>
+        
+                <!-- Plan de facturation -->
+                <div class="tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-white">Billing Plan</h3>
+                    <p class="tw-text-gray-400">Current Plan: Premium</p>
                 </div>
             </div>
-        </main>
+        </div>        
     </div>
-
-    <!-- Scripts -->
-    <script src="scripts/components.js"></script>
-    <script src="scripts/api.js" type="module"></script>
-    <script src="scripts/auth.js"></script>
-    <script>
-        function toggleYouTubeConnection() {
-            const button = document.getElementById('youtubeButton');
-            if (button.classList.contains('tw-bg-red-600')) {
-                button.classList.remove('tw-bg-red-600', 'hover:tw-bg-red-700');
-                button.classList.add('tw-bg-green-600', 'hover:tw-bg-green-700');
-                button.querySelector('span').textContent = 'Connected to YouTube';
-            } else {
-                button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');
-                button.classList.add('tw-bg-red-600', 'hover:tw-bg-red-700');
-                button.querySelector('span').textContent = 'Connect to YouTube';
-            }
-        }
-
-        // Charge l'image avant de l'afficher
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const imgUrl = urlParams.get('img');
-            if (imgUrl) {
-                const img = new Image();
-                img.onload = function() {
-                    document.querySelector('.tw-aspect-video img').src = imgUrl;
-                };
-                img.src = imgUrl;
-            }
-        }
-
-        function goBack() {
-            // Récupère la page source depuis l'URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const source = urlParams.get('source');
-            
-            // Détermine la page de retour en fonction de la source
-            let returnPage;
-            if (source === 'generator_with_thumbnail') {
-                returnPage = 'thumbnails_generator_with_thumbnail.html';
-            } else {
-                returnPage = 'thumbnails_generator.html';
-            }
-            
-            // Ajoute un paramètre pour indiquer qu'on revient de l'édition
-            window.location.href = `${returnPage}?from=edit`;
-        }
-
-        window.onload = function() {
-            // Récupère l'image à éditer depuis le localStorage
-            const imageToEdit = localStorage.getItem('imageToEdit');
-            if (imageToEdit) {
-                document.querySelector('.tw-aspect-video img').src = imageToEdit;
-            }
-        }
-    </script>
 </body>
 </html>

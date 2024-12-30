@@ -85,11 +85,11 @@
                         </a>
                     </li>
                     
-                    <!-- Billing -->
+                    <!-- Profile -->
                     <li>
-                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
                             <i class="bi bi-credit-card"></i>
-                            <span>Billing</span>
+                            <span>Profile</span>
                         </a>
                     </li>
 
@@ -355,10 +355,8 @@
         function toggleYouTubeConnection() {
             const button = document.getElementById('youtubeButton');
             if (button.classList.contains('tw-bg-red-600')) {
-                // Change to connected state
-                button.classList.remove('tw-bg-red-600', 'hover:tw-bg-red-700');
-                button.classList.add('tw-bg-green-600', 'hover:tw-bg-green-700');
-                button.querySelector('span').textContent = 'Connecté à YouTube';
+                // Si le bouton est en mode "Connect to YouTube", rediriger vers l'URL d'OAuth
+                window.location.href = 'http://127.0.0.1:8000/api/oauth/init/';
             } else {
                 // Change back to disconnect state
                 button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');

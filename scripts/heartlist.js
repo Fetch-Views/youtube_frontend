@@ -1,47 +1,110 @@
-// Fonction pour charger les miniatures likées
-const loadLikedThumbnails = () => {
+// Fonction pour charger les miniatures likées depuis l'API
+const loadLikedThumbnails = async () => {
     const container = document.getElementById('heartlist-container');
     const emptyState = document.getElementById('empty-state');
-    
-    // Récupérer les miniatures likées depuis le localStorage ou une API
-    const likedThumbnails = []; // À implémenter : récupération des miniatures likées
-    
-    if (likedThumbnails.length === 0) {
+    const token = localStorage.getItem('accessToken');
+
+    // Vérifier si le token existe
+    if (!token) {
+        console.error("No access token found");
         container.classList.add('tw-hidden');
         emptyState.classList.remove('tw-hidden');
         return;
     }
 
-    container.classList.remove('tw-hidden');
-    emptyState.classList.add('tw-hidden');
+    try {
+        // Appel à l'API pour récupérer les favoris avec le token Bearer
+        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
 
-    // Afficher les miniatures
-    const thumbnailsHTML = likedThumbnails.map(thumbnail => `
-        <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-overflow-hidden 
-                    tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
-            <div class="tw-relative tw-group">
-                <img src="${thumbnail.image}" 
-                     alt="${thumbnail.title}"
-                     class="tw-w-full tw-h-48 tw-object-cover tw-transition-transform 
-                            group-hover:tw-scale-105" />
-                
-                <button onclick="toggleLike(this); event.stopPropagation();" 
-                        class="tw-absolute tw-top-2 tw-right-2 tw-flex tw-items-center tw-justify-center 
-                               tw-w-8 tw-h-8 tw-rounded-full tw-bg-black/50 liked
-                               tw-transition-all hover:tw-scale-110 active:tw-scale-95">
-                    <i class="bi bi-heart-fill tw-text-red-500"></i>
-                </button>
-            </div>
-            
-            <div class="tw-p-4">
-                <h3 class="tw-font-medium tw-mb-2 tw-line-clamp-2">${thumbnail.title}</h3>
-                <!-- ... autres informations de la miniature ... -->
-            </div>
-        </div>
-    `).join('');
+        if (response.ok) {
+            const likedThumbnails = await response.json();
 
-    container.innerHTML = thumbnailsHTML;
+            if (likedThumbnails.length === 0) {
+                // Si aucun favori
+                container.classList.add('tw-hidden');
+                emptyState.classList.remove('tw-hidden');
+                return;
+            }
+
+            // Sinon, afficher les miniatures
+            container.classList.remove('tw-hidden');
+            emptyState.classList.add('tw-hidden');
+
+            const thumbnailsHTML = likedThumbnails.map(thumbnail => `
+                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-overflow-hidden 
+                            tw-shadow-lg hover:tw-shadow-xl tw-transition-shadow">
+                    <div class="tw-relative tw-group">
+                        <img src="${thumbnail.image}" 
+                             alt="${thumbnail.title}"
+                             class="tw-w-full tw-h-48 tw-object-cover tw-transition-transform 
+                                    group-hover:tw-scale-105" />
+                    </div>
+                    
+                    <div class="tw-p-4">
+                        <h3 class="tw-font-medium tw-mb-2 tw-line-clamp-2">${thumbnail.title}</h3>
+                        <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+                            <p class="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">${thumbnail.category}</p>
+                            <span class="tw-text-gray-400">•</span>
+                            <p class="tw-text-sm tw-text-gray-600 dark:tw-text-gray-400">${thumbnail.channel.name}</p>
+                        </div>
+                        <button onclick="deleteThumbnail('${thumbnail.id}')"
+                                class="tw-w-full tw-bg-red-500 tw-text-white tw-py-2 tw-rounded-lg 
+                                       hover:tw-bg-red-600 tw-transition-colors">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = thumbnailsHTML;
+        } else {
+            console.error("Failed to fetch favorites:", await response.text());
+            container.classList.add('tw-hidden');
+            emptyState.classList.remove('tw-hidden');
+        }
+    } catch (error) {
+        console.error("Error fetching liked thumbnails:", error);
+        container.classList.add('tw-hidden');
+        emptyState.classList.remove('tw-hidden');
+    }
 };
+
+// Fonction pour supprimer une miniature
+async function deleteThumbnail(thumbnailId) {
+    const token = localStorage.getItem('accessToken');
+    
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                thumbnail_id: thumbnailId
+            })
+        });
+
+        if (response.ok) {
+            // Recharger la liste des favoris après la suppression
+            await loadLikedThumbnails();
+            console.log("Successfully removed from favorites");
+        } else {
+            console.error("Failed to remove from favorites");
+        }
+    } catch (error) {
+        console.error("Error removing thumbnail:", error);
+    }
+}
 
 // Charger les miniatures au chargement de la page
 document.addEventListener('DOMContentLoaded', loadLikedThumbnails);
+
+// Rendre la fonction deleteThumbnail accessible globalement
+window.deleteThumbnail = deleteThumbnail;

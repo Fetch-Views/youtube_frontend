@@ -91,7 +91,8 @@ const renderThumbnails = (thumbnails, append = false) => {
                             group-hover:tw-scale-105" />
                 
                 <!-- Bouton cœur modifié -->
-                <button onclick="toggleLike(this); event.stopPropagation();" 
+                <button onclick="toggleLike(this); event.stopPropagation();"
+                        data-thumbnail-id="${thumbnail.id}"
                         class="tw-absolute tw-top-2 tw-right-2 tw-flex tw-items-center tw-justify-center 
                                tw-w-8 tw-h-8 tw-rounded-full tw-bg-black/50 
                                tw-transition-all hover:tw-scale-110 active:tw-scale-95
@@ -898,17 +899,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Ajout de la fonction toggleLike si elle n'existe pas déjà
-window.toggleLike = function(element) {
-    const heart = element.querySelector('i');
-    if (heart.classList.contains('tw-text-red-500')) {
-        heart.classList.remove('tw-text-red-500');
-        heart.classList.add('tw-text-white');
-        element.classList.remove('liked');
-    } else {
-        heart.classList.remove('tw-text-white');
-        heart.classList.add('tw-text-red-500');
-        element.classList.add('liked');
+window.toggleLike = async function(button) {
+    const thumbnailId = button.getAttribute('data-thumbnail-id');
+    const token = localStorage.getItem('accessToken');
+    
+    const isLiked = button.classList.contains('liked');
+    const method = isLiked ? "DELETE" : "POST"; 
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                thumbnail_id: thumbnailId
+            })
+        });
+
+        if (response.ok) {
+            button.classList.toggle('liked'); // Basculer l'état visuel
+            const heart = button.querySelector('i');
+            heart.classList.toggle('tw-text-red-500'); // Modifier la couleur de l'icône
+            console.log(`Successfully ${isLiked ? 'removed from' : 'added to'} favorites`);
+        } else {
+            console.error(`Failed to ${isLiked ? 'remove from' : 'add to'} favorites`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
-    event.stopPropagation();
 };
