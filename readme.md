@@ -1,10 +1,6 @@
 
 ## Usage
 
-* This template uses tailwind css every tailwind class are prefixed with `tw-`, to help differentiate
-  between tailwind classes and other classes  
-
-
 During development add the following to head tag
 
 ```html
