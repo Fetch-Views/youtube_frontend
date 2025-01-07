@@ -14,8 +14,7 @@
         <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
             <!-- Logo -->
             <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
-                <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
-                <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+                <img src="./assets/logo/logo3.png" alt="Logo" class="tw-h-8 tw-w-13" />
             </a>
 
             <!-- Icônes Droite -->
@@ -125,32 +124,74 @@
         </aside>
 
         <div class="tw-flex-1 tw-ml-64 tw-bg-black tw-p-8">
-            <div class="tw-max-w-5xl tw-mx-auto tw-bg-[#1f1f1f] tw-rounded-lg tw-p-8">
+            <div class="tw-max-w-5xl tw-mx-auto tw-rounded-lg tw-p-8">
                 <!-- Rectangle arrondi pour le profil -->
-                <div class="tw-flex tw-items-center tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-mb-8 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
-                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User Avatar" class="tw-w-20 tw-h-20 tw-rounded-full tw-mr-6">
+                <div id="profileCard" class="tw-flex tw-items-center tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6 tw-mb-8">
+                    <img src="./assets/images/profile/avatar_icon.png" alt="User Avatar" class="tw-w-20 tw-h-20 tw-rounded-full tw-mr-6">
                     <div>
-                        <h3 class="tw-text-2xl tw-font-bold tw-text-white">Nom Prénom</h3>
-                        <p class="tw-text-gray-400">email@example.com</p>
+                        <h3 id="fullName" class="tw-text-2xl tw-font-bold tw-text-white"></h3>
+                        <p id="email" class="tw-text-white"></p>
                     </div>
                 </div>
-        
+
                 <!-- Informations personnelles -->
-                <div class="tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-mb-8 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
-                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-4">Personal Information</h3>
-                    <p class="tw-text-gray-400"><strong>First Name:</strong> John</p>
-                    <p class="tw-text-gray-400"><strong>Last Name:</strong> Doe</p>
-                    <p class="tw-text-gray-400"><strong>Email Address:</strong> email@example.com</p>
-                    <p class="tw-text-gray-400"><strong>Password:</strong> ********</p>
+                <div class="tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6 tw-mb-8">
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-4 tw-text-center">Personal Information</h3>
+                    <div></div>
+                    <ul class="tw-list-disc tw-list-inside tw-text-white">
+                        <li><strong>First Name :</strong> <span id="firstName"></span></li>
+                        <li><strong>Last Name :</strong> <span id="lastName"></span></li>
+                        <li><strong>Email Address :</strong> <span id="userEmailInfo"></span></li>
+                    </ul>
                 </div>
-        
+
                 <!-- Plan de facturation -->
-                <div class="tw-bg-gray-800 tw-rounded-lg tw-p-6 tw-border tw-border-white tw-shadow-none tw-ring-0 tw-outline-none">
-                    <h3 class="tw-text-xl tw-font-semibold tw-text-white">Billing Plan</h3>
-                    <p class="tw-text-gray-400">Current Plan: Premium</p>
+                <div class="tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6">
+                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-text-center">Billing Plan</h3>
+                    <div></div>
+                    <ul class="tw-list-disc tw-list-inside tw-text-white">
+                        <li><strong>Billing Plan :</strong> <span id="billingPlan"></span></li>
+                    </ul>
                 </div>
             </div>
-        </div>        
+        </div>  
     </div>
+    <script>
+        async function fetchUserData() {
+            const accessToken = localStorage.getItem('accessToken');
+
+            if (!accessToken) {
+                alert('You need to log in to access this page.');
+                window.location.href = '/login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                const data = await response.json();
+
+                // Mettez à jour les éléments HTML avec les données
+                document.getElementById('fullName').textContent = `${data.first_name} ${data.last_name}`;
+                document.getElementById('email').textContent = data.email;
+                document.getElementById('firstName').textContent = data.first_name;
+                document.getElementById('lastName').textContent = data.last_name;
+                document.getElementById('userEmailInfo').textContent = data.email;
+                document.getElementById('billingPlan').textContent = data.billing_plan;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        window.onload = fetchUserData;
+    </script>
+    <script src="scripts/auth.js"></script>
 </body>
 </html>

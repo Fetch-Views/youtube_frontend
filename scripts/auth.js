@@ -127,7 +127,8 @@ function isProtectedPage() {
         'thumbnails_generator_with_thumbnail.html',
         'heartlist.html',
         'workflow.html',
-        'planify_video.html'
+        'planify_video.html',
+        'profile.html'
     ];
     
     const currentPage = window.location.pathname.split('/').pop();
