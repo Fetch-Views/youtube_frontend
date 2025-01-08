@@ -2,24 +2,12 @@
 const loadLikedThumbnails = async () => {
     const container = document.getElementById('heartlist-container');
     const emptyState = document.getElementById('empty-state');
-    const token = localStorage.getItem('accessToken');
-
-    // Vérifier si le token existe
-    if (!token) {
-        console.error("No access token found");
-        container.classList.add('tw-hidden');
-        emptyState.classList.remove('tw-hidden');
-        return;
-    }
 
     try {
         // Appel à l'API pour récupérer les favoris avec le token Bearer
         const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
             method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
+            credentials: 'include', 
         });
 
         if (response.ok) {
@@ -76,15 +64,14 @@ const loadLikedThumbnails = async () => {
 };
 
 // Fonction pour supprimer une miniature
-async function deleteThumbnail(thumbnailId) {
-    const token = localStorage.getItem('accessToken');
-    
+async function deleteThumbnail(thumbnailId) {    
     try {
         const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
             method: "DELETE",
+            credentials: 'include', 
             headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken, 
             },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId

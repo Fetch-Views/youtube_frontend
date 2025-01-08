@@ -682,10 +682,6 @@ video {
   top: 50%;
 }
 
-.tw--z-10 {
-  z-index: -10;
-}
-
 .tw-z-20 {
   z-index: 20;
 }
@@ -779,10 +775,6 @@ video {
 
 .tw-mr-auto {
   margin-right: auto;
-}
-
-.tw-mt-0\.5 {
-  margin-top: 0.125rem;
 }
 
 .tw-mt-1 {
@@ -905,10 +897,6 @@ video {
 
 .tw-h-5 {
   height: 1.25rem;
-}
-
-.tw-h-6 {
-  height: 1.5rem;
 }
 
 .tw-h-8 {
@@ -1049,10 +1037,6 @@ video {
   width: 14rem;
 }
 
-.tw-w-6 {
-  width: 1.5rem;
-}
-
 .tw-w-64 {
   width: 16rem;
 }
@@ -1189,10 +1173,6 @@ video {
 
 .tw-origin-center {
   transform-origin: center;
-}
-
-.tw-origin-top-right {
-  transform-origin: top right;
 }
 
 .tw--translate-x-1\/2 {
@@ -2101,11 +2081,6 @@ video {
   color: rgb(31 41 55 / var(--tw-text-opacity, 1));
 }
 
-.tw-text-gray-900 {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-}
-
 .tw-text-green-500 {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity, 1));
@@ -2252,10 +2227,6 @@ video {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-.tw-duration-200 {
-  transition-duration: 200ms;
 }
 
 .tw-duration-300 {
@@ -2544,10 +2515,6 @@ video {
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity, 1));
 }
 
-.dark\:tw-hidden:is(.tw-dark *) {
-  display: none;
-}
-
 .dark\:\!tw-border-gray-300:is(.tw-dark *) {
   --tw-border-opacity: 1 !important;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1)) !important;
@@ -2689,16 +2656,6 @@ video {
 .dark\:tw-shadow-gray-900:is(.tw-dark *) {
   --tw-shadow-color: #111827;
   --tw-shadow: var(--tw-shadow-colored);
-}
-
-.dark\:tw-invert:is(.tw-dark *) {
-  --tw-invert: invert(100%);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.dark\:hover\:tw-bg-gray-700:hover:is(.tw-dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
 }
 
 .dark\:hover\:tw-bg-gray-800:hover:is(.tw-dark *) {

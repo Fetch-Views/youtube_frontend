@@ -1,37 +1,22 @@
 const loadMyVideos = async () => {
     const container = document.getElementById('myvideos-container');
     const emptyState = document.getElementById('empty-state');
-    const token = localStorage.getItem('accessToken');
-
-    // Vérifier si le token existe
-    if (!token) {
-        console.error("No access token found");
-        container.classList.add('tw-hidden');
-        emptyState.classList.remove('tw-hidden');
-        return;
-    }
 
     try {
-        // Appel à l'API pour récupérer les favoris avec le token Bearer
         const response = await fetch("http://127.0.0.1:8000/api/users/my_videos/", {
             method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
+            credentials: 'include', 
         });
 
         if (response.ok) {
             const myThumbnails = await response.json();
 
             if (myThumbnails.length === 0) {
-                // Si aucun favori
                 container.classList.add('tw-hidden');
                 emptyState.classList.remove('tw-hidden');
                 return;
             }
 
-            // Sinon, afficher les miniatures
             container.classList.remove('tw-hidden');
             emptyState.classList.add('tw-hidden');
 
@@ -56,12 +41,12 @@ const loadMyVideos = async () => {
 
             container.innerHTML = thumbnailsHTML;
         } else {
-            console.error("Failed to fetch favorites:", await response.text());
+            console.error("Failed to fetch videos:", await response.text());
             container.classList.add('tw-hidden');
             emptyState.classList.remove('tw-hidden');
         }
     } catch (error) {
-        console.error("Error fetching liked thumbnails:", error);
+        console.error("Error fetching videos:", error);
         container.classList.add('tw-hidden');
         emptyState.classList.remove('tw-hidden');
     }

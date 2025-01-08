@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/tailwind-runtime.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <script src="scripts/auth.js"></script>
 </head>
 <body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
     <!-- En-tête -->
@@ -158,20 +159,10 @@
     </div>
     <script>
         async function fetchUserData() {
-            const accessToken = localStorage.getItem('accessToken');
-
-            if (!accessToken) {
-                alert('You need to log in to access this page.');
-                window.location.href = '/login.html';
-                return;
-            }
-
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
                     method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
+                    credentials: 'include', 
                 });
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
@@ -192,6 +183,5 @@
 
         window.onload = fetchUserData;
     </script>
-    <script src="scripts/auth.js"></script>
 </body>
 </html>
