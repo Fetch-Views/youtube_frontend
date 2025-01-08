@@ -2544,6 +2544,10 @@ video {
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity, 1));
 }
 
+.dark\:tw-hidden:is(.tw-dark *) {
+  display: none;
+}
+
 .dark\:\!tw-border-gray-300:is(.tw-dark *) {
   --tw-border-opacity: 1 !important;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1)) !important;
