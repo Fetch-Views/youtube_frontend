@@ -21,3 +21,5 @@ To create a build file use
 ```html
 npm run build:tailwind
 ```
+
+Run the backend server
