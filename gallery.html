@@ -3,9 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FetchViews - Gallery</title>
+        <title>FetchViews - Thumbnails</title>
         <link rel="stylesheet" href="css/tailwind-runtime.css" />
-        <link rel="stylesheet" href="css/index.css" />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
@@ -21,8 +20,7 @@
                     <!-- Logo et Dashboard -->
                     <div class="tw-flex tw-items-center">
                         <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
-                            <img src="./assets/logo/logo.png" alt="Logo" class="tw-h-8 tw-w-8 dark:tw-invert" />
-                            <span class="tw-text-xl tw-font-semibold">FetchViews</span>
+                            <img src="./assets/logo/logo3.png" alt="Logo" class="tw-h-8 tw-w-13" />
                         </a>
                     </div>
 
@@ -56,38 +54,31 @@
                                 class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors"
                                 onclick="document.getElementById('profileDropdown').classList.toggle('tw-hidden')"
                             >
-                                <i class="bi bi-person"></i>
+                                <i class="bi bi-person-circle tw-text-2xl"></i>
                             </button>
                             <!-- Dropdown menu amélioré avec flèche -->
                             <div id="profileDropdown" 
-                                 class="tw-hidden tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-2xl tw-bg-white/70 
+                                class="tw-hidden tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-2xl tw-bg-white/70 
                                         dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl tw-shadow-[0_4px_20px_rgba(0,0,0,0.1)] 
                                         dark:tw-shadow-[0_4px_20px_rgba(0,0,0,0.3)] tw-border tw-border-gray-200/50 
-                                        dark:tw-border-gray-700/50 tw-py-2 tw-z-50 
-                                        tw-transform tw-origin-top-right tw-transition-all">
+                                        dark:tw-border-gray-700/50 tw-py-2 tw-z-50">
                                 <!-- Flèche du dropdown -->
                                 <div class="tw-absolute tw-right-4 tw--top-2 tw-w-4 tw-h-4 tw-rotate-45 
-                                            tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl 
-                                            tw-border-l tw-border-t tw-border-gray-200/50 dark:tw-border-gray-700/50">
+                                            tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-border-l tw-border-t 
+                                            tw-border-gray-200/50 dark:tw-border-gray-700/50"></div>
+                                <!-- Email de l'utilisateur -->
+                                <div class="tw-px-4 tw-py-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400" id="userEmail">
+                                    <!-- L'email sera inséré ici via JavaScript -->
                                 </div>
-                                <div class="tw-px-4 tw-py-3 tw-border-b tw-border-gray-200/50 dark:tw-border-gray-700/50">
-                                    <p class="tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white">
-                                        My account
-                                    </p>
-                                    <p class="tw-text-xs tw-text-gray-500 dark:tw-text-gray-400 tw-mt-0.5" id="profileEmail">
-                                        user@example.com
-                                    </p>                                    
-                                </div>
-                                <div class="tw-py-1">
-                                    <a href="#"
-                                       id="signOutButton"
-                                       class="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2.5 tw-text-sm tw-text-gray-700 
-                                              dark:tw-text-gray-200 hover:tw-bg-gray-100/50 dark:hover:tw-bg-gray-800/50 
-                                              tw-transition-colors">
-                                        <i class="bi bi-box-arrow-right tw-text-gray-400"></i>
-                                        Sign out
-                                    </a>
-                                </div>
+                                <!-- Séparateur -->
+                                <div class="tw-my-1 tw-border-t dark:tw-border-gray-700/50"></div>
+                                <!-- Bouton de déconnexion -->
+                                <button 
+                                    onclick="signOut()"
+                                    class="tw-w-full tw-text-left tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 dark:tw-text-gray-300 
+                                        hover:tw-bg-gray-100/50 dark:hover:tw-bg-gray-800/50 tw-transition-colors">
+                                    Sign out
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -589,7 +580,7 @@
         </div>
 
         <!-- Scripts -->
-        <script src="scripts/components.js"></script>
+        <script src="scripts/auth.js"></script>
         <script src="scripts/api.js" type="module"></script>
         <script src="scripts/gallery.js" type="module"></script>
 

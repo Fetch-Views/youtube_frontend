@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FetchViews - Dashboard</title>
+    <title>FetchViews - My Videos</title>
     <link rel="stylesheet" href="css/tailwind-runtime.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
@@ -65,7 +65,7 @@
 
     <!-- Main Content -->
     <div class="tw-flex tw-h-screen tw-pt-16">
-        <!-- Sidebar principale -->
+        <!-- Sidebar -->
         <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
             <nav class="tw-p-4 tw-pt-8">
                 <ul class="tw-space-y-2">
@@ -87,7 +87,7 @@
                     
                     <!-- Profile -->
                     <li>
-                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
                             <i class="bi bi-credit-card"></i>
                             <span>Profile</span>
                         </a>
@@ -95,7 +95,7 @@
 
                     <!-- My videos -->
                     <li>
-                        <a href="myvideos.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <a href="myvideos.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
                             <i class="bi bi-collection-play"></i>
                             <span>My videos</span>
                         </a>
@@ -124,64 +124,32 @@
             </nav>
         </aside>
 
-        <div class="tw-flex-1 tw-ml-64 tw-bg-black tw-p-8">
-            <div class="tw-max-w-5xl tw-mx-auto tw-rounded-lg tw-p-8">
-                <!-- Rectangle arrondi pour le profil -->
-                <div id="profileCard" class="tw-flex tw-items-center tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6 tw-mb-8">
-                    <img src="./assets/images/profile/profile.png" alt="User Avatar" class="tw-w-20 tw-h-20 tw-rounded-full tw-mr-6">
-                    <div>
-                        <h3 id="fullName" class="tw-text-2xl tw-font-bold tw-text-white"></h3>
-                        <p id="email" class="tw-text-white"></p>
-                    </div>
+        <!-- Main Content Area -->
+        <main class="tw-ml-64 tw-flex-1 tw-p-6">
+            <div class="tw-max-w-7xl tw-mx-auto">
+                <!-- Header Section -->
+                <div class="tw-mb-8">
+                    <h1 class="tw-text-2xl tw-font-bold tw-mb-2">My Videos</h1>
+                    <p class="tw-text-gray-600 dark:tw-text-gray-400">Manage your YouTube videos</p>
                 </div>
 
-                <!-- Informations personnelles -->
-                <div class="tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6 tw-mb-8">
-                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-4 tw-text-center">Personal Information</h3>
-                    <div></div>
-                    <ul class="tw-list-disc tw-list-inside tw-text-white">
-                        <li><strong>First Name :</strong> <span id="firstName"></span></li>
-                        <li><strong>Last Name :</strong> <span id="lastName"></span></li>
-                        <li><strong>Email Address :</strong> <span id="userEmailInfo"></span></li>
-                    </ul>
+                <!-- Grid de miniatures -->
+                <div id="myvideos-container" 
+                     class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 
+                            tw-gap-6 tw-auto-rows-max">
+                    <!-- Les miniatures seront chargées ici dynamiquement -->
                 </div>
 
-                <!-- Plan de facturation -->
-                <div class="tw-bg-[#1f1f1f] tw-rounded-lg tw-p-6">
-                    <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-text-center">Billing Plan</h3>
-                    <div></div>
-                    <ul class="tw-list-disc tw-list-inside tw-text-white">
-                        <li><strong>Billing Plan :</strong> <span id="billingPlan"></span></li>
-                    </ul>
+                <!-- Message si aucune miniature -->
+                <div id="empty-state" class="tw-hidden tw-text-center tw-py-12">
+                    <i class="bi bi-collection-play tw-text-4xl tw-text-gray-400 tw-mb-4"></i>
+                    <p class="tw-text-gray-600 dark:tw-text-gray-400">No YouTube videos added yet</p>
                 </div>
             </div>
-        </div>  
+        </main>
     </div>
-    <script>
-        async function fetchUserData() {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
-                    method: 'GET',
-                    credentials: 'include', 
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
-                }
-                const data = await response.json();
 
-                // Mettez à jour les éléments HTML avec les données
-                document.getElementById('fullName').textContent = `${data.first_name} ${data.last_name}`;
-                document.getElementById('email').textContent = data.email;
-                document.getElementById('firstName').textContent = data.first_name;
-                document.getElementById('lastName').textContent = data.last_name;
-                document.getElementById('userEmailInfo').textContent = data.email;
-                document.getElementById('billingPlan').textContent = data.billing_plan;
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        window.onload = fetchUserData;
-    </script>
+    <!-- Scripts -->
+    <script src="scripts/myvideos.js" type="module"></script>
 </body>
-</html>
+</html> 

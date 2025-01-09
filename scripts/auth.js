@@ -44,28 +44,22 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     const password = document.getElementById('passwordInput').value;
 
     try {
-        // Envoi de la requête POST pour authentifier
+        const csrftoken = getCookie('csrftoken'); 
+
         const response = await fetch('http://127.0.0.1:8000/api/users/login/', {
             method: 'POST',
+            credentials: 'include', 
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken, 
             },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
+            body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            // Stocker les tokens et infos utilisateur dans le localStorage
-            localStorage.setItem('accessToken', data.access);
-            localStorage.setItem('refreshToken', data.refresh);
-            localStorage.setItem('userId', data.user_id);
-            localStorage.setItem('userEmail', data.email);
-
-            alert('Login successful!');
+            alert(data.message || 'Login successful!');
             window.location.href = '/gallery.html';
         } else {
             alert(data.error || 'Invalid credentials.');
@@ -76,46 +70,41 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     }
 });
 
-async function refreshAccessToken() {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-        alert('Session expired. Please log in again.');
-        window.location.href = '/login.html';
-        return;
-    }
 
+async function checkAuth() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/token/refresh/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ refresh: refreshToken }),
+        const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
+            method: 'GET',
+            credentials: 'include', 
         });
 
-        const data = await response.json();
-
         if (response.ok) {
-            localStorage.setItem('accessToken', data.access); // Mettre à jour le token d'accès
-        } else {
-            alert('Session expired. Please log in again.');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+            const userData = await response.json();
+            console.log('User authenticated:', userData);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('has_refresh_token', userData.has_youtube_token)
+            return true;
+        } else if (response.status === 401 || response.status === 403) {
+            console.warn('User not authenticated. Redirecting to login.');
             window.location.href = '/login.html';
+            return false;
+        } else {
+            console.error('Unexpected response:', response);
+            alert('An error occurred. Please try again.');
+            return false;
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to refresh access token.');
+        console.error('Error during authentication check:', error);
+        alert('Failed to connect to the server.');
+        return false;
     }
 }
 
-function checkAuth() {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-        window.location.href = '/login.html';
-        return false;
-    }
-    return true;
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
 function isProtectedPage() {
@@ -127,7 +116,10 @@ function isProtectedPage() {
         'thumbnails_generator_with_thumbnail.html',
         'heartlist.html',
         'workflow.html',
-        'planify_video.html'
+        'planify_video.html',
+        'profile.html',
+        'gallery.html',
+        'myvideos.html'
     ];
     
     const currentPage = window.location.pathname.split('/').pop();
@@ -136,24 +128,40 @@ function isProtectedPage() {
 
 // Fonction pour afficher l'email de l'utilisateur
 function displayUserEmail() {
-    const userEmail = localStorage.getItem('userEmail');
+    const userEmail = localStorage.getItem('email');
     const emailElement = document.getElementById('userEmail');
     if (emailElement && userEmail) {
         emailElement.textContent = userEmail;
     }
 }
 
-// Fonction de déconnexion
-function signOut() {
-    // Supprimer les tokens et infos utilisateur
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userEmail');
-    
-    // Rediriger vers la page de login
-    window.location.href = '/login.html';
+
+async function signOut() {
+    try {
+        const csrftoken = getCookie('csrftoken');
+        const response = await fetch('http://127.0.0.1:8000/api/users/logout/', {
+            method: 'POST',
+            credentials: 'include', 
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken, 
+            },
+        });
+
+        if (response.ok) {
+            alert('You have been logged out successfully.');
+            window.location.href = '/index.html'; 
+        } else {
+            const errorData = await response.json();
+            console.error('Logout error:', errorData);
+            alert('Failed to log out. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error during logout:', error);
+        alert('Failed to connect to the server.');
+    }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     if (isProtectedPage()) {
@@ -171,3 +179,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+async function updateYoutubeButtonColor() {
+    const youtubeButton = document.getElementById('youtubeButton');
+    if (!youtubeButton) {
+        console.error('Button with ID "youtubeButton" not found.');
+        return;
+    }
+
+    const refreshToken = localStorage.getItem('has_refresh_token');
+
+    if (refreshToken) {
+        youtubeButton.style.backgroundColor = 'green';
+        youtubeButton.textContent = 'YouTube Connected';
+    } else {
+        youtubeButton.style.backgroundColor = 'red';
+        youtubeButton.textContent = 'YouTube Not Connected'; 
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateYoutubeButtonColor);

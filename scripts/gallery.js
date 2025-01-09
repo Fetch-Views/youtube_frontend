@@ -707,50 +707,6 @@ window.toggleMultiplier = function(button) {
     }
 }
 
-document.getElementById('signOutButton')?.addEventListener('click', function () {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userEmail');
-
-    alert('You have been signed out.');
-    window.location.href = '/login.html';
-});
-
-
-document.addEventListener('DOMContentLoaded', async () => {
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-        alert('You need to log in to access this page.');
-        window.location.href = '/login.html';
-        return;
-    }
-
-    try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        },
-    });
-
-    if (response.ok) {
-        const userData = await response.json();
-        const emailElement = document.querySelector('#profileEmail');
-        if (emailElement) {
-            emailElement.textContent = userData.email;
-        }
-    } else {
-        alert('Your session has expired. Please log in again.');
-        localStorage.removeItem('accessToken');
-        window.location.href = '/login.html';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to connect to the server.');
-    }
-});
 
 window.changePage = async function(newPage) {
     if (newPage < 1 || newPage > totalPages) return;
@@ -901,7 +857,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.toggleLike = async function(button) {
     const thumbnailId = button.getAttribute('data-thumbnail-id');
-    const token = localStorage.getItem('accessToken');
     
     const isLiked = button.classList.contains('liked');
     const method = isLiked ? "DELETE" : "POST"; 
@@ -909,9 +864,10 @@ window.toggleLike = async function(button) {
     try {
         const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
             method: method,
+            credentials: 'include', 
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken, 
             },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId

@@ -1,7 +1,6 @@
 const API_URL = 'http://127.0.0.1:8000/api';
 
 export const fetchThumbnails = async (page = 1, filters = {}) => {
-    const accessToken = localStorage.getItem('accessToken');
     console.log('Filtres actuels:', filters); // Debug log
     
     // Construction de l'URL avec tous les paramètres de filtrage
@@ -58,9 +57,8 @@ export const fetchThumbnails = async (page = 1, filters = {}) => {
     
     try {
         const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            }
+            method: 'GET',
+            credentials: 'include', 
         });
         
         if (!response.ok) {
