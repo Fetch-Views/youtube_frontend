@@ -25,8 +25,9 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
         const data = await response.json();
 
         if (response.ok) {
-            alert('Account created successfully!');
-            window.location.href = '/login.html'; // Redirection après succès
+            alert('Your account need to be reviewed by someone from the team, to join the beta, contact : contact@fetchviews.com');
+            //alert('Account created successfully!');
+            //window.location.href = '/login.html'; // Redirection après succès
         } else {
             alert(data.error || 'An error occurred during registration.');
         }
