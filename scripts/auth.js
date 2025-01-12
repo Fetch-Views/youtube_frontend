@@ -152,6 +152,7 @@ async function signOut() {
         if (response.ok) {
             alert('You have been logged out successfully.');
             window.location.href = '/index.html'; 
+            localStorage.removeItem('has_refresh_token')
         } else {
             const errorData = await response.json();
             console.error('Logout error:', errorData);
@@ -191,12 +192,12 @@ async function updateYoutubeButtonColor() {
 
     const refreshToken = localStorage.getItem('has_refresh_token');
 
-    if (refreshToken) {
+    if (refreshToken == "true") {
         youtubeButton.style.backgroundColor = 'green';
         youtubeButton.textContent = 'YouTube Connected';
     } else {
         youtubeButton.style.backgroundColor = 'red';
-        youtubeButton.textContent = 'YouTube Not Connected'; 
+        youtubeButton.textContent = 'Connect to YouTube'; 
     }
 }
 
