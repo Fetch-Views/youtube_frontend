@@ -150,9 +150,7 @@
                         <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
                             Total Subscribers
                         </span>
-                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
-                            1,245,600
-                        </span>
+                        <span id="totalSubscribers" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
                         <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
                             <i class="bi bi-arrow-up"></i>
                             <span class="tw-text-sm">10% increase</span>
@@ -207,11 +205,9 @@
                 <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-col-span-1">
                     <div class="tw-flex tw-flex-col">
                         <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
-                            Average CTR
+                            Average Percentage Watched
                         </span>
-                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
-                            3.75%
-                        </span>
+                        <span id="averagePercentageWatched" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
                         <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
                             <i class="bi bi-arrow-up"></i>
                             <span class="tw-text-sm">5% increase</span>
@@ -221,11 +217,9 @@
                 <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
                     <div class="tw-flex tw-flex-col">
                         <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
-                            Average Impressions
+                            Average Watch Time (Seconds)
                         </span>
-                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
-                            45,600
-                        </span>
+                        <span id="averageWatchTime" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
                         <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
                             <i class="bi bi-arrow-up"></i>
                             <span class="tw-text-sm">10% increase</span>
@@ -239,9 +233,7 @@
                         <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
                             Average Likes
                         </span>
-                        <span class="tw-text-2xl tw-font-bold tw-mt-1">
-                            1,245,600
-                        </span>
+                        <span id="averageLikes" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
                         <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
                             <i class="bi bi-arrow-up"></i>
                             <span class="tw-text-sm">7% increase</span>
@@ -250,82 +242,46 @@
                 </div>
             </div>
 
-            <!-- Nouveau graphique des vues -->
             <div class="tw-grid tw-grid-cols-3 tw-gap-6 tw-mt-6">
-                <!-- Top 10 Videos -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
-                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4">
-                        <i class="bi bi-trophy tw-mr-2"></i>Top 5 Videos
-                    </h2>
-                    <div class="tw-space-y-4 tw-max-h-[400px] tw-overflow-y-auto">
-                        <!-- Répéter pour chaque vidéo -->
-                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
-                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">Comment devenir développeur en 2024</h3>
-                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-eye"></i>
-                                    1.2M
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-hand-thumbs-up"></i>
-                                    85K
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-chat"></i>
-                                    2.3K
-                                </span>
+                <!-- Colonne gauche (deux rectangles empilés) -->
+                <div class="tw-col-span-1 tw-flex tw-flex-col tw-gap-6">
+                    <!-- Average Subscribers Growth per Videos -->
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-relative">
+                        <div class="tw-flex tw-flex-col">
+                            <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                                Average Subscribers Growth per Videos
+                            </span>
+                            <span id="subscribers_to_video_ratio" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
+                            <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-yellow-500">
+                                <i class="bi bi-arrow-up"></i>
+                                <span class="tw-text-sm">5% increase</span>
                             </div>
                         </div>
-
-                        <!-- Exemple de plusieurs entrées -->
-                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
-                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">Les secrets du JavaScript moderne</h3>
-                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-eye"></i>
-                                    980K
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-hand-thumbs-up"></i>
-                                    72K
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-chat"></i>
-                                    1.8K
-                                </span>
+                    </div>
+            
+                    <!-- Another Metric -->
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                        <div class="tw-flex tw-flex-col">
+                            <span class="tw-text-gray-500 dark:tw-text-gray-400 tw-text-sm tw-font-medium">
+                                Engagement Rate
+                            </span>
+                            <span id="engagement_rate" class="tw-text-2xl tw-font-bold tw-mt-1">Loading...</span>
+                            <div class="tw-flex tw-items-center tw-gap-1 tw-mt-2 tw-text-green-500">
+                                <i class="bi bi-arrow-up"></i>
+                                <span class="tw-text-sm">10% increase</span>
                             </div>
                         </div>
-
-                        <div class="tw-border-b dark:tw-border-gray-700 tw-pb-3">
-                            <h3 class="tw-font-medium tw-mb-2 tw-text-gray-800 dark:tw-text-gray-200">React vs Vue en 2024</h3>
-                            <div class="tw-flex tw-gap-4 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-eye"></i>
-                                    850K
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-hand-thumbs-up"></i>
-                                    65K
-                                </span>
-                                <span class="tw-flex tw-items-center tw-gap-1">
-                                    <i class="bi bi-chat"></i>
-                                    1.5K
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Ajoutez plus d'entrées similaires pour compléter le top 4 -->
                     </div>
                 </div>
-                
-                <!-- Graphique des vues -->
+            
+                <!-- Colonne droite (graphe Views Growth) -->
                 <div class="tw-col-span-2 tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
                     <h2 class="tw-text-xl tw-font-semibold tw-mb-4">Views Growth</h2>
                     <div class="tw-h-[400px]">
                         <canvas id="viewsChart"></canvas>
                     </div>
                 </div>
-            </div>
+            </div>                        
 
             <!-- Après le dernier grid -->
             <div class="tw-mt-6 tw-bg-[#000000] tw-rounded-xl tw-shadow-lg tw-p-6">
@@ -336,6 +292,7 @@
     <!-- Scripts -->
     <script src="scripts/components.js"></script>
     <script src="scripts/api.js" type="module"></script>
+    <script src="scripts/dashboard.js" type="module"></script>
 
     <!-- Add Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
