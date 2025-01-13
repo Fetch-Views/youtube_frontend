@@ -860,6 +860,7 @@ window.toggleLike = async function(button) {
     
     const isLiked = button.classList.contains('liked');
     const method = isLiked ? "DELETE" : "POST"; 
+    const csrftoken = getCookie('csrftoken'); 
 
     try {
         const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {

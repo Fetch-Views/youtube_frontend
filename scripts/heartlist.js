@@ -66,6 +66,7 @@ const loadLikedThumbnails = async () => {
 // Fonction pour supprimer une miniature
 async function deleteThumbnail(thumbnailId) {    
     try {
+        const csrftoken = getCookie('csrftoken'); 
         const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
             method: "DELETE",
             credentials: 'include', 
