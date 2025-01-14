@@ -84,7 +84,6 @@ class Prompt{
     }
 
     setAIModel(model){
-        // console.log("model: ", model)
         this.chatModel = model.toLowerCase()
     }
 

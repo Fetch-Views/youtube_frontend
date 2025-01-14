@@ -1,8 +1,6 @@
 const API_URL = 'http://127.0.0.1:8000/api';
 
-export const fetchThumbnails = async (page = 1, filters = {}) => {
-    console.log('Filtres actuels:', filters); // Debug log
-    
+export const fetchThumbnails = async (page = 1, filters = {}) => {    
     // Construction de l'URL avec tous les paramètres de filtrage
     let url = `${API_URL}/gallery/thumbnails/?page=${page}`;
     
@@ -52,9 +50,7 @@ export const fetchThumbnails = async (page = 1, filters = {}) => {
     if (filters.maxComments !== undefined && filters.maxComments !== null) {
         url += `&max_comments=${filters.maxComments}`;
     }
-    
-    console.log('URL de requête:', url); // Debug log
-    
+        
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -68,7 +64,6 @@ export const fetchThumbnails = async (page = 1, filters = {}) => {
         }
         
         const data = await response.json();
-        console.log('Réponse API:', data); // Debug log
         return data;
     } catch (error) {
         console.error('API error:', error);

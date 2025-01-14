@@ -1,6 +1,5 @@
 document.getElementById('registerForm')?.addEventListener('submit', async function (event) {
     event.preventDefault(); // Empêche le rechargement de la page
-    console.log("auth.js loaded successfully!");
     // Collecte des données du formulaire
     const firstName = document.getElementById('first_name').value;
     const lastName = document.getElementById('last_name').value;
@@ -61,7 +60,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
 
         if (response.ok) {
             alert(data.message || 'Login successful!');
-            window.location.href = '/gallery.html';
+            window.location.href = '/dashboard.html';
         } else {
             alert(data.error || 'Invalid credentials.');
         }
@@ -81,7 +80,6 @@ async function checkAuth() {
 
         if (response.ok) {
             const userData = await response.json();
-            console.log('User authenticated:', userData);
             localStorage.setItem('email', userData.email);
             localStorage.setItem('has_refresh_token', userData.has_youtube_token)
             return true;
@@ -136,6 +134,9 @@ function displayUserEmail() {
     }
 }
 
+function deleteCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
 
 async function signOut() {
     try {
@@ -153,6 +154,7 @@ async function signOut() {
             alert('You have been logged out successfully.');
             window.location.href = '/index.html'; 
             localStorage.removeItem('has_refresh_token')
+            deleteCookie('csrftoken');
         } else {
             const errorData = await response.json();
             console.error('Logout error:', errorData);

@@ -19,7 +19,6 @@ async function fetchDashboardStats() {
 
 async function updateDashboard() {
     const stats = await fetchDashboardStats();
-    console.log(stats);
 
     if (stats) {
         // Total Subscribers

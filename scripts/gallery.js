@@ -179,9 +179,7 @@ const renderPagination = (total_pages) => {
 const initGallery = async () => {
     try {
         hasMoreData = true; // Réinitialiser l'état
-        console.log('Fetching with filters:', currentFilters); // Debug log
         const thumbnails = await fetchThumbnails(currentPage, currentFilters);
-        console.log('API response:', thumbnails); // Debug log
         
         if (!thumbnails.results || thumbnails.results.length === 0) {
             hasMoreData = false;
@@ -244,8 +242,6 @@ const initInfiniteScroll = () => {
     sentinel.style.height = '20px'; // Augmenté pour une meilleure détection
     document.getElementById('thumbnails-container').appendChild(sentinel);
     observer.observe(sentinel);
-    
-    console.log('Infinite scroll initialized'); // Debug
 };
 
 const renderLoadingSpinner = () => {
@@ -739,10 +735,7 @@ window.filterByCategory = function(checkbox) {
     } else {
         // Retirer la catégorie
         currentFilters.categories = currentFilters.categories.filter(cat => cat !== category);
-    }
-    
-    console.log('Catégories sélectionnées:', currentFilters.categories);
-    
+    }    
     // Réinitialiser la pagination et recharger
     currentPage = 1;
     initGallery();
@@ -816,22 +809,14 @@ window.onDateSelect = function(date) {
 };
 
 // Nouvelle fonction pour gérer la recherche
-window.handleSearch = function(event) {
-    console.log('Search event triggered:', event.key); // Debug
-    
+window.handleSearch = function(event) {    
     // Vérifier si c'est la touche Entrée
     if (event.key === 'Enter') {
         const searchInput = document.getElementById('searchInput');
         const searchTerm = searchInput.value.trim();
         
-        console.log('Search term:', searchTerm); // Debug
-        
-        // Mise à jour des filtres
         currentFilters.search = searchTerm || null;
         
-        console.log('Updated filters:', currentFilters); // Debug
-        
-        // Réinitialiser la pagination et recharger
         currentPage = 1;
         hasMoreData = true;
         initGallery();

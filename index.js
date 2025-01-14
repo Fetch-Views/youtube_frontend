@@ -161,8 +161,6 @@ function openNavDropdown(event){
 }
 
 function closeNavDropdown(event){
-
-    // console.log("event target: ", event.target, event.target.contains(navDropdown))
     
     if (navDropdown.matches(":hover")){
         return
