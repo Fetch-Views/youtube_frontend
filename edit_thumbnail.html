@@ -528,11 +528,9 @@
             }
         }
 
-        // Fonction pour arrêter le drag
         function stopDrag() {
             if (rectangle) {
-                // Garder la bordure jusqu'à ce que l'utilisateur clique ailleurs
-                rectangle.style.border = '2px solid white';  // Laisse la bordure blanche pendant le drag
+                rectangle.style.border = 'none';  
             }
             isDragging = false;
         }
