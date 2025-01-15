@@ -109,7 +109,7 @@
 
         <main class="tw-flex-1 tw-ml-64">
             <div class="tw-max-w-6xl tw-mx-auto tw-mt-4 tw-p-6">
-                <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Step 3.5: Edit your thumbnail</h1>
+                <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Step 3: Edit your thumbnail</h1>
         
                 <div class="tw-flex tw-gap-8">
                     <div class="tw-w-2/5 tw-bg-[#17181B] tw-p-6 tw-rounded-2xl tw-shadow-lg">
@@ -157,6 +157,9 @@
                             <div class="tw-rounded-lg tw-overflow-hidden tw-border-4 tw-border-[#6366f1] tw-w-full">
                                 <img id="thumbnailToEdit" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Selected Thumbnail" class="tw-w-full tw-h-full tw-object-cover">
                             </div>
+                            <span id="loadingText" class="tw-absolute tw-top-1/2 tw-left-1/2 tw-transform -tw-translate-x-1/2 -tw-translate-y-1/2 tw-bg-black/70 tw-text-white tw-px-4 tw-py-2 tw-rounded-lg tw-hidden">
+                                Generating...
+                            </span>
                         </div>
                     
                         <div class="tw-w-full tw-mx-auto">
@@ -188,6 +191,21 @@
     <script src="scripts/components.js"></script>
     <script src="scripts/api.js" type="module"></script>
     <script src="scripts/edit_thumbnail.js"></script>
+    <script type="module">
+        import { generateThumbnailWithImage } from './scripts/edit_image.js';
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            const generateButton = document.getElementById('generateBtn');
+    
+            if (generateButton) {
+                generateButton.addEventListener('click', function () {
+                    generateThumbnailWithImage();
+                });
+            } else {
+                console.error("Generate button not found!");
+            }
+        });
+    </script>
 <style>
     @font-face {
         font-family: 'Burbank Big';

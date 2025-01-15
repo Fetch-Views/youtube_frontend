@@ -12,13 +12,6 @@ async function generateThumbnail() {
 
     loadingText.style.display = 'block';
 
-    const storedImage = localStorage.getItem('generatedThumbnail');
-    if (storedImage) {
-        imageElement.src = storedImage;
-        loadingText.style.display = 'none';
-        return; 
-    }
-
     try {
         const response = await fetch('http://127.0.0.1:8000/api/gallery/thumbnails_generation/', {
             method: 'POST',
@@ -37,10 +30,8 @@ async function generateThumbnail() {
         const data = await response.json();
         const base64Image = data.image_base64;
 
-        // Enregistrer l'image générée dans localStorage
         localStorage.setItem('generatedThumbnail', `data:image/png;base64,${base64Image}`);
 
-        // Afficher l'image générée
         imageElement.src = `data:image/png;base64,${base64Image}`;
 
         loadingText.style.display = 'none';
@@ -52,17 +43,16 @@ async function generateThumbnail() {
 }
 
 window.onload = function() {
-    // Vérifier si une image est stockée dans localStorage
-    const storedImage = localStorage.getItem('generatedThumbnail');
     const imageElement = document.getElementById('generatedThumbnail');
+    const storedImage = localStorage.getItem('generatedThumbnail');
     const loadingText = document.getElementById('loadingText');
+    const previous_page = localStorage.getItem('previous_page');
 
-    if (storedImage) {
-        // Si l'image est stockée, l'afficher directement
-        imageElement.src = storedImage;
-        loadingText.style.display = 'none'; // Masquer le texte "Loading..."
-    } else {
-        // Si aucune image n'est stockée, appeler la fonction pour générer l'image
+    if (previous_page?.trim() == 'workflow.html'){
         generateThumbnail();
+    }
+    else {
+        imageElement.src = storedImage;
+        loadingText.style.display = 'none'; 
     }
 };

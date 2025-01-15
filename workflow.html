@@ -259,15 +259,20 @@
             const tags = document.getElementById('videoTags').value;
             const prompt = document.getElementById('prompt').value;
 
+            if (!title || !description || !prompt) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
             localStorage.setItem('videoTitle', title);
             localStorage.setItem('videoDescription', description);
             localStorage.setItem('videoTags', tags);
             localStorage.setItem('prompt', prompt);
+            localStorage.setItem('previous_page', 'workflow.html')
 
-            window.location.href = 'thumbnails.html';
+            window.location.href = 'thumbnails_generator.html';
         }
 
-        // Charger les données sauvegardées si elles existent
         window.onload = function() {
             const title = localStorage.getItem('videoTitle');
             const description = localStorage.getItem('videoDescription');

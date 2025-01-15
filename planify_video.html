@@ -193,11 +193,9 @@
                 <div class="tw-max-w-6xl tw-mx-auto">
                     <!-- Boutons navigation -->
                     <div class="tw-flex tw-justify-center tw-gap-4">
-                        <a href="thumbnails_generator.html">
-                            <button class="tw-px-8 tw-py-3 tw-border tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-900 tw-transition-colors">
-                                Previous step
-                            </button>
-                        </a>
+                        <button id="previous-step-button" class="tw-px-8 tw-py-3 tw-border tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-900 tw-transition-colors">
+                            Previous step
+                        </button>
                         <button onclick="scheduleVideo()" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
                             Schedule
                         </button>
@@ -309,6 +307,17 @@
                 document.getElementById('videoFileName').textContent = videoFileName;
             }
         }
+
+        document.getElementById('previous-step-button').addEventListener('click', function () {
+            const previousPage = localStorage.getItem('previous_page');
+            console.log("Previous page set to:", localStorage.getItem("previous_page"));
+
+            if (previousPage) {
+                window.location.href = previousPage;
+            } else {
+                window.location.href = 'thumbnails_generator.html';
+            }
+        });
     </script>
 </body>
 </html>

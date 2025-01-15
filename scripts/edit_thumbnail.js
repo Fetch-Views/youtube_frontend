@@ -41,6 +41,7 @@ function goBack() {
 
 window.onload = function() {
     const imageToEdit = localStorage.getItem('imageToEdit');
+    localStorage.setItem("previous_page", "edit_thumbnail.html")
     if (imageToEdit) {
         document.querySelector('.tw-aspect-video img').src = imageToEdit;
     }
@@ -341,16 +342,4 @@ document.getElementById('nextStepBtn').addEventListener('click', function () {
             });
         });
     });
-});
-
-document.getElementById('generateBtn').addEventListener('click', function() {
-    var base64Image = localStorage.getItem('selectedThumbnail');
-    if (base64Image) {
-        var link = document.createElement('a');
-        link.href = base64Image;
-        link.download = 'thumbnail.png';  
-        link.click();  
-    } else {
-        console.error('Image not found in localStorage');
-    }
 });

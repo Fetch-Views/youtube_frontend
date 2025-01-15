@@ -110,7 +110,6 @@ function isProtectedPage() {
     const protectedPages = [
         'edit_thumbnail.html',
         'dashboard.html',
-        'thumbnails.html',
         'thumbnails_generator.html',
         'thumbnails_generator_with_thumbnail.html',
         'heartlist.html',
