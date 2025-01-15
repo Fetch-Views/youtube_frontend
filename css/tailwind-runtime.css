@@ -1328,10 +1328,6 @@ video {
   place-items: center;
 }
 
-.tw-items-start {
-  align-items: flex-start;
-}
-
 .tw-items-center {
   align-items: center;
 }
