@@ -66,14 +66,23 @@ function addText(fontClass) {
     text.style.top = `${containerRect.height / 2}px`; 
 
     text.addEventListener('mousedown', function(event) {
-        var shiftX = event.clientX - text.getBoundingClientRect().left;
-        var shiftY = event.clientY - text.getBoundingClientRect().top;
-        text.style.zIndex = 1000;
+        shiftX = event.clientX - text.getBoundingClientRect().left;
+        shiftY = event.clientY - text.getBoundingClientRect().top;
 
         function moveAt(pageX, pageY) {
             const containerRect = imgContainer.getBoundingClientRect();
-            text.style.left = `${pageX - shiftX - containerRect.left}px`;
-            text.style.top = `${pageY - shiftY - containerRect.top}px`;
+            const textRect = text.getBoundingClientRect();
+
+            let newLeft = pageX - shiftX - containerRect.left;
+            let newTop = pageY - 4*shiftY - containerRect.top;
+
+            if (newLeft < 0) newLeft = 0;
+            if (newTop < 0) newTop = 0;
+            if (newLeft + textRect.width > containerRect.width) newLeft = containerRect.width - textRect.width;
+            if (newTop + textRect.height > containerRect.height) newTop = containerRect.height - textRect.height;
+
+            text.style.left = `${newLeft}px`;
+            text.style.top = `${newTop}px`;
         }
 
         function onMouseMove(event) {
@@ -81,10 +90,11 @@ function addText(fontClass) {
         }
 
         document.addEventListener('mousemove', onMouseMove);
-        text.onmouseup = function() {
+
+        document.addEventListener('mouseup', function mouseUpHandler() {
             document.removeEventListener('mousemove', onMouseMove);
-            text.onmouseup = null;
-        };
+            document.removeEventListener('mouseup', mouseUpHandler);
+        });
     });
 
     text.addEventListener('contextmenu', function(event) {
@@ -299,6 +309,45 @@ function stopDrag() {
     }
     isDragging = false;
 }
+
+document.getElementById('download').addEventListener('click', function () {
+    const imgContainer = document.getElementById('imgContainer');
+    const editableTexts = imgContainer.querySelectorAll('[contenteditable="true"]');
+
+    editableTexts.forEach((text) => {
+        const currentTop = parseFloat(text.style.top) || 0;
+        const currentLeft = parseFloat(text.style.left) || 0;
+
+        text.setAttribute('data-original-top', currentTop);
+        text.setAttribute('data-original-left', currentLeft);
+
+        text.style.top = `${currentTop - 10}px`; 
+        text.style.left = `${currentLeft}px`; 
+        text.contentEditable = 'false'; 
+    });
+
+    if (!imgContainer) {
+        console.error('imgContainer not found');
+        return;
+    }
+
+    document.fonts.ready.then(() => {
+        html2canvas(imgContainer, {
+            scrollY: -window.scrollY, 
+            scale: window.devicePixelRatio, 
+            useCORS: true, 
+        }).then(function (canvas) {
+            const link = document.createElement('a');
+            link.download = 'thumbnail.png';
+            link.href = canvas.toDataURL('thumbnail/png');
+            link.click();
+
+            link.remove();
+        }).catch(function (error) {
+            console.error('Error while capturing :', error);
+        });
+    });
+});
 
 document.getElementById('nextStepBtn').addEventListener('click', function () {
     const imgContainer = document.getElementById('imgContainer');
