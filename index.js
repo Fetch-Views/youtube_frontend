@@ -106,4 +106,66 @@ sections.forEach((sec) => {
 
 })
 
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.image-comparison');
+    const overlay = document.querySelector('.image-comparison-overlay');
+    const slider = document.querySelector('.comparison-slider');
+    let isActive = false;
+
+    // Initialiser la position au milieu
+    const initializeSlider = () => {
+        const clipValue = `inset(0 50% 0 0)`;
+        overlay.style.clipPath = clipValue;
+        slider.style.left = '50%';
+    };
+
+    // Appeler l'initialisation au chargement
+    initializeSlider();
+
+    // Fonction pour mettre à jour la position
+    const updatePosition = (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.pageX - rect.left;
+        const position = Math.max(0, Math.min(x, rect.width));
+        const percentage = (position / rect.width) * 100;
+
+        const clipValue = `inset(0 ${100 - percentage}% 0 0)`;
+        overlay.style.clipPath = clipValue;
+        slider.style.left = `${percentage}%`;
+    };
+
+    // Événements souris
+    slider.addEventListener('mousedown', (e) => {
+        isActive = true;
+        // Empêcher la sélection de texte pendant le glissement
+        e.preventDefault();
+    });
+    
+    document.addEventListener('mouseup', () => isActive = false);
+    document.addEventListener('mousemove', (e) => {
+        if (!isActive) return;
+        e.preventDefault();
+        const rect = container.getBoundingClientRect();
+        const x = Math.max(rect.left, Math.min(e.pageX, rect.right));
+        updatePosition({ pageX: x });
+    });
+
+    // Événements tactiles
+    slider.addEventListener('touchstart', (e) => {
+        isActive = true;
+        e.preventDefault();
+    });
+    
+    document.addEventListener('touchend', () => isActive = false);
+    document.addEventListener('touchcancel', () => isActive = false);
+    document.addEventListener('touchmove', (e) => {
+        if (!isActive) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = container.getBoundingClientRect();
+        const x = Math.max(rect.left, Math.min(touch.pageX, rect.right));
+        updatePosition({ pageX: x });
+    });
+});
+
 

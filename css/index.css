@@ -347,4 +347,63 @@ hr{
     
 }
 
+@keyframes scroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.tw-animate-scroll {
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes scroll-right {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.tw-animate-scroll-left {
+    animation: scroll-left 20s linear infinite;
+}
+
+.tw-animate-scroll-right {
+    animation: scroll-right 20s linear infinite;
+}
+
+.image-comparison {
+    user-select: none;
+}
+
+.image-comparison-overlay {
+    transition: right 0.1s ease-out;
+}
+
+.comparison-slider {
+    transition: left 0.1s ease-out;
+}
+
+.comparison-slider:hover {
+    background-color: #e5e5e5;
+}
+
+.comparison-slider:active {
+    background-color: #d1d1d1;
+}
+
 
