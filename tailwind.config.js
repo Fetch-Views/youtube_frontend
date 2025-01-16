@@ -21,5 +21,6 @@ module.exports = {
 			addVariant('firefox', ':-moz-any(&)')
 		}
 	],
+	
 }
 
