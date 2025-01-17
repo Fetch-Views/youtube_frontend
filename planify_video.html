@@ -318,6 +318,62 @@
                 window.location.href = 'thumbnails_generator.html';
             }
         });
+
+        document.getElementById("schedule").addEventListener("click", async function () {
+            const videoFileName = localStorage.getItem('videoFileName');
+            const title = localStorage.getItem('videoTitle');
+            const description = localStorage.getItem('videoDescription');
+            const tags = localStorage.getItem('videoTags');
+            const selectedThumbnail = localStorage.getItem('selectedThumbnail');
+
+            const formData = new FormData();
+
+            try {
+                const videoBlob = await fetch(videoFileName).then(res => res.blob());
+                formData.append("video", videoBlob, "video.mp4");
+
+                formData.append("title", title);
+                formData.append("description", description);
+                formData.append("tags", tags);
+
+                if (selectedThumbnail) {
+                    if (selectedThumbnail.startsWith("data:image")) {
+                        const base64ToBlob = (base64) => {
+                            const [metadata, data] = base64.split(",");
+                            const mime = metadata.match(/:(.*?);/)[1];
+                            const binary = atob(data);
+                            const array = [];
+                            for (let i = 0; i < binary.length; i++) {
+                                array.push(binary.charCodeAt(i));
+                            }
+                            return new Blob([new Uint8Array(array)], { type: mime });
+                        };
+                        const thumbnailBlob = base64ToBlob(selectedThumbnail);
+                        formData.append("thumbnail", thumbnailBlob, "thumbnail.jpg");
+                    } else {
+                        const thumbnailBlob = await fetch(selectedThumbnail).then(res => res.blob());
+                        formData.append("thumbnail", thumbnailBlob, "thumbnail.jpg");
+                    }
+                }
+
+                const response = await fetch("http://127.0.0.1:8000/api/users/upload-video/", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Vidéo publiée avec succès :", data.video_url);
+                    alert(`Vidéo publiée avec succès ! URL : ${data.video_url}`);
+                } else {
+                    const error = await response.json();
+                    alert(`Erreur : ${error.error}`);
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'envoi :", error);
+                alert("Une erreur est survenue lors de l'envoi de la vidéo.");
+            }
+        });
     </script>
 </body>
 </html>
