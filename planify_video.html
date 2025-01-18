@@ -196,7 +196,7 @@
                         <button id="previous-step-button" class="tw-px-8 tw-py-3 tw-border tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-900 tw-transition-colors">
                             Previous step
                         </button>
-                        <button onclick="scheduleVideo()" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
+                        <button id="schedule" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
                             Schedule
                         </button>
                     </div>
@@ -206,65 +206,135 @@
     </div>
 
     <!-- Scripts -->
-    <script src="scripts/components.js"></script>
-    <script src="scripts/auth.js"></script>
-    <script>
-        function toggleYouTubeConnection() {
-            const button = document.getElementById('youtubeButton');
-            if (button.classList.contains('tw-bg-red-600')) {
-                button.classList.remove('tw-bg-red-600', 'hover:tw-bg-red-700');
-                button.classList.add('tw-bg-green-600', 'hover:tw-bg-green-700');
-                button.querySelector('span').textContent = 'Connected to YouTube';
-            } else {
-                button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');
-                button.classList.add('tw-bg-red-600', 'hover:tw-bg-red-700');
-                button.querySelector('span').textContent = 'Connect to YouTube';
-            }
+<script src="scripts/auth.js"></script>
+<script>
+    function toggleYouTubeConnection() {
+        const button = document.getElementById('youtubeButton');
+        if (button.classList.contains('tw-bg-red-600')) {
+            button.classList.remove('tw-bg-red-600', 'hover:tw-bg-red-700');
+            button.classList.add('tw-bg-green-600', 'hover:tw-bg-green-700');
+            button.querySelector('span').textContent = 'Connected to YouTube';
+        } else {
+            button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');
+            button.classList.add('tw-bg-red-600', 'hover:tw-bg-red-700');
+            button.querySelector('span').textContent = 'Connect to YouTube';
         }
+    }
 
-        function scheduleVideo() {
-            // Créer l'élément de confirmation
-            const confirmationOverlay = document.createElement('div');
-            confirmationOverlay.className = 'tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black/50 tw-z-50';
-            confirmationOverlay.innerHTML = `
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-p-8 tw-text-center tw-shadow-xl tw-transform tw-animate-[fadeIn_0.5s_ease-out]">
-                    <div class="tw-text-green-500 tw-mb-4">
-                        <i class="bi bi-check-circle-fill tw-text-8xl"></i>
-                    </div>
-                    <h2 class="tw-text-2xl tw-font-semibold tw-mb-2">Video scheduled successfully !</h2>
-                    <p class="tw-text-gray-600 dark:tw-text-gray-400 tw-mb-6">Your video has been scheduled for publication.</p>
-                    <a href="dashboard.html" class="tw-bg-[#6366f1] tw-text-white tw-px-6 tw-py-2 tw-rounded-lg hover:tw-bg-[#4f46e5] tw-transition-colors">
-                        Back to dashboard
-                    </a>
-                </div>
-            `;
+    async function scheduleVideo() {
+        const title = localStorage.getItem('videoTitle');
+        const description = localStorage.getItem('videoDescription');
+        const tags = localStorage.getItem('videoTags');
+        const selectedThumbnail = localStorage.getItem('selectedThumbnail');
+        const csrftoken = getCookie('csrftoken'); 
 
-            // Ajouter le style pour l'animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.9);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
+        const formData = new FormData();
+
+        try {
+            const videoBlob = await new Promise((resolve, reject) => {
+                const request = indexedDB.open('VideoDatabase', 1);
+
+                request.onsuccess = function(event) {
+                    const db = event.target.result;
+                    const transaction = db.transaction('videos', 'readonly');
+                    const store = transaction.objectStore('videos');
+                    const getRequest = store.get('uploadedVideo');
+
+                    getRequest.onsuccess = function(e) {
+                        const videoData = e.target.result;
+                        if (videoData) {
+                            const byteString = atob(videoData.content.split(',')[1]);
+                            const mimeString = videoData.content.split(',')[0].split(':')[1].split(';')[0];
+
+                            const ab = new ArrayBuffer(byteString.length);
+                            const ia = new Uint8Array(ab);
+                            for (let i = 0; i < byteString.length; i++) {
+                                ia[i] = byteString.charCodeAt(i);
+                            }
+
+                            const blob = new Blob([ab], { type: mimeString });
+                            resolve(blob);
+                        } else {
+                            reject('Video not found in IndexedDB');
+                        }
+                    };
+
+                    getRequest.onerror = function() {
+                        reject('Failed to retrieve video from IndexedDB');
+                    };
+                };
+
+                request.onerror = function() {
+                    reject('Failed to open IndexedDB');
+                };
+            });
+
+            formData.append('video', videoBlob, 'video.mp4');
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('tags', tags);
+
+            if (selectedThumbnail) {
+                if (selectedThumbnail.startsWith('data:image')) {
+                    const base64ToBlob = (base64) => {
+                        const [metadata, data] = base64.split(',');
+                        const mime = metadata.match(/:(.*?);/)[1];
+                        const binary = atob(data);
+                        const array = [];
+                        for (let i = 0; i < binary.length; i++) {
+                            array.push(binary.charCodeAt(i));
+                        }
+                        return new Blob([new Uint8Array(array)], { type: mime });
+                    };
+                    const thumbnailBlob = base64ToBlob(selectedThumbnail);
+                    formData.append('thumbnail', thumbnailBlob, 'thumbnail.jpg');
+                } else {
+                    const thumbnailBlob = await fetch(selectedThumbnail).then(res => res.blob());
+                    formData.append('thumbnail', thumbnailBlob, 'thumbnail.jpg');
                 }
-            `;
-            document.head.appendChild(style);
+            }
 
-            // Ajouter l'overlay au document
-            document.body.appendChild(confirmationOverlay);
+            const response = await fetch('http://127.0.0.1:8000/api/users/upload_video/', {
+                method: 'POST',
+                credentials: 'include', 
+                headers: {
+                    'X-CSRFToken': csrftoken, 
+                },
+                body: formData,
+            });
 
-            // Nettoyer le localStorage
-            localStorage.removeItem('videoFileName');
-            localStorage.removeItem('selectedThumbnail');
-            localStorage.removeItem('videoTitle');
-            localStorage.removeItem('videoDescription');
-            localStorage.removeItem('videoTags');
+            if (response.ok) {
+                const data = await response.json();
+                showPopup(true, `Video successfully published ! URL : ${data.video_url}`);
+            } else {
+                const error = await response.json();
+                showPopup(false, `Error publishing the video, please try again later`);
+            }
+        } catch (error) {
+            console.error('Error when publishing :', error);
+            showPopup(false, 'An error occurred when publishing the video.');
         }
+    }
+
+    function showPopup(success, message) {
+        const popup = document.createElement('div');
+        popup.className = 'tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black/50 tw-z-50';
+        popup.innerHTML = `
+            <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-p-8 tw-text-center tw-shadow-xl">
+                <div class="${success ? 'tw-text-green-500' : 'tw-text-red-500'} tw-mb-4">
+                    <i class="bi ${success ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} tw-text-8xl"></i>
+                </div>
+                <h2 class="tw-text-2xl tw-font-semibold tw-mb-2">${success ? 'Success' : 'Error'}</h2>
+                <p class="tw-text-gray-600 dark:tw-text-gray-400 tw-mb-6">${message}</p>
+                <button onclick="document.body.removeChild(this.parentNode.parentNode)" class="tw-bg-gray-300 dark:tw-bg-gray-700 tw-px-4 tw-py-2 tw-rounded-lg">
+                    Close
+                </button>
+            </div>
+        `;
+        document.body.appendChild(popup);
+    }
+
+    document.getElementById('schedule').addEventListener('click', scheduleVideo);
 
         // Charge l'image avant de l'afficher
         window.onload = function() {
@@ -306,7 +376,7 @@
             if (videoFileName) {
                 document.getElementById('videoFileName').textContent = videoFileName;
             }
-        }
+        };
 
         document.getElementById('previous-step-button').addEventListener('click', function () {
             const previousPage = localStorage.getItem('previous_page');
@@ -316,62 +386,6 @@
                 window.location.href = previousPage;
             } else {
                 window.location.href = 'thumbnails_generator.html';
-            }
-        });
-
-        document.getElementById("schedule").addEventListener("click", async function () {
-            const videoFileName = localStorage.getItem('videoFileName');
-            const title = localStorage.getItem('videoTitle');
-            const description = localStorage.getItem('videoDescription');
-            const tags = localStorage.getItem('videoTags');
-            const selectedThumbnail = localStorage.getItem('selectedThumbnail');
-
-            const formData = new FormData();
-
-            try {
-                const videoBlob = await fetch(videoFileName).then(res => res.blob());
-                formData.append("video", videoBlob, "video.mp4");
-
-                formData.append("title", title);
-                formData.append("description", description);
-                formData.append("tags", tags);
-
-                if (selectedThumbnail) {
-                    if (selectedThumbnail.startsWith("data:image")) {
-                        const base64ToBlob = (base64) => {
-                            const [metadata, data] = base64.split(",");
-                            const mime = metadata.match(/:(.*?);/)[1];
-                            const binary = atob(data);
-                            const array = [];
-                            for (let i = 0; i < binary.length; i++) {
-                                array.push(binary.charCodeAt(i));
-                            }
-                            return new Blob([new Uint8Array(array)], { type: mime });
-                        };
-                        const thumbnailBlob = base64ToBlob(selectedThumbnail);
-                        formData.append("thumbnail", thumbnailBlob, "thumbnail.jpg");
-                    } else {
-                        const thumbnailBlob = await fetch(selectedThumbnail).then(res => res.blob());
-                        formData.append("thumbnail", thumbnailBlob, "thumbnail.jpg");
-                    }
-                }
-
-                const response = await fetch("http://127.0.0.1:8000/api/users/upload-video/", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("Vidéo publiée avec succès :", data.video_url);
-                    alert(`Vidéo publiée avec succès ! URL : ${data.video_url}`);
-                } else {
-                    const error = await response.json();
-                    alert(`Erreur : ${error.error}`);
-                }
-            } catch (error) {
-                console.error("Erreur lors de l'envoi :", error);
-                alert("Une erreur est survenue lors de l'envoi de la vidéo.");
             }
         });
     </script>
