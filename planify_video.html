@@ -206,7 +206,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="scripts/components.js"></script>
     <script src="scripts/auth.js"></script>
     <script>
         function toggleYouTubeConnection() {
@@ -269,7 +268,7 @@
         // Charge l'image avant de l'afficher
         window.onload = function() {
             // Récupère l'image sélectionnée du localStorage
-            const selectedThumbnail = localStorage.getItem('selectedThumbnail');
+            const selectedThumbnail = localStorage.getItem('generatedThumbnail');
             if (selectedThumbnail) {
                 document.querySelector('.tw-aspect-video img').src = selectedThumbnail;
             }

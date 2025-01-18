@@ -40,7 +40,7 @@ function goBack() {
 }
 
 window.onload = function() {
-    const imageToEdit = localStorage.getItem('imageToEdit');
+    const imageToEdit = localStorage.getItem('generatedThumbnail');
     localStorage.setItem("previous_page", "edit_thumbnail.html")
     if (imageToEdit) {
         document.querySelector('.tw-aspect-video img').src = imageToEdit;

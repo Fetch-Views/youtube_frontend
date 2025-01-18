@@ -148,14 +148,24 @@
                     </div>
                 </div>
 
-                <!-- Champ titre -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
+                <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 tw-mb-6">
+                    <!-- Champ titre -->
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
                         <label class="tw-block tw-text-sm tw-font-medium">Video title</label>
                         <input 
                             id="videoTitle"
                             type="text" 
                             placeholder="Enter the title of your video"
+                            class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
+                    </div>
+        
+                    <!-- Champ tags -->
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                        <label class="tw-block tw-text-sm tw-font-medium">Video tags</label>
+                        <input 
+                            id="videoTags"
+                            type="text" 
+                            placeholder="Enter tags separated by commas (e.g., #saas, #startup)"
                             class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
                 </div>
@@ -171,33 +181,9 @@
                     </div>
                 </div>
 
-                <!-- Champ tags -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
-                        <label class="tw-block tw-text-sm tw-font-medium">Video tags</label>
-                        <input 
-                            id="videoTags"
-                            type="text" 
-                            placeholder="Enter tags separated by commas (e.g., #saas, #startup)"
-                            class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
-                    </div>
-                </div>
-
-                <!-- Prompts -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
-                        <label class="tw-block tw-text-sm tw-font-medium">Prompt</label>
-                        <input 
-                            id="prompt"
-                            type="text" 
-                            placeholder="Enter prompt to generate thumbnail"
-                            class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
-                    </div>
-                </div>
-
                 <!-- Bouton Next step -->
                 <div class="tw-flex tw-justify-center">
-                    <button onclick="saveVideoData()" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
+                    <button onclick="saveVideoData()" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors tw-mb-6">
                         Next step
                     </button>
                 </div>
@@ -257,9 +243,8 @@
             const title = document.getElementById('videoTitle').value;
             const description = document.getElementById('videoDescription').value;
             const tags = document.getElementById('videoTags').value;
-            const prompt = document.getElementById('prompt').value;
 
-            if (!title || !description || !prompt) {
+            if (!title || !description) {
                 alert('Please fill in all required fields');
                 return;
             }
@@ -267,7 +252,6 @@
             localStorage.setItem('videoTitle', title);
             localStorage.setItem('videoDescription', description);
             localStorage.setItem('videoTags', tags);
-            localStorage.setItem('prompt', prompt);
             localStorage.setItem('previous_page', 'workflow.html')
 
             window.location.href = 'thumbnails_generator.html';
