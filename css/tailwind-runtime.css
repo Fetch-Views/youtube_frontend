@@ -1896,10 +1896,6 @@ video {
   line-height: 1rem;
 }
 
-.tw-text-\[1\.5rem\] {
-  font-size: 1.5rem;
-}
-
 .tw-font-bold {
   font-weight: 700;
 }
@@ -1910,14 +1906,6 @@ video {
 
 .tw-font-semibold {
   font-weight: 600;
-}
-
-.tw-font-light {
-  font-weight: 300;
-}
-
-.tw-italic {
-  font-style: italic;
 }
 
 .tw-ordinal {
