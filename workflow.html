@@ -147,9 +147,9 @@
                     </div>
                 </div>
         
-                <!-- Champ titre -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
+                <div class="tw-flex tw-gap-6 tw-mb-6">
+                    <!-- Champ titre -->
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-shadow-lg tw-p-6 tw-flex-1">
                         <label class="tw-block tw-text-sm tw-font-medium">Video title</label>
                         <input 
                             id="videoTitle"
@@ -157,9 +157,9 @@
                             placeholder="Enter the title of your video"
                             class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
-        
+                
                     <!-- Champ tags -->
-                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6">
+                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-shadow-lg tw-p-6 tw-flex-1">
                         <label class="tw-block tw-text-sm tw-font-medium">Video tags</label>
                         <input 
                             id="videoTags"
@@ -167,7 +167,7 @@
                             placeholder="Enter tags separated by commas (e.g., #saas, #startup)"
                             class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
-                </div>
+                </div>                             
         
                 <!-- Champ description -->
                 <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
@@ -177,30 +177,6 @@
                             id="videoDescription"
                             placeholder="Enter the description of your video"
                             class="tw-w-full tw-h-32 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]"></textarea>
-                    </div>
-                </div>
-        
-                <!-- Champ tags -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
-                        <label class="tw-block tw-text-sm tw-font-medium">Video tags</label>
-                        <input 
-                            id="videoTags"
-                            type="text" 
-                            placeholder="Enter tags separated by commas (e.g., #saas, #startup)"
-                            class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
-                    </div>
-                </div>
-        
-                <!-- Prompts -->
-                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <div class="tw-space-y-4">
-                        <label class="tw-block tw-text-sm tw-font-medium">Prompt</label>
-                        <input 
-                            id="prompt"
-                            type="text" 
-                            placeholder="Enter prompt to generate thumbnail"
-                            class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
                 </div>
         
@@ -297,21 +273,46 @@
         const title = document.getElementById('videoTitle').value;
         const description = document.getElementById('videoDescription').value;
         const tags = document.getElementById('videoTags').value;
-        const prompt = document.getElementById('prompt').value;
-    
-        if (!title || !description || !prompt) {
-            alert('Please fill in all required fields');
-            return;
-        }
-        
-        localStorage.setItem('videoTitle', title);
-        localStorage.setItem('videoDescription', description);
-        localStorage.setItem('videoTags', tags);
-        localStorage.setItem('prompt', prompt);
-        localStorage.setItem('previous_page', 'workflow.html');
-        
-        window.location.href = 'thumbnails_generator.html';
+
+        const request = indexedDB.open('VideoDatabase', 1);
+
+        request.onsuccess = function(event) {
+            const db = event.target.result;
+            const transaction = db.transaction('videos', 'readonly');
+            const store = transaction.objectStore('videos');
+            const getRequest = store.get('uploadedVideo');
+
+            getRequest.onsuccess = function(e) {
+                const videoData = e.target.result;
+
+                if (!videoData) {
+                    alert('Please add a video');
+                    return;
+                }
+
+                if (!title || !description) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                localStorage.setItem('videoTitle', title);
+                localStorage.setItem('videoDescription', description);
+                localStorage.setItem('videoTags', tags);
+                localStorage.setItem('previous_page', 'workflow.html');
+
+                window.location.href = 'thumbnails_generator.html';
+            };
+
+            getRequest.onerror = function() {
+                alert('Error retrieving video data. Please try again.');
+            };
+        };
+
+        request.onerror = function() {
+            alert('Error accessing video database. Please try again.');
+        };
     }
+
         
     window.onload = function() {
         const title = localStorage.getItem('videoTitle');
