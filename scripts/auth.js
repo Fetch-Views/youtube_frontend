@@ -1,10 +1,18 @@
 document.getElementById('registerForm')?.addEventListener('submit', async function (event) {
     event.preventDefault(); // Empêche le rechargement de la page
+
     // Collecte des données du formulaire
     const firstName = document.getElementById('first_name').value;
     const lastName = document.getElementById('last_name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+
+    // Vérification si le mot de passe et la confirmation correspondent
+    if (password !== confirmPassword) {
+        alert('The password and confirmation password do not match. Please try again.');
+        return; // Arrête l'exécution si les mots de passe ne correspondent pas
+    }
 
     try {
         // Envoi des données au backend
@@ -24,9 +32,9 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
         const data = await response.json();
 
         if (response.ok) {
-            alert('Your account need to be reviewed by someone from the team, to join the beta, contact : contact@fetchviews.com');
-            //alert('Account created successfully!');
-            //window.location.href = '/login.html'; // Redirection après succès
+            alert('Your account needs to be reviewed by someone from the team. To join the beta, contact: contact@fetchviews.com');
+            // Redirection ou autre action après succès
+            // window.location.href = '/login.html';
         } else {
             alert(data.error || 'An error occurred during registration.');
         }
@@ -59,7 +67,6 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
         const data = await response.json();
 
         if (response.ok) {
-            alert(data.message || 'Login successful!');
             window.location.href = '/dashboard.html';
         } else {
             alert(data.error || 'Invalid credentials.');

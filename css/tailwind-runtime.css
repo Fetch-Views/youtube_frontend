@@ -738,6 +738,10 @@ video {
   margin-left: 0.75rem;
 }
 
+.tw-ml-4 {
+  margin-left: 1rem;
+}
+
 .tw-ml-64 {
   margin-left: 16rem;
 }
@@ -796,10 +800,6 @@ video {
 
 .tw-mt-auto {
   margin-top: auto;
-}
-
-.tw-ml-4 {
-  margin-left: 1rem;
 }
 
 .tw-line-clamp-2 {
@@ -896,6 +896,10 @@ video {
   height: 60px;
 }
 
+.tw-h-\[90px\] {
+  height: 90px;
+}
+
 .tw-h-auto {
   height: auto;
 }
@@ -911,30 +915,6 @@ video {
 
 .tw-h-screen {
   height: 100vh;
-}
-
-.tw-h-\[200px\] {
-  height: 200px;
-}
-
-.tw-h-\[68px\] {
-  height: 68px;
-}
-
-.tw-h-\[80px\] {
-  height: 80px;
-}
-
-.tw-h-\[70px\] {
-  height: 70px;
-}
-
-.tw-h-\[65px\] {
-  height: 65px;
-}
-
-.tw-h-\[90px\] {
-  height: 90px;
 }
 
 .tw-max-h-\[650px\] {
@@ -1053,6 +1033,10 @@ video {
   width: 600px;
 }
 
+.tw-w-\[80\%\] {
+  width: 80%;
+}
+
 .tw-w-auto {
   width: auto;
 }
@@ -1066,8 +1050,8 @@ video {
   width: max-content;
 }
 
-.tw-w-\[80\%\] {
-  width: 80%;
+.tw-max-w-2xl {
+  max-width: 42rem;
 }
 
 .tw-max-w-4xl {
@@ -1126,16 +1110,8 @@ video {
   max-width: 95vw;
 }
 
-.tw-max-w-lg {
-  max-width: 32rem;
-}
-
 .tw-max-w-xl {
   max-width: 36rem;
-}
-
-.tw-max-w-2xl {
-  max-width: 42rem;
 }
 
 .tw-flex-1 {
@@ -1184,26 +1160,6 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.tw-translate-y-\[5px\] {
-  --tw-translate-y: 5px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.tw-translate-y-\[10px\] {
-  --tw-translate-y: 10px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.tw-translate-y-\[px\] {
-  --tw-translate-y: px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.tw-translate-y-\[8px\] {
-  --tw-translate-y: 8px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .tw-rotate-45 {
   --tw-rotate: 45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1211,10 +1167,6 @@ video {
 
 .tw-transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.tw-animate-\[fadeIn_0\.5s_ease-out\] {
-  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes tw-pulse {
@@ -1303,20 +1255,8 @@ video {
   place-items: center;
 }
 
-.tw-items-start {
-  align-items: flex-start;
-}
-
-.tw-items-end {
-  align-items: flex-end;
-}
-
 .tw-items-center {
   align-items: center;
-}
-
-.tw-items-stretch {
-  align-items: stretch;
 }
 
 .tw-justify-center {
@@ -1634,6 +1574,11 @@ video {
 .tw-bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
+.tw-bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
 }
 
 .tw-bg-gray-50 {
@@ -2302,11 +2247,6 @@ video {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 
-.hover\:tw-bg-\[\#4f46e5\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:tw-bg-\[\#5457e5\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(84 87 229 / var(--tw-bg-opacity, 1));
@@ -2569,6 +2509,11 @@ video {
 .dark\:tw-bg-black:is(.tw-dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+.dark\:tw-bg-gray-700:is(.tw-dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
 }
 
 .dark\:tw-bg-gray-800:is(.tw-dark *) {
