@@ -848,7 +848,7 @@ window.toggleLike = async function(button) {
     const csrftoken = getCookie('csrftoken'); 
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: method,
             credentials: 'include', 
             headers: {

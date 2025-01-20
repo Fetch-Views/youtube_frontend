@@ -3,7 +3,7 @@ const loadMyVideos = async () => {
     const emptyState = document.getElementById('empty-state');
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/users/my_videos/", {
+        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/my_videos/", {
             method: "GET",
             credentials: 'include', 
         });
@@ -17,6 +17,7 @@ const loadMyVideos = async () => {
                 return;
             }
 
+            
             container.classList.remove('tw-hidden');
             emptyState.classList.add('tw-hidden');
 
