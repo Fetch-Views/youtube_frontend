@@ -1,6 +1,6 @@
 async function fetchDashboardStats() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/statistics/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/statistics/', {
             method: 'GET',
             credentials: 'include', 
         });

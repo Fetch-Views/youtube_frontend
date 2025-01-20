@@ -301,7 +301,7 @@
             const button = document.getElementById('youtubeButton');
             if (button.classList.contains('tw-bg-red-600')) {
                 // Si le bouton est en mode "Connect to YouTube", rediriger vers l'URL d'OAuth
-                window.location.href = 'http://127.0.0.1:8000/api/oauth/init/';
+                window.location.href = 'https://web-production-5b55f.up.railway.app/api/oauth/init/';
             } else {
                 // Change back to disconnect state
                 button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');

@@ -5,7 +5,7 @@ const loadLikedThumbnails = async () => {
 
     try {
         // Appel à l'API pour récupérer les favoris avec le token Bearer
-        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "GET",
             credentials: 'include', 
         });
@@ -67,7 +67,7 @@ const loadLikedThumbnails = async () => {
 async function deleteThumbnail(thumbnailId) {    
     try {
         const csrftoken = getCookie('csrftoken'); 
-        const response = await fetch("http://127.0.0.1:8000/api/users/favorites/", {
+        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
             credentials: 'include', 
             headers: {

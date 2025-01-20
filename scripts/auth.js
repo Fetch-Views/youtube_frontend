@@ -16,7 +16,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
 
     try {
         // Envoi des données au backend
-        const response = await fetch('http://127.0.0.1:8000/api/users/sign_up/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/sign_up/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     try {
         const csrftoken = getCookie('csrftoken'); 
 
-        const response = await fetch('http://127.0.0.1:8000/api/users/login/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/login/', {
             method: 'POST',
             credentials: 'include', 
             headers: {
@@ -80,7 +80,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
 
 async function checkAuth() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/users/user_profile/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/user_profile/', {
             method: 'GET',
             credentials: 'include', 
         });
@@ -147,7 +147,7 @@ function deleteCookie(name) {
 async function signOut() {
     try {
         const csrftoken = getCookie('csrftoken');
-        const response = await fetch('http://127.0.0.1:8000/api/users/logout/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/logout/', {
             method: 'POST',
             credentials: 'include', 
             headers: {
