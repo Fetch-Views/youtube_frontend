@@ -21,3 +21,5 @@ To create a build file use
 ```html
 npm run build:tailwind
 ```
+
+The branch prod is for production and the branch main is for creating new features or resolve bugs.
