@@ -17,6 +17,7 @@ const loadMyVideos = async () => {
                 return;
             }
 
+            
             container.classList.remove('tw-hidden');
             emptyState.classList.add('tw-hidden');
 
