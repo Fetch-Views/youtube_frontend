@@ -69,6 +69,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
         if (response.ok) {
             window.location.href = '/dashboard.html';
         } else {
+            console.log(data.error)
             alert(data.error || 'Invalid credentials.');
         }
     } catch (error) {
