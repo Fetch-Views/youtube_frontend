@@ -66,6 +66,7 @@ const loadLikedThumbnails = async () => {
 // Fonction pour supprimer une miniature
 async function deleteThumbnail(thumbnailId) {    
     try {
+        console.log(document.cookie);
         const csrftoken = getCookie('csrftoken'); 
         const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
