@@ -66,7 +66,6 @@ const loadLikedThumbnails = async () => {
 // Fonction pour supprimer une miniature
 async function deleteThumbnail(thumbnailId) {    
     try {
-        console.log(document.cookie);
         const csrftoken = getCookie('csrftoken'); 
         const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
@@ -90,6 +89,19 @@ async function deleteThumbnail(thumbnailId) {
     } catch (error) {
         console.error("Error removing thumbnail:", error);
     }
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';'); 
+    console.log(ca)
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length); 
+        }
+    }
+    return null; 
 }
 
 // Charger les miniatures au chargement de la page
