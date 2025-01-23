@@ -18,6 +18,8 @@ async function fetchDashboardStats() {
 }
 
 async function updateDashboard() {
+    const stats = await fetchDashboardStats();
+    
     if (stats) {
         // Total Subscribers
         document.querySelector('#totalSubscribers').textContent = stats.total_subscribers;
