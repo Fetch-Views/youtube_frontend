@@ -18,11 +18,6 @@ async function fetchDashboardStats() {
 }
 
 async function updateDashboard() {
-    const stats = await fetchDashboardStats();
-    setCookie('test', '12345', 7);
-    const userSession = getCookie('userSession');
-    console.log(userSession);
-
     if (stats) {
         // Total Subscribers
         document.querySelector('#totalSubscribers').textContent = stats.total_subscribers;
@@ -59,26 +54,6 @@ function updateChart(chartId, data) {
         chart.data.datasets[0].data = Object.values(data); 
         chart.update();
     }
-}
-
-function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000)); 
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = `${name}=${value}; ${expires}; path=/`; 
-}
-
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';'); 
-    console.log(ca)
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length); 
-        }
-    }
-    return null; 
 }
 
 document.addEventListener('DOMContentLoaded', updateDashboard);

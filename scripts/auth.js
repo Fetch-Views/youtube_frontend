@@ -127,11 +127,16 @@ async function checkAuth() {
 
 
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    console.log(document.cookie)
-    const parts = value.split(`; ${name}=`);
-    console.log(parts)
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';'); 
+    console.log(ca)
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length); 
+        }
+    }
+    return null; 
 }
 
 function isProtectedPage() {
