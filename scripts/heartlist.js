@@ -65,7 +65,7 @@ const loadLikedThumbnails = async () => {
 
 async function deleteThumbnail(thumbnailId) {    
     try {
-        const csrfToken = getCookie('csrftoken');  // Récupérer le token CSRF depuis les cookies
+        const csrfToken = get_cookie('csrftoken');  // Récupérer le token CSRF depuis les cookies
 
         const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
