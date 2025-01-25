@@ -48,24 +48,6 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
 document.getElementById('loginForm')?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    try {
-        const checkResponse = await fetch('https://web-production-5b55f.up.railway.app/api/users/login/', {
-            method: 'POST', 
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        const checkData = await checkResponse.json();
-        if (checkResponse.ok && checkData.message === 'Already logged in') {
-            window.location.href = '/dashboard.html';
-            return;
-        }
-    } catch (error) {
-        console.error('Error checking session:', error);
-    }
-
     const email = document.getElementById('emailInput').value;
     const password = document.getElementById('passwordInput').value;
 
