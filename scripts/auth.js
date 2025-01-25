@@ -108,18 +108,20 @@ async function checkAuth() {
 }
 
 
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';'); 
-    console.log(ca)
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length); 
+const get_cookie = (name) => {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
-    return null; 
-}
+    return cookieValue;
+  };
 
 function isProtectedPage() {
     const protectedPages = [
