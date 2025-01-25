@@ -63,14 +63,16 @@ const loadLikedThumbnails = async () => {
     }
 };
 
-// Fonction pour supprimer une miniature
 async function deleteThumbnail(thumbnailId) {    
     try {
+        const csrfToken = getCookie('csrftoken');  // Récupérer le token CSRF depuis les cookies
+
         const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
             credentials: 'include', 
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,  // Ajouter le token CSRF dans l'en-tête
             },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId
