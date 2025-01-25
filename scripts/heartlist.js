@@ -70,6 +70,7 @@ async function deleteThumbnail(thumbnailId) {
             credentials: 'include', 
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': '',
             },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId
