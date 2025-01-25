@@ -65,14 +65,11 @@ const loadLikedThumbnails = async () => {
 
 async function deleteThumbnail(thumbnailId) {    
     try {
-        const csrfToken = get_cookie('csrftoken');  // Récupérer le token CSRF depuis les cookies
-
         const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
             credentials: 'include', 
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,  // Ajouter le token CSRF dans l'en-tête
             },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId
@@ -90,22 +87,6 @@ async function deleteThumbnail(thumbnailId) {
         console.error("Error removing thumbnail:", error);
     }
 }
-
-
-const get_cookie = (name) => {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-  };
 
 // Charger les miniatures au chargement de la page
 document.addEventListener('DOMContentLoaded', loadLikedThumbnails);
