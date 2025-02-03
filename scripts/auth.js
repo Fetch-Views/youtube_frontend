@@ -139,7 +139,7 @@ async function refreshToken() {
 
 async function checkAuth() {
     try {
-        let response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/users/profile/');
+        let response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/profile/');
 
         if (response) {
             localStorage.setItem('email', response.email);
