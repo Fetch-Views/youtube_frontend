@@ -48,7 +48,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/users/api/token/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
