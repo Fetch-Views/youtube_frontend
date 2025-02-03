@@ -154,6 +154,19 @@ function deleteCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
 
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';'); 
+    console.log(ca)
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length); 
+        }
+    }
+    return null; 
+}
+
 async function signOut() {
     try {
         const csrftoken = getCookie('csrftoken');
