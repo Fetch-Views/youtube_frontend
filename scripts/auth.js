@@ -202,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         displayUserEmail(); // Afficher l'email de l'utilisateur
     }
     
-    // Fermer le dropdown quand on clique en dehors
     document.addEventListener('click', function(event) {
         const dropdown = document.getElementById('profileDropdown');
         const profileButton = event.target.closest('button');
