@@ -858,11 +858,17 @@ window.toggleLike = async function(button) {
     const isLiked = button.classList.contains('liked');
     const method = isLiked ? "DELETE" : "POST"; 
 
+    const options = {
+        method: method,
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    if (method === "POST") {
+        options.body = JSON.stringify({ thumbnail_id: thumbnailId });
+    }
+
     try {
-        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
-            method: method,
-            body: JSON.stringify({ thumbnail_id: thumbnailId })
-        });
+        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", options);
 
         if (response) {  
             button.classList.toggle('liked'); 
@@ -876,4 +882,3 @@ window.toggleLike = async function(button) {
         console.error('Error:', error);
     }
 };
-
