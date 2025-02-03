@@ -21,24 +21,23 @@ export const generateThumbnailWithImage = async () => {
     }
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', {
+        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
                 prompt: prompt,
-                image_base64: imageToEdit, 
+                image_base64: imageToEdit,
             }),
         });
-
-        if (!response.ok) {
+        
+        if (!response) {  
             throw new Error('Failed to fetch image');
         }
-
-        const data = await response.json();
+        
+        const data = response; 
+        
         const base64Image = data.image_base64;
 
         localStorage.setItem('generatedThumbnail', `data:image/png;base64,${base64Image}`);

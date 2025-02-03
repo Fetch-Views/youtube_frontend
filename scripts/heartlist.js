@@ -1,26 +1,17 @@
-// Fonction pour charger les miniatures likées depuis l'API
 const loadLikedThumbnails = async () => {
     const container = document.getElementById('heartlist-container');
     const emptyState = document.getElementById('empty-state');
 
     try {
-        // Appel à l'API pour récupérer les favoris avec le token Bearer
-        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
-            method: "GET",
-            credentials: 'include', 
-        });
+        const likedThumbnails = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/");
 
-        if (response.ok) {
-            const likedThumbnails = await response.json();
-
+        if (likedThumbnails) {
             if (likedThumbnails.length === 0) {
-                // Si aucun favori
                 container.classList.add('tw-hidden');
                 emptyState.classList.remove('tw-hidden');
                 return;
             }
 
-            // Sinon, afficher les miniatures
             container.classList.remove('tw-hidden');
             emptyState.classList.add('tw-hidden');
 
@@ -52,7 +43,7 @@ const loadLikedThumbnails = async () => {
 
             container.innerHTML = thumbnailsHTML;
         } else {
-            console.error("Failed to fetch favorites:", await response.text());
+            console.error("Failed to fetch favorites");
             container.classList.add('tw-hidden');
             emptyState.classList.remove('tw-hidden');
         }
@@ -65,20 +56,14 @@ const loadLikedThumbnails = async () => {
 
 async function deleteThumbnail(thumbnailId) {    
     try {
-        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
+        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: "DELETE",
-            credentials: 'include', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '',
-            },
             body: JSON.stringify({
                 thumbnail_id: thumbnailId
             })
         });
 
-        if (response.ok) {
-            // Recharger la liste des favoris après la suppression
+        if (response) {  
             await loadLikedThumbnails();
             console.log("Successfully removed from favorites");
         } else {
@@ -89,8 +74,6 @@ async function deleteThumbnail(thumbnailId) {
     }
 }
 
-// Charger les miniatures au chargement de la page
 document.addEventListener('DOMContentLoaded', loadLikedThumbnails);
 
-// Rendre la fonction deleteThumbnail accessible globalement
 window.deleteThumbnail = deleteThumbnail;

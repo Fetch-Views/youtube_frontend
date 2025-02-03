@@ -1,21 +1,18 @@
 document.getElementById('registerForm')?.addEventListener('submit', async function (event) {
-    event.preventDefault(); // Empêche le rechargement de la page
+    event.preventDefault(); 
 
-    // Collecte des données du formulaire
     const firstName = document.getElementById('first_name').value;
     const lastName = document.getElementById('last_name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
 
-    // Vérification si le mot de passe et la confirmation correspondent
     if (password !== confirmPassword) {
         alert('The password and confirmation password do not match. Please try again.');
-        return; // Arrête l'exécution si les mots de passe ne correspondent pas
+        return; 
     }
 
     try {
-        // Envoi des données au backend
         const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/sign_up/', {
             method: 'POST',
             headers: {
@@ -33,8 +30,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
 
         if (response.ok) {
             alert('Your account needs to be reviewed by someone from the team. To join the beta, contact: contact@fetchviews.com');
-            // Redirection ou autre action après succès
-            // window.location.href = '/login.html';
+            //window.location.href = '/login.html';
         } else {
             alert(data.error || 'An error occurred during registration.');
         }
@@ -52,14 +48,10 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const csrftoken = getCookie('csrftoken'); 
-
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/login/', {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/users/api/token/', {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken, 
             },
             body: JSON.stringify({ email, password }),
         });
@@ -67,6 +59,9 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
         const data = await response.json();
 
         if (response.ok) {
+            localStorage.setItem('access_token', data.access);
+            localStorage.setItem('refresh_token', data.refresh);
+            
             window.location.href = '/dashboard.html';
         } else {
             console.log(data.error);
@@ -78,26 +73,81 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     }
 });
 
+async function fetchWithAuth(url, options = {}) {
+    let token = localStorage.getItem('access_token');
+
+    if (!token) {
+        window.location.href = '/login.html';
+        return;
+    }
+
+    options.headers = {
+        ...options.headers,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+
+    let response = await fetch(url, options);
+
+    if (response.status === 401) {
+        console.log('Access token expired, trying to refresh...');
+        const refreshed = await refreshToken();
+
+        if (refreshed) {
+            token = localStorage.getItem('access_token');
+            options.headers['Authorization'] = `Bearer ${token}`;
+            response = await fetch(url, options);
+        } else {
+            alert('Session expired. Please log in again.');
+            window.location.href = '/login.html';
+            return;
+        }
+    }
+
+    return response.ok ? await response.json() : null;
+}
+
+async function refreshToken() {
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (!refreshToken) {
+        console.log('No refresh token available.');
+        return false;
+    }
+
+    try {
+        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/refresh/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh: refreshToken }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('access_token', data.access); 
+            return true;
+        } else {
+            console.log('Failed to refresh token:', data);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error refreshing token:', error);
+        return false;
+    }
+}
 
 async function checkAuth() {
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/user_profile/', {
-            method: 'GET',
-            credentials: 'include', 
-        });
+        let response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/users/profile/');
 
-        if (response.ok) {
-            const userData = await response.json();
-            localStorage.setItem('email', userData.email);
-            localStorage.setItem('has_refresh_token', userData.has_youtube_token)
+        if (response) {
+            localStorage.setItem('email', response.email);
+            localStorage.setItem('has_refresh_token', response.has_youtube_token);
             return true;
-        } else if (response.status === 401 || response.status === 403) {
+        } else {
             console.warn('User not authenticated. Redirecting to login.');
             window.location.href = '/login.html';
-            return false;
-        } else {
-            console.error('Unexpected response:', response);
-            alert('An error occurred. Please try again.');
             return false;
         }
     } catch (error) {
@@ -106,22 +156,6 @@ async function checkAuth() {
         return false;
     }
 }
-
-
-const get_cookie = (name) => {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-  };
 
 function isProtectedPage() {
     const protectedPages = [
@@ -141,7 +175,6 @@ function isProtectedPage() {
     return protectedPages.includes(currentPage);
 }
 
-// Fonction pour afficher l'email de l'utilisateur
 function displayUserEmail() {
     const userEmail = localStorage.getItem('email');
     const emailElement = document.getElementById('userEmail');
@@ -150,49 +183,13 @@ function displayUserEmail() {
     }
 }
 
-function deleteCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
-}
-
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';'); 
-    console.log(ca)
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length); 
-        }
-    }
-    return null; 
-}
-
 async function signOut() {
-    try {
-        const csrftoken = getCookie('csrftoken');
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/logout/', {
-            method: 'POST',
-            credentials: 'include', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken, 
-            },
-        });
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('has_refresh_token');
 
-        if (response.ok) {
-            alert('You have been logged out successfully.');
-            window.location.href = '/index.html'; 
-            localStorage.removeItem('has_refresh_token')
-            deleteCookie('csrftoken');
-        } else {
-            const errorData = await response.json();
-            console.error('Logout error:', errorData);
-            alert('Failed to log out. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error during logout:', error);
-        alert('Failed to connect to the server.');
-    }
+    alert('You have been logged out successfully.');
+    window.location.href = '/index.html';
 }
 
 

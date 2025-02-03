@@ -3,14 +3,10 @@ const loadMyVideos = async () => {
     const emptyState = document.getElementById('empty-state');
 
     try {
-        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/my_videos/", {
-            method: "GET",
-            credentials: 'include', 
-        });
+        const myThumbnails = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/my_videos/");
 
-        if (response.ok) {
-            const myThumbnails = await response.json();
-
+        if (myThumbnails) {
+            
             if (myThumbnails.length === 0) {
                 container.classList.add('tw-hidden');
                 emptyState.classList.remove('tw-hidden');
@@ -42,12 +38,12 @@ const loadMyVideos = async () => {
 
             container.innerHTML = thumbnailsHTML;
         } else {
-            console.error("Failed to fetch videos:", await response.text());
+            console.error("Failed to fetch videos");
             container.classList.add('tw-hidden');
             emptyState.classList.remove('tw-hidden');
         }
     } catch (error) {
-        console.error("Error fetching videos:", error);
+        console.error("Error fetching videos");
         container.classList.add('tw-hidden');
         emptyState.classList.remove('tw-hidden');
     }

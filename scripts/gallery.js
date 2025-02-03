@@ -855,28 +855,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.toggleLike = async function(button) {
     const thumbnailId = button.getAttribute('data-thumbnail-id');
-    
     const isLiked = button.classList.contains('liked');
     const method = isLiked ? "DELETE" : "POST"; 
-    const csrftoken = getCookie('csrftoken'); 
 
     try {
-        const response = await fetch("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
+        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
             method: method,
-            credentials: 'include', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken, 
-            },
-            body: JSON.stringify({
-                thumbnail_id: thumbnailId
-            })
+            body: JSON.stringify({ thumbnail_id: thumbnailId })
         });
 
-        if (response.ok) {
-            button.classList.toggle('liked'); // Basculer l'état visuel
+        if (response) {  
+            button.classList.toggle('liked'); 
             const heart = button.querySelector('i');
-            heart.classList.toggle('tw-text-red-500'); // Modifier la couleur de l'icône
+            heart.classList.toggle('tw-text-red-500'); 
             console.log(`Successfully ${isLiked ? 'removed from' : 'added to'} favorites`);
         } else {
             console.error(`Failed to ${isLiked ? 'remove from' : 'add to'} favorites`);
@@ -885,3 +876,4 @@ window.toggleLike = async function(button) {
         console.error('Error:', error);
     }
 };
+

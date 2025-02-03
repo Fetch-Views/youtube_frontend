@@ -297,24 +297,35 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        function toggleYouTubeConnection() {
+        async function toggleYouTubeConnection() {
             const button = document.getElementById('youtubeButton');
+
             if (button.classList.contains('tw-bg-red-600')) {
-                // Si le bouton est en mode "Connect to YouTube", rediriger vers l'URL d'OAuth
-                window.location.href = 'https://web-production-5b55f.up.railway.app/api/oauth/init/';
-            } else {
-                // Change back to disconnect state
+                try {
+                    const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/oauth/init/', {
+                        method: 'GET',
+                    });
+
+                    if (response && response.oauth_url) {
+                        window.location.href = response.oauth_url;
+                    } else {
+                        throw new Error('OAuth URL not received');
+                    }
+                } catch (error) {
+                    console.error('Error getting OAuth URL:', error);
+                    alert('Failed to connect to YouTube.');
+                } 
+            }
+            else {
                 button.classList.remove('tw-bg-green-600', 'hover:tw-bg-green-700');
                 button.classList.add('tw-bg-red-600', 'hover:tw-bg-red-700');
                 button.querySelector('span').textContent = 'Connect to YouTube';
             }
         }
 
-        // Initialize the chart when the document is loaded
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('subscribersChart').getContext('2d');
             
-            // Sample data for the last 7 days
             const data = {
                 labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                 datasets: [{
@@ -356,16 +367,14 @@
 
             new Chart(ctx, config);
 
-            // Initialisation du graphique des vues
             const viewsCtx = document.getElementById('viewsChart').getContext('2d');
             
-            // Données exemple pour les vues
             const viewsData = {
                 labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                 datasets: [{
                     label: 'Vues',
                     data: [15000, 17500, 16800, 18200, 21000, 19500, 22000],
-                    borderColor: '#10B981', // Couleur verte
+                    borderColor: '#10B981', 
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     fill: true,
                     tension: 0.4

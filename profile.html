@@ -160,22 +160,19 @@
     <script>
         async function fetchUserData() {
             try {
-                const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/user_profile/', {
-                    method: 'GET',
-                    credentials: 'include', 
-                });
-                if (!response.ok) {
+                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/user_profile/');
+
+                if (!response) {
                     throw new Error('Failed to fetch user data');
                 }
-                const data = await response.json();
 
-                // Mettez à jour les éléments HTML avec les données
-                document.getElementById('fullName').textContent = `${data.first_name} ${data.last_name}`;
-                document.getElementById('email').textContent = data.email;
-                document.getElementById('firstName').textContent = data.first_name;
-                document.getElementById('lastName').textContent = data.last_name;
-                document.getElementById('userEmailInfo').textContent = data.email;
-                document.getElementById('billingPlan').textContent = data.billing_plan;
+                document.getElementById('fullName').textContent = `${response.first_name} ${response.last_name}`;
+                document.getElementById('email').textContent = response.email;
+                document.getElementById('firstName').textContent = response.first_name;
+                document.getElementById('lastName').textContent = response.last_name;
+                document.getElementById('userEmailInfo').textContent = response.email;
+                document.getElementById('billingPlan').textContent = response.billing_plan;
+
             } catch (error) {
                 console.error('Error:', error);
             }

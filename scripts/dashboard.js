@@ -1,21 +1,18 @@
 async function fetchDashboardStats() {
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/statistics/', {
-            method: 'GET',
-            credentials: 'include', 
-        });
+        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/statistics/');
 
-        if (!response.ok) {
+        if (!response) {  
             throw new Error('Failed to fetch dashboard stats');
         }
 
-        const data = await response.json();
-        return data;
+        return response;  
     } catch (error) {
         console.error('Error fetching dashboard stats:', error);
         return null;
     }
 }
+
 
 async function updateDashboard() {
     const stats = await fetchDashboardStats();

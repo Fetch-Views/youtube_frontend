@@ -308,20 +308,14 @@
                     }
                 }
 
-                const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/upload_video/', {
+                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/upload_video/', {
                     method: 'POST',
-                    credentials: 'include', 
-                    headers: {
-                        'X-CSRFToken': csrftoken, 
-                    },
-                    body: formData,
+                    body: formData,  
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
+                if (response) {
                     showPopup(true, `Video successfully published ! URL : ${data.video_url}`);
                 } else {
-                    const error = await response.json();
                     showPopup(false, `Error publishing the video, please try again later`);
                 }
             } catch (error) {
