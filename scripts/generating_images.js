@@ -54,7 +54,6 @@ async function handleGenerateThumbnail() {
     const promptElement = document.getElementById('prompt');
     const loadingText = document.getElementById('loadingText');
     const imageElement = document.getElementById('generatedThumbnail');
-    const csrftoken = getCookie('csrftoken');
 
     const prompt = promptElement.value.trim();
 
@@ -68,11 +67,14 @@ async function handleGenerateThumbnail() {
     loadingText.style.display = 'block';
     loadingText.innerText = 'Generating...';
 
+    const options = {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: prompt })
+    };
+
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', {
-            method: 'POST',
-            body: JSON.stringify({ prompt: prompt })
-        });
+        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', options);
         
         if (!response) {  
             throw new Error('Failed to fetch image');
