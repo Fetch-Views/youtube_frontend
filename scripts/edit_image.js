@@ -3,7 +3,6 @@ export const generateThumbnailWithImage = async () => {
     const imageElement = document.getElementById('thumbnailToEdit'); 
     const prompt = document.querySelector('textarea').value.trim(); 
     const imageToEdit = localStorage.getItem('imageToEdit'); 
-    const csrftoken = getCookie('csrftoken'); 
     console.log('fetchThumbnails called');
 
     if (loadingText) loadingText.style.display = 'block';

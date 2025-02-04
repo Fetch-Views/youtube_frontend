@@ -41,19 +41,6 @@ const formatNumber = (num) => {
     return num.toString();
 };
 
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';'); 
-    console.log(ca)
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length); 
-        }
-    }
-    return null; 
-}
-
 const getMultiplierButton = (views, averageViews) => {
     const multiplier = views / averageViews;
     const multiplierText = multiplier.toFixed(1);

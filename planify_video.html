@@ -222,25 +222,12 @@
             }
         }
 
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';'); 
-            console.log(ca)
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i].trim();
-                if (c.indexOf(nameEQ) === 0) {
-                    return c.substring(nameEQ.length, c.length); 
-                }
-            }
-            return null; 
-        }
 
         async function scheduleVideo() {
             const title = localStorage.getItem('videoTitle');
             const description = localStorage.getItem('videoDescription');
             const tags = localStorage.getItem('videoTags');
             const selectedThumbnail = localStorage.getItem('selectedThumbnail');
-            const csrftoken = getCookie('csrftoken'); 
 
             const formData = new FormData();
 
