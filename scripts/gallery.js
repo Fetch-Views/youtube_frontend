@@ -680,9 +680,19 @@ window.clearAllFilters = function() {
     initGallery();
 };
 
-window.toggleMultiplier = function(button) {
+window.toggleMultiplier = async function(button) {
     const allButtons = document.querySelectorAll('[onclick="toggleMultiplier(this)"]');
-                
+
+    const multiplierRanges = {
+        "x1.0-1.5": [1.0, 1.5],
+        "x1.5-2.0": [1.5, 2.0],
+        "x2.0-4.0": [2.0, 4.0],
+        "x4.0-10.0": [4.0, 10.0],
+        "+x10.0 🔥": [10.0, Infinity]
+    };
+
+    let selectedRange = null;
+
     if (button.dataset.active === "true") {
         button.dataset.active = "false";
         allButtons.forEach(btn => {
@@ -695,14 +705,16 @@ window.toggleMultiplier = function(button) {
             if (btn === button) {
                 btn.classList.remove('tw-ring-white/50');
                 btn.classList.add('tw-ring-white');
+                selectedRange = multiplierRanges[button.innerText.trim()]; 
             } else {
                 btn.classList.remove('tw-ring-white');
                 btn.classList.add('tw-ring-white/50');
             }
         });
     }
-}
 
+    initGallery();
+};
 
 window.changePage = async function(newPage) {
     if (newPage < 1 || newPage > totalPages) return;

@@ -14,6 +14,8 @@ export const fetchThumbnails = async (page = 1, filters = {}) => {
     if (filters.maxLikes) url += `&max_likes=${filters.maxLikes}`;
     if (filters.minComments) url += `&min_comments=${filters.minComments}`;
     if (filters.maxComments) url += `&max_comments=${filters.maxComments}`;
+    if (filters.minMultiplier) url += `&min_multiplier=${filters.minMultiplier}`;
+    if (filters.maxMultiplier) url += `&max_multiplier=${filters.maxMultiplier}`;
 
     try {
         const response = await fetchWithAuth(url, { method: 'GET' });
