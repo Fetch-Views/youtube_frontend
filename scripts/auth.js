@@ -103,6 +103,7 @@ async function fetchWithAuth(url, options = {}) {
             return;
         }
     }
+    console.log(response.json());
 
     return response.ok ? await response.json() : null;
 }
