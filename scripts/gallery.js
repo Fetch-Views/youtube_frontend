@@ -15,7 +15,9 @@ let currentFilters = {
     startDate: null,
     endDate: null,
     search: null,
-    order: null  // Nouveau paramètre pour le tri
+    order: null,
+    minMultiplier: null,
+    maxMultiplier: null,
 };
 let hasMoreData = true; // Nouvelle variable pour suivre s'il reste des données
 
@@ -699,21 +701,31 @@ window.toggleMultiplier = async function(button) {
             btn.classList.remove('tw-ring-white');
             btn.classList.add('tw-ring-white/50');
         });
+
+        currentFilters.minMultiplier = null;
+        currentFilters.maxMultiplier = null;
     } else {
         allButtons.forEach(btn => {
             btn.dataset.active = btn === button ? "true" : "false";
             if (btn === button) {
                 btn.classList.remove('tw-ring-white/50');
                 btn.classList.add('tw-ring-white');
-                selectedRange = multiplierRanges[button.innerText.trim()]; 
+                selectedRange = multiplierRanges[button.innerText.trim()];
             } else {
                 btn.classList.remove('tw-ring-white');
                 btn.classList.add('tw-ring-white/50');
             }
         });
+
+        if (selectedRange) {
+            currentFilters.minMultiplier = selectedRange[0];
+            currentFilters.maxMultiplier = selectedRange[1];
+        }
     }
 
-    initGallery();
+    currentPage = 1;
+    hasMoreData = true;
+    await initGallery();
 };
 
 window.changePage = async function(newPage) {
