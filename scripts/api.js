@@ -1,6 +1,7 @@
 const API_URL = 'https://web-production-5b55f.up.railway.app/api';
 
-export const fetchThumbnails = async (page = 1, filters = {}) => {    
+export const fetchThumbnails = async (page = 1, filters = {}) => { 
+    console.log(filters);   
     let url = `${API_URL}/gallery/thumbnails/?page=${page}`;
 
     if (filters.order) url += `&order=${filters.order}`;
