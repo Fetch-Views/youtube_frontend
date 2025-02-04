@@ -19,6 +19,7 @@ export const fetchThumbnails = async (page = 1, filters = {}) => {
 
     try {
         const response = await fetchWithAuth(url, { method: 'GET' });
+        console.log(response)
 
         if (!response) {
             throw new Error('Network error');
