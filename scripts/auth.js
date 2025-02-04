@@ -189,7 +189,7 @@ async function signOut() {
     localStorage.removeItem('has_refresh_token');
 
     alert('You have been logged out successfully.');
-    window.location.href = './index.html';
+    window.location.href = '/index.html';
 }
 
 
