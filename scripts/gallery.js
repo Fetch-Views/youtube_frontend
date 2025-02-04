@@ -860,12 +860,9 @@ window.toggleLike = async function(button) {
 
     const options = {
         method: method,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ thumbnail_id: thumbnailId })
     };
-
-    if (method === "POST") {
-        options.body = JSON.stringify({ thumbnail_id: thumbnailId });
-    }
 
     try {
         const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", options);
