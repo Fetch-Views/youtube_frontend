@@ -168,7 +168,8 @@ function isProtectedPage() {
         'planify_video.html',
         'profile.html',
         'gallery.html',
-        'myvideos.html'
+        'myvideos.html',
+        'title_generation.html',
     ];
     
     const currentPage = window.location.pathname.split('/').pop();
