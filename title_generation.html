@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr" class="tw-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchViews - Title Generation</title>
+    <link
+        rel="shortcut icon"
+        href="./assets/logo/favicon2.png"
+        type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/tailwind-runtime.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <script src="scripts/auth.js"></script>
+</head>
+<body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
+    <!-- En-tête -->
+    <header class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-h-16 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800 tw-z-50">
+        <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
+            <!-- Logo -->
+            <a href="index.html" class="tw-flex tw-items-center tw-gap-2">
+                <img src="./assets/logo/logo3.png" alt="Logo" class="tw-h-8 tw-w-13" />
+            </a>
+
+            <!-- Icônes Droite -->
+            <div class="tw-flex tw-items-center tw-gap-4">
+                <a href="gallery.html" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
+                    Thumbnails
+                </a>
+                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                    <i class="bi bi-gear tw-text-2xl"></i>
+                </button>
+                <!-- Menu profil avec dropdown -->
+                <div class="tw-relative">
+                    <button 
+                        class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors"
+                        onclick="document.getElementById('profileDropdown').classList.toggle('tw-hidden')"
+                    >
+                        <i class="bi bi-person-circle tw-text-2xl"></i>
+                    </button>
+                    <!-- Dropdown menu amélioré avec flèche -->
+                    <div id="profileDropdown" 
+                         class="tw-hidden tw-absolute tw-right-0 tw-mt-2 tw-w-56 tw-rounded-2xl tw-bg-white/70 
+                                dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl tw-shadow-[0_4px_20px_rgba(0,0,0,0.1)] 
+                                dark:tw-shadow-[0_4px_20px_rgba(0,0,0,0.3)] tw-border tw-border-gray-200/50 
+                                dark:tw-border-gray-700/50 tw-py-2 tw-z-50">
+                        <!-- Flèche du dropdown -->
+                        <div class="tw-absolute tw-right-4 tw--top-2 tw-w-4 tw-h-4 tw-rotate-45 
+                                    tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-border-l tw-border-t 
+                                    tw-border-gray-200/50 dark:tw-border-gray-700/50"></div>
+                        <!-- Email de l'utilisateur -->
+                        <div class="tw-px-4 tw-py-2 tw-text-sm tw-text-gray-600 dark:tw-text-gray-400" id="userEmail">
+                            <!-- L'email sera inséré ici via JavaScript -->
+                        </div>
+                        <!-- Séparateur -->
+                        <div class="tw-my-1 tw-border-t dark:tw-border-gray-700/50"></div>
+                        <!-- Bouton de déconnexion -->
+                        <button 
+                            onclick="signOut()"
+                            class="tw-w-full tw-text-left tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 dark:tw-text-gray-300 
+                                   hover:tw-bg-gray-100/50 dark:hover:tw-bg-gray-800/50 tw-transition-colors">
+                            Sign out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="tw-flex tw-h-screen tw-pt-16">
+        <!-- Sidebar -->
+        <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
+            <nav class="tw-p-4 tw-pt-8">
+                <ul class="tw-space-y-2">
+                    <!-- Dashboard -->
+                    <li>
+                        <a href="dashboard.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Workflow -->
+                    <!--<li>
+                        <a href="workflow.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-camera-video"></i>
+                            <span>Upload Video</span>
+                        </a>
+                    </li>-->
+
+                    <li>
+                        <a href="#" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
+                            <i class="bi bi-type"></i>
+                            <span>Title Generator</span>
+                        </a>
+                    </li>
+
+                    <!-- My videos -->
+                    <li>
+                        <a href="myvideos.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-collection-play"></i>
+                            <span>My videos</span>
+                        </a>
+                    </li>
+
+                    <!-- My heartlist -->
+                    <li>
+                        <a href="heartlist.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-heart"></i>
+                            <span>My heartlist</span>
+                        </a>
+                    </li>
+
+                    <!-- Profile -->
+                    <li>
+                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                            <i class="bi bi-credit-card"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Separator -->
+                <div class="tw-my-4 tw-border-t dark:tw-border-gray-800"></div>
+
+                <!-- YouTube Connect Button -->
+                <button 
+                    onclick="toggleYouTubeConnection()"
+                    id="youtubeButton"
+                    class="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-red-600 hover:tw-bg-red-700 tw-text-white tw-transition-colors">
+                    <i class="bi bi-youtube"></i>
+                    <span>Connect to YouTube</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Replace the <div id="app"> section with this content -->
+            <div class="tw-flex-1 tw-ml-64 tw-p-8">
+                <div class="tw-max-w-2xl tw-mx-auto tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-shadow-lg tw-border dark:tw-border-gray-800">
+                    <div class="tw-p-6">
+                        <h2 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Generate your Youtube Title</h2>
+                        
+                        <form id="titleGeneratorForm" class="tw-space-y-6">
+                            <!-- Video Topic Input -->
+                            <div class="tw-space-y-2">
+                                <label class="tw-block tw-text-sm tw-font-medium">
+                                    Video Topic
+                                </label>
+                                <input
+                                    type="text"
+                                    id="videoTopic"
+                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:tw-ring-2 focus:tw-ring-[#6366f1]"
+                                    placeholder="Write your video description here"
+                                    required
+                                >
+                            </div>
+            
+                            <!-- Target Audience -->
+                            <div class="tw-space-y-2">
+                                <label class="tw-block tw-text-sm tw-font-medium">
+                                    Target Audience
+                                </label>
+                                <input
+                                    type="text"
+                                    id="targetAudience"
+                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:tw-ring-2 focus:tw-ring-[#6366f1]"
+                                    placeholder="e.g., Everyone, Professionals, Gamers, etc."
+                                >
+                            </div>
+            
+                            <!-- Video Type -->
+                            <div class="tw-space-y-2">
+                                <label class="tw-block tw-text-sm tw-font-medium">
+                                    Video Type
+                                </label>
+                                <select
+                                    id="videoType"
+                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:bg-[#17181b] focus:tw-ring-2 focus:tw-ring-[#6366f1]"
+                                >
+                                    <option value="how-to">How-To Tutorial</option>
+                                    <option value="review">Review</option>
+                                    <option value="vlog">Vlog</option>
+                                    <option value="gaming">Gaming</option>
+                                    <option value="educational">Educational</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="reaction">Reaction</option>
+                                    <option value="list">List/Compilation</option>
+                                    <option value="informative">Informative</option>
+                                </select>
+                            </div>
+            
+                            <!-- Title Style -->
+                            <div class="tw-space-y-2">
+                                <label class="tw-block tw-text-sm tw-font-medium">
+                                    Title Style
+                                </label>
+                                <select
+                                    id="titleStyle"
+                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:tw-ring-2 focus:tw-ring-[#6366F1]"
+                                >
+                                    <option value="clickbait">High CTR (Clickbait-style)</option>
+                                    <option value="informative">Informative/Direct</option>
+                                    <option value="emotional">Emotional/Impact</option>
+                                    <option value="question">Question-based</option>
+                                    <option value="numbered">Numbered List</option>
+                                </select>
+                            </div>
+            
+                            <!-- Generate Button remains the same -->
+                            <button
+                                type="submit"
+                                id="generateButton"
+                                class="tw-w-full tw-py-3 tw-px-4 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#4f46e5] tw-transition-colors disabled:tw-opacity-50"
+                            >
+                                Generate YouTube Title
+                            </button>
+                        </form>
+            
+                        <!-- Generated title section remains the same -->
+                        <div id="generatedTitle" class="tw-mt-8 tw-hidden">
+                            <div id="titleContainer" class="tw-rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('titleGeneratorForm');
+        const generateButton = document.getElementById('generateButton');
+        const generatedTitleContainer = document.getElementById('generatedTitle');
+        const titleContainer = document.getElementById('titleContainer');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const topic = document.getElementById('videoTopic').value;
+            const audience = document.getElementById('targetAudience').value;
+            const videoType = document.getElementById('videoType').value;
+            const titleStyle = document.getElementById('titleStyle').value;
+
+            // Show loading state
+            generateButton.disabled = true;
+            generateButton.innerHTML = `
+                <i class="bi bi-arrow-repeat tw-animate-spin"></i>
+                Generating...
+            `;
+
+            try {
+                const title = await generateTitleFromAPI(topic, audience, videoType, titleStyle);
+                displayGeneratedTitle(title);
+            } catch (error) {
+                console.error('Error generating title:', error);
+                titleContainer.innerHTML = `
+                    <div class="tw-text-red-600 dark:tw-text-red-400">
+                        Failed to generate title. Please try again later.
+                    </div>
+                `;
+            } finally {
+                generateButton.disabled = false;
+                generateButton.textContent = 'Generate YouTube Title';
+                generatedTitleContainer.classList.remove('tw-hidden');
+            }
+        });
+
+        async function generateTitleFromAPI(topic, audience, videoType, titleStyle) {
+            // Prepare the prompt for your model
+            const prompt = {
+                topic: topic,
+                audience: audience,
+                videoType: videoType,
+                titleStyle: titleStyle
+            };
+
+            return "Ceci est un test, attention à ne pas se tromper"; 
+        }
+
+        function displayGeneratedTitle(title) {
+            titleContainer.innerHTML = `
+                <div class="tw-flex tw-justify-between tw-items-center tw-group">
+                    <p class="tw-flex-1 tw-text-lg tw-font-medium tw-bg-indigo-100 dark:tw-bg-indigo-900/30 tw-text-indigo-700 dark:tw-text-indigo-300 tw-p-4 tw-rounded-lg tw-transition-colors tw-text-center">${title}</p>
+                </div>
+            `;
+        }
+    });
+    </script>
