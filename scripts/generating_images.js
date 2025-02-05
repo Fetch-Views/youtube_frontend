@@ -94,10 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
         nextButton.addEventListener('click', gonext);
     }
 
-    const previousButton = document.getElementById('previous-step');
-    if (previousButton) {
-        previousButton.addEventListener('click', () => {
-            window.location.href = 'workflow.html';
+    const download_thumbnail = document.getElementById('download-thumbnail');
+    if (download_thumbnail) {
+        download_thumbnail.addEventListener('click', () => {
+            const storedImage = localStorage.getItem('generatedThumbnail');
+            if (storedImage) {
+                const link = document.createElement('a');
+                link.href = storedImage;
+                link.download = 'generated-thumbnail.png'; 
+                document.body.appendChild(link); 
+                link.click();
+                document.body.removeChild(link); 
+            } else {
+                alert('No thumbnail found to download!');
+            }
         });
     }
 
