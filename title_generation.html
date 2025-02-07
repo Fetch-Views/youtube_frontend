@@ -166,54 +166,17 @@
                                 >
                             </div>
             
-                            <!-- Target Audience -->
-                            <div class="tw-space-y-2">
-                                <label class="tw-block tw-text-sm tw-font-medium">
-                                    Target Audience
-                                </label>
-                                <input
-                                    type="text"
-                                    id="targetAudience"
-                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:tw-ring-2 focus:tw-ring-[#6366f1]"
-                                    placeholder="e.g., Everyone, Professionals, Gamers, etc."
-                                >
-                            </div>
-            
                             <!-- Video Type -->
                             <div class="tw-space-y-2">
                                 <label class="tw-block tw-text-sm tw-font-medium">
-                                    Video Type
+                                    Language
                                 </label>
                                 <select
-                                    id="videoType"
+                                    id="language"
                                     class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:bg-[#17181b] focus:tw-ring-2 focus:tw-ring-[#6366f1]"
                                 >
-                                    <option value="how-to">How-To Tutorial</option>
-                                    <option value="review">Review</option>
-                                    <option value="vlog">Vlog</option>
-                                    <option value="gaming">Gaming</option>
-                                    <option value="educational">Educational</option>
-                                    <option value="entertainment">Entertainment</option>
-                                    <option value="reaction">Reaction</option>
-                                    <option value="list">List/Compilation</option>
-                                    <option value="informative">Informative</option>
-                                </select>
-                            </div>
-            
-                            <!-- Title Style -->
-                            <div class="tw-space-y-2">
-                                <label class="tw-block tw-text-sm tw-font-medium">
-                                    Title Style
-                                </label>
-                                <select
-                                    id="titleStyle"
-                                    class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:tw-ring-2 focus:tw-ring-[#6366F1]"
-                                >
-                                    <option value="clickbait">High CTR (Clickbait-style)</option>
-                                    <option value="informative">Informative/Direct</option>
-                                    <option value="emotional">Emotional/Impact</option>
-                                    <option value="question">Question-based</option>
-                                    <option value="numbered">Numbered List</option>
+                                    <option value="english">English</option>
+                                    <option value="french">French</option>
                                 </select>
                             </div>
             
@@ -247,10 +210,8 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const topic = document.getElementById('videoTopic').value;
-            const audience = document.getElementById('targetAudience').value;
-            const videoType = document.getElementById('videoType').value;
-            const titleStyle = document.getElementById('titleStyle').value;
+            const prompt = document.getElementById('videoTopic').value;
+            const language = document.getElementById('language').value;
 
             generateButton.disabled = true;
             generateButton.innerHTML = `
@@ -259,7 +220,7 @@
             `;
 
             try {
-                const titles = await generateTitleFromAPI(topic, audience, videoType, titleStyle);
+                const titles = await generateTitleFromAPI(prompt, language);
                 displayGeneratedTitles(titles);
             } catch (error) {
                 console.error('Error generating title:', error);
@@ -275,11 +236,11 @@
             }
         });
 
-        async function generateTitleFromAPI(topic, audience, videoType, titleStyle) {
+        async function generateTitleFromAPI(description, language) {
             const options = {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: topic })
+                body: JSON.stringify({ prompt: description })
             };
 
             try {
