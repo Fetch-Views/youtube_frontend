@@ -175,8 +175,8 @@
                                     id="language"
                                     class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-border dark:tw-border-gray-700 tw-bg-transparent focus:bg-[#17181b] focus:tw-ring-2 focus:tw-ring-[#6366f1]"
                                 >
-                                    <option value="english">English</option>
-                                    <option value="french">French</option>
+                                    <option value="en">English</option>
+                                    <option value="fr">French</option>
                                 </select>
                             </div>
             
@@ -240,7 +240,7 @@
             const options = {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: description })
+                body: JSON.stringify({ prompt: description, language:language })
             };
 
             try {
