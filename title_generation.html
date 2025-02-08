@@ -268,15 +268,61 @@
                 return;
             }
 
+            const colors = [
+                'tw-from-pink-500 tw-to-violet-500',
+                'tw-from-cyan-500 tw-to-blue-500',
+                'tw-from-green-400 tw-to-teal-500',
+                'tw-from-orange-400 tw-to-pink-500',
+                'tw-from-indigo-400 tw-to-purple-500'
+            ];
+
             titleContainer.innerHTML = `
-                <ul class="tw-space-y-2">
-                    ${titles.map(title => `
-                        <li class="tw-bg-indigo-100 dark:tw-bg-indigo-900/30 tw-text-indigo-700 dark:tw-text-indigo-300 tw-p-4 tw-rounded-lg tw-text-center tw-cursor-pointer hover:tw-bg-indigo-200 dark:hover:tw-bg-indigo-800 transition">
-                            ${title}
+                <ul class="tw-space-y-4">
+                    ${titles.map((title, index) => `
+                        <li class="group tw-transform tw-transition-all tw-duration-300 hover:tw-scale-102 hover:tw-translate-x-2">
+                            <div class="tw-bg-gradient-to-r ${colors[index % colors.length]} tw-p-[2px] tw-rounded-xl">
+                                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl">
+                                    <div class="tw-p-4 tw-cursor-pointer tw-bg-opacity-90 tw-rounded-xl 
+                                            tw-transition-all tw-duration-300 
+                                            group-hover:tw-bg-opacity-0 
+                                            dark:tw-text-white">
+                                        <div class="tw-flex tw-items-center tw-gap-3">
+                                            <span class="tw-text-lg tw-font-medium">${title}</span>
+                                            <i class="bi bi-arrow-right tw-opacity-0 tw-transition-all 
+                                                tw-duration-300 group-hover:tw-opacity-100 
+                                                group-hover:tw-translate-x-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     `).join('')}
                 </ul>
             `;
+
+            const titleElements = titleContainer.querySelectorAll('li');
+            titleElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    element.style.transition = 'all 0.5s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+
+            titleElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    const titleText = this.querySelector('span').textContent;
+                    navigator.clipboard.writeText(titleText).then(() => {
+                        const originalBackground = this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background;
+                        this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = 'rgba(99, 102, 241, 0.1)';
+                        setTimeout(() => {
+                            this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = originalBackground;
+                        }, 300);
+                    });
+                });
+            });
         }
     });
 </script>
