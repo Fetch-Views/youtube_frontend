@@ -170,6 +170,7 @@ function isProtectedPage() {
         'gallery.html',
         'myvideos.html',
         'title_generation.html',
+        'ab_testing.html',
     ];
     
     const currentPage = window.location.pathname.split('/').pop();
