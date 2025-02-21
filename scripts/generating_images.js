@@ -84,9 +84,9 @@ async function handleGenerateThumbnail() {
 }
 
 const CREDIT_TYPES = {
-    titleCredits: { elementId: 'titleCredits', key: 'titleCredits' },
-    imageCredits: { elementId: 'imageCredits', key: 'imageCredits' },
-    abCredits: { elementId: 'abCredits', key: 'abCredits' }
+    titleCredits: { elementId: 'titleCredits', key: 'title_credits' },
+    imageCredits: { elementId: 'imageCredits', key: 'images_credits' },
+    abCredits: { elementId: 'abCredits', key: 'ab_credits' }
 };
 
 async function fetchAllCredits() {
@@ -98,7 +98,7 @@ async function fetchAllCredits() {
             throw new Error('Error retrieveing user credits');
         }
         const data = response;
-        return data;
+        return data.credits;;
     } catch (error) {
         console.error('Error:', error);
         return null;
