@@ -67,6 +67,12 @@ async function handleGenerateThumbnail() {
         if (!response) {  
             throw new Error('Failed to fetch image');
         }
+
+        if (response.status === 402) {
+            alert("You don't have enough credits to generate a thumbnail.");
+            loadingText.style.display = 'none';  
+            return;  
+        }
         
         const data = response; 
         

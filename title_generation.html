@@ -304,6 +304,12 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
+                if (response.status === 402) {
+                    alert("You don't have enough credits to generate a title.");
+                    loadingText.style.display = 'none';  
+                    return;  
+                }
+
                 const data = response;
                 return data.titles || []; 
             } catch (error) {
