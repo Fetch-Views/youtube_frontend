@@ -83,55 +83,7 @@ async function handleGenerateThumbnail() {
     }
 }
 
-const CREDIT_TYPES = {
-    titleCredits: { elementId: 'titleCredits', key: 'title_credits' },
-    imageCredits: { elementId: 'imageCredits', key: 'images_credits' },
-    abCredits: { elementId: 'abCredits', key: 'ab_credits' }
-};
-
-async function fetchAllCredits() {
-    try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/credits/', {
-            method: 'GET',
-        });
-        if (!response) {
-            throw new Error('Error retrieveing user credits');
-        }
-        const data = response;
-        return data.credits;;
-    } catch (error) {
-        console.error('Error:', error);
-        return null;
-    }
-}
-
-function updateCreditDisplay(elementId, value) {
-    const element = document.querySelector(`#${elementId} .credit-count`);
-    if (value !== null) {
-        element.textContent = value;
-    } else {
-        element.textContent = '?';
-        element.classList.add('tw-text-red-500');
-    }
-}
-
-async function updateAllCredits() {
-    const credits = await fetchAllCredits();
-    
-    if (credits) {
-        Object.values(CREDIT_TYPES).forEach(type => {
-            updateCreditDisplay(type.elementId, credits[type.key]);
-        });
-    } else {
-        Object.values(CREDIT_TYPES).forEach(type => {
-            updateCreditDisplay(type.elementId, null);
-        });
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateAllCredits();
-    
+document.addEventListener('DOMContentLoaded', () => {    
     const generateButton = document.getElementById('generate-thumbnail');
     if (generateButton) {
         generateButton.addEventListener('click', handleGenerateThumbnail);
