@@ -28,9 +28,56 @@
                 <a href="gallery.html" class="tw-text-l tw-text-white hover:tw-text-[#6366f1] tw-transition-colors">
                     Thumbnails
                 </a>
-                <button class="tw-p-2 tw-rounded-full hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
-                    <i class="bi bi-gear tw-text-2xl"></i>
-                </button>
+                <!-- Indicateur de crédits pour les titres -->
+                <div id="titleCredits" class="tw-flex tw-items-center tw-gap-1.5 tw-px-3 tw-py-1.5 tw-rounded-xl 
+                    tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl
+                    tw-shadow-[0_2px_8px_rgba(0,0,0,0.05)] dark:tw-shadow-[0_2px_8px_rgba(0,0,0,0.2)]
+                    tw-border tw-border-gray-200/50 dark:tw-border-gray-700/50
+                    tw-text-gray-700 dark:tw-text-gray-300 tw-transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                        class="tw-text-[#FFFFFF] tw-transition-colors">
+                        <path d="M4 7V4h16v3"/>
+                        <path d="M9 20h6"/>
+                        <path d="M12 4v16"/>
+                    </svg>
+                    <span class="credit-count tw-text-sm tw-font-medium">...</span>
+                </div>
+
+                <!-- Indicateur de crédits pour les images -->
+                <div id="imageCredits" class="tw-flex tw-items-center tw-gap-1.5 tw-px-3 tw-py-1.5 tw-rounded-xl 
+                    tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl
+                    tw-shadow-[0_2px_8px_rgba(0,0,0,0.05)] dark:tw-shadow-[0_2px_8px_rgba(0,0,0,0.2)]
+                    tw-border tw-border-gray-200/50 dark:tw-border-gray-700/50
+                    tw-text-gray-700 dark:tw-text-gray-300 tw-transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                        class="tw-text-[#FFFFFF] tw-transition-colors">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="M21 15l-5-5L5 21"/>
+                    </svg>
+                    <span class="credit-count tw-text-sm tw-font-medium">...</span>
+                </div>
+
+                <!-- Indicateur de crédits pour l'A/B testing -->
+                <div id="abCredits" class="tw-flex tw-items-center tw-gap-1.5 tw-px-3 tw-py-1.5 tw-rounded-xl 
+                    tw-bg-white/70 dark:tw-bg-[#17181b]/90 tw-backdrop-blur-xl
+                    tw-shadow-[0_2px_8px_rgba(0,0,0,0.05)] dark:tw-shadow-[0_2px_8px_rgba(0,0,0,0.2)]
+                    tw-border tw-border-gray-200/50 dark:tw-border-gray-700/50
+                    tw-text-gray-700 dark:tw-text-gray-300 tw-transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                        class="tw-text-[#FFFFFF] tw-transition-colors">
+                        <path d="M4 20h6"/>
+                        <path d="M14 20h6"/>
+                        <path d="M4 4h6"/>
+                        <path d="M14 4h6"/>
+                        <path d="M7 4v16"/>
+                        <path d="M17 4v16"/>
+                    </svg>
+                    <span class="credit-count tw-text-sm tw-font-medium">...</span>
+                </div>
                 <!-- Menu profil avec dropdown -->
                 <div class="tw-relative">
                     <button 
