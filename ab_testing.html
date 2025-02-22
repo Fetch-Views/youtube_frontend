@@ -15,7 +15,6 @@
     <script src="scripts/auth.js"></script>
 </head>
 <body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
-    <!-- En-tête -->
     <header class="tw-fixed tw-top-0 tw-left-0 tw-right-0 tw-h-16 tw-bg-white dark:tw-bg-[#17181b] tw-border-b dark:tw-border-gray-800 tw-z-50">
         <div class="tw-flex tw-items-center tw-justify-between tw-h-full tw-px-6">
             <!-- Logo -->
@@ -114,10 +113,10 @@
             </div>
         </div>
     </header>
-
+    
     <!-- Main Content -->
     <div class="tw-flex tw-h-screen tw-pt-16">
-        <!-- Sidebar -->
+        <!-- Sidebar principale -->
         <aside class="tw-w-64 tw-fixed tw-left-0 tw-top-16 tw-bottom-0 tw-bg-white dark:tw-bg-[#17181b] tw-border-r dark:tw-border-gray-800">
             <nav class="tw-p-4 tw-pt-8">
                 <ul class="tw-space-y-2">
@@ -159,7 +158,7 @@
                     </li>
 
                     <!-- My videos -->
-                    <!--
+                     <!--
                     <li>
                         <a href="myvideos.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
                             <i class="bi bi-collection-play"></i>
@@ -178,7 +177,7 @@
 
                     <!-- Profile -->
                     <li>
-                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800">
+                        <a href="profile.html" class="tw-flex tw-items-center tw-gap-3 tw-px-4 tw-py-3 tw-rounded-lg tw-bg-[#6366f1] tw-text-white">
                             <i class="bi bi-credit-card"></i>
                             <span>Profile</span>
                         </a>
@@ -202,11 +201,14 @@
         <!-- Main Content Area -->
         <main class="tw-flex-1 tw-ml-64 tw-p-6">
             <div class="tw-max-w-4xl tw-mx-auto">
-                <!-- Titre de la page -->
-                <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Score your Thumbnail :</h1>
+                <h1 class="tw-text-2xl tw-font-bold tw-mb-6 tw-text-center">Score your Thumbnail</h1>
         
-                <!-- Zone de dépôt -->
+                <!-- Zone de prévisualisation de l'image -->
                 <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
+                    <div id="imagePreview" class="tw-hidden tw-mb-4 tw-flex tw-justify-center">
+                        <img id="previewImg" class="tw-max-w-full tw-h-auto tw-max-h-64 tw-rounded-lg" alt="Preview" />
+                    </div>
+                    
                     <div 
                         id="dropZone"
                         class="tw-border-2 tw-border-dashed tw-border-gray-300 dark:tw-border-gray-700 tw-rounded-lg tw-p-12 tw-py-20 tw-flex tw-flex-col tw-items-center tw-justify-center"
@@ -215,7 +217,7 @@
                     >
                         <i class="bi bi-cloud-upload tw-text-4xl tw-text-gray-400 dark:tw-text-gray-500 tw-mb-4"></i>
                         <p class="tw-text-gray-500 dark:tw-text-gray-400 tw-mb-4">Drag & drop your thumbnail or</p>
-                        <input type="file" id="fileInput" accept="video/*" class="tw-hidden" onchange="handleFileSelect(event)">
+                        <input type="file" id="fileInput" accept="image/*" class="tw-hidden" onchange="handleFileSelect(event)">
                         <button onclick="document.getElementById('fileInput').click()" class="tw-px-6 tw-py-2 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors">
                             Upload from your computer
                         </button>
@@ -226,7 +228,7 @@
                 <div class="tw-flex tw-gap-6 tw-mb-6">
                     <!-- Champ titre -->
                     <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-shadow-lg tw-p-6 tw-flex-1">
-                        <label class="tw-block tw-text-sm tw-font-medium">Video title</label>
+                        <label class="tw-block tw-text-sm tw-font-medium tw-mb-2">Video title</label>
                         <input 
                             id="videoTitle"
                             type="text" 
@@ -234,20 +236,44 @@
                             class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
                 
-                    <!-- Champ tags -->
+                    <!-- Champ category -->
                     <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-lg tw-shadow-lg tw-p-6 tw-flex-1">
-                        <label class="tw-block tw-text-sm tw-font-medium">Video category</label>
+                        <label class="tw-block tw-text-sm tw-font-medium tw-mb-2">Video category</label>
                         <input 
                             id="videoCategory"
                             type="text" 
                             placeholder="Enter the category of your video"
                             class="tw-w-full tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-50 dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-700 focus:tw-outline-none focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1]">
                     </div>
-                </div>                             
+                </div>
+
+                <!-- Zone de résultat -->
+                <div id="resultSection" class="tw-hidden tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
+                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4 tw-text-center">Thumbnail Score</h2>
+                    <div class="tw-flex tw-items-center tw-justify-center tw-gap-4">
+                        <div class="tw-text-4xl tw-font-bold tw-text-[#6366f1]" id="scoreValue">-</div>
+                        <div class="tw-text-gray-500 dark:tw-text-gray-400">points</div>
+                    </div>
+                </div>
+
+                <!-- Loading indicator -->
+                <div id="loadingIndicator" class="tw-hidden tw-flex tw-justify-center tw-items-center tw-gap-3 tw-mb-6">
+                    <div class="tw-animate-spin tw-rounded-full tw-h-6 tw-w-6 tw-border-b-2 tw-border-[#6366f1]"></div>
+                    <span class="tw-text-gray-500 dark:tw-text-gray-400">Analyzing your thumbnail...</span>
+                </div>
         
-                <!-- Bouton Next step -->
+                <!-- Error message -->
+                <div id="errorMessage" class="tw-hidden tw-bg-red-100 dark:tw-bg-red-900/20 tw-border tw-border-red-200 dark:tw-border-red-800 tw-text-red-800 dark:tw-text-red-200 tw-rounded-lg tw-p-4 tw-mb-6">
+                </div>
+
+                <!-- Bouton Score -->
                 <div class="tw-flex tw-justify-center">
-                    <button onclick="saveVideoData()" class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors tw-mb-6">
+                    <button 
+                        id="scoreButton"
+                        onclick="analyzeThumbnail()" 
+                        class="tw-px-8 tw-py-3 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors tw-mb-6 disabled:tw-opacity-50 disabled:tw-cursor-not-allowed"
+                        disabled
+                    >
                         Score your thumbnail
                     </button>
                 </div>
@@ -255,5 +281,105 @@
         </main>
     </div>
 
+    <script>
+        let base64Image = null;
+        const scoreButton = document.getElementById('scoreButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultSection = document.getElementById('resultSection');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        function validateFields() {
+            const title = document.getElementById('videoTitle').value.trim();
+            const category = document.getElementById('videoCategory').value.trim();
+            scoreButton.disabled = !base64Image || !title || !category;
+        }
+
+        document.getElementById('videoTitle').addEventListener('input', validateFields);
+        document.getElementById('videoCategory').addEventListener('input', validateFields);
+
+        function dragOverHandler(event) {
+            event.preventDefault();
+            event.currentTarget.classList.add('tw-border-[#6366f1]');
+        }
+
+        function dropHandler(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('tw-border-[#6366f1]');
+            
+            if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+                handleFile(event.dataTransfer.files[0]);
+            }
+        }
+
+        function handleFileSelect(event) {
+            if (event.target.files && event.target.files[0]) {
+                handleFile(event.target.files[0]);
+            }
+        }
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showError('Please select an image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                base64Image = e.target.result.split(',')[1];
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('imagePreview').classList.remove('tw-hidden');
+                document.getElementById('fileName').textContent = file.name;
+                validateFields();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('tw-hidden');
+            setTimeout(() => {
+                errorMessage.classList.add('tw-hidden');
+            }, 5000);
+        }
+
+        async function analyzeThumbnail() {
+            const title = document.getElementById('videoTitle').value.trim();
+            const category = document.getElementById('videoCategory').value.trim();
+
+            if (!base64Image || !title || !category) {
+                showError('Please fill all fields and upload an image.');
+                return;
+            }
+
+            loadingIndicator.classList.remove('tw-hidden');
+            resultSection.classList.add('tw-hidden');
+            errorMessage.classList.add('tw-hidden');
+            scoreButton.disabled = true;
+
+            const options = {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, category, image: base64Image })
+            };
+
+            try {
+                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/ab_testing/', options);
+
+                if (response && response.ok) {
+                    document.getElementById('scoreValue').textContent = 
+                        (response.prediction[0] * 100).toFixed(1);
+                    resultSection.classList.remove('tw-hidden');
+                } else {
+                    showError(response?.error || 'An error occurred while analyzing the thumbnail.');
+                }
+
+            } catch (error) {
+                showError('Network error. Please try again.');
+            } finally {
+                loadingIndicator.classList.add('tw-hidden');
+                scoreButton.disabled = false;
+            }
+        }
+    </script>
 </body>
-</html> 
+</html>
