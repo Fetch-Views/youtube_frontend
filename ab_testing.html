@@ -364,11 +364,11 @@
 
             try {
                 const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/ab_testing/', options);
-                console.log(response);
+                console.log(response.prediction);
 
                 if (response && response.ok) {
                     document.getElementById('scoreValue').textContent = 
-                        (response.prediction[0] * 100).toFixed(1);
+                        (response.prediction * 100).toFixed(1);
                     resultSection.classList.remove('tw-hidden');
                 } else {
                     showError(response?.error || 'An error occurred while analyzing the thumbnail.');
