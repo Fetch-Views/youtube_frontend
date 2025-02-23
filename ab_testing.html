@@ -249,7 +249,6 @@
 
                 <!-- Zone de résultat -->
                 <div id="resultSection" class="tw-hidden tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl tw-shadow-lg tw-p-6 tw-mb-6">
-                    <h2 class="tw-text-xl tw-font-semibold tw-mb-4 tw-text-center">Thumbnail Score</h2>
                     <div class="tw-flex tw-items-center tw-justify-center tw-gap-4">
                         <div class="tw-text-4xl tw-font-bold tw-text-[#6366f1]" id="scoreValue">-</div>
                         <div class="tw-text-gray-500 dark:tw-text-gray-400">points</div>
@@ -367,7 +366,7 @@
 
                 if (response) {
                     document.getElementById('scoreValue').textContent = 
-                        (response.prediction * 100).toFixed(1);
+                        (response.prediction * 100/3).toFixed(1);
                     resultSection.classList.remove('tw-hidden');
                 } else {
                     showError(response?.error || 'An error occurred while analyzing the thumbnail.');
