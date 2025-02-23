@@ -364,7 +364,7 @@
 
             try {
                 const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/ab_testing/', options);
-                console.log(response.prediction);
+                console.log(response);
 
                 if (response && response.ok) {
                     document.getElementById('scoreValue').textContent = 
