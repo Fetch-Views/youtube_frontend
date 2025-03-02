@@ -290,7 +290,7 @@
                                             <h4 class="tw-text-lg tw-font-medium tw-text-white">Current Plan</h4>
                                             <span class="tw-bg-blue-600 tw-text-white tw-text-xs tw-font-medium tw-px-2.5 tw-py-0.5 tw-rounded">Active</span>
                                         </div>
-                                        <p class="tw-text-white tw-text-xl tw-font-bold tw-mb-1">Gold Plan</p>
+                                        <p id="currentPlan" class="tw-text-white tw-text-xl tw-font-bold tw-mb-1"></p>
                                         <p class="tw-text-gray-400 tw-mb-4">$19.99/month</p>
                                         <div class="tw-flex tw-justify-between tw-items-center">
                                             <p class="tw-text-gray-400 tw-text-sm">Next billing on <span class="tw-text-white">April 02, 2025</span></p>
@@ -476,7 +476,7 @@
                 document.getElementById('firstName').textContent = response.first_name;
                 document.getElementById('lastName').textContent = response.last_name;
                 document.getElementById('userEmailInfo').textContent = response.email;
-                document.getElementById('billingPlan').textContent = response.billing_plan;
+                document.getElementById('currentPlan').textContent = response.billing_plan;
 
             } catch (error) {
                 console.error('Error:', error);
