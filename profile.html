@@ -229,7 +229,6 @@
                     <div class="tw-flex tw-border-b tw-border-gray-700">
                         <button class="tw-px-6 tw-py-4 tw-text-white tw-font-medium tw-border-b-2 tw-border-blue-500">Personal Informations</button>
                         <button class="tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200">Billing</button>
-                        <button class="tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200">Preferences</button>
                     </div>
         
                     <!-- Contenu de l'onglet actif -->
@@ -255,16 +254,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Section d'action -->
-                        <div class="tw-flex tw-justify-end tw-space-x-4 tw-border-t tw-border-gray-700 tw-pt-6">
-                            <button class="tw-bg-transparent hover:tw-bg-gray-700 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
-                                Cancel changes
-                            </button>
-                            <button class="tw-bg-blue-600 hover:tw-bg-blue-700 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
-                                Save changes
-                            </button>
-                        </div>
                     </div>
                 </div>
         
@@ -272,110 +261,98 @@
                 <div class="tw-mt-8">
                     <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-6">Subscription plans available</h3>
                     
-                    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-6">
-                        <!-- Plan Silver -->
-                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex tw-flex-col">
-                            <div class="tw-bg-gradient-to-r tw-from-gray-600 tw-to-gray-500 tw-p-4">
-                                <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Beta</h4>
+                    <div class="tw-flex tw-gap-6">
+                        <!-- Plan Beta -->
+                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex-1 tw-p-6 tw-bg-gradient-to-r tw-from-gray-600 tw-to-gray-500">
+                            <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Beta</h4>
+                            <div class="tw-text-center tw-mb-4">
+                                <span class="tw-text-3xl tw-font-bold tw-text-white">0$</span>
+                                <span class="tw-text-gray-400">/month</span>
                             </div>
-                            <div class="tw-p-6 tw-flex-1 tw-flex tw-flex-col">
-                                <div class="tw-text-center tw-mb-4">
-                                    <span class="tw-text-3xl tw-font-bold tw-text-white">0$</span>
-                                    <span class="tw-text-gray-400">/month</span>
-                                </div>
-                                <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Early access to all features
-                                    </li>
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Email support
-                                    </li>
-                                </ul>
-                                <button class="tw-w-full tw-bg-gray-600 hover:tw-bg-gray-500 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
-                                    Selected plan
-                                </button>
-                            </div>
+                            <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Early access to all features
+                                </li>
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Email support
+                                </li>
+                            </ul>
+                            <button class="tw-w-full tw-bg-gray-600 hover:tw-bg-gray-500 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
+                                Selected plan
+                            </button>
                         </div>
                         
                         <!-- Plan Gold -->
-                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex tw-flex-col tw-transform tw-scale-105 tw-z-10">
-                            <div class="tw-bg-gradient-to-r tw-from-yellow-600 tw-to-yellow-500 tw-p-4">
-                                <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Gold</h4>
-                                <div class="tw-bg-yellow-800 tw-text-yellow-100 tw-text-xs tw-font-semibold tw-py-1 tw-px-2 tw-rounded tw-text-center tw-mx-auto tw-mt-2 tw-w-max">
-                                    POPULAR
-                                </div>
+                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex-1 tw-p-6 tw-bg-gradient-to-r tw-from-yellow-600 tw-to-yellow-500">
+                            <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Gold</h4>
+                            <div class="tw-bg-yellow-800 tw-text-yellow-100 tw-text-xs tw-font-semibold tw-py-1 tw-px-2 tw-rounded tw-text-center tw-mx-auto tw-mt-2 tw-w-max">
+                                POPULAR
                             </div>
-                            <div class="tw-p-6 tw-flex-1 tw-flex tw-flex-col">
-                                <div class="tw-text-center tw-mb-4">
-                                    <span class="tw-text-3xl tw-font-bold tw-text-white">19.99€</span>
-                                    <span class="tw-text-gray-400">/month</span>
-                                </div>
-                                <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Everything in Beta
-                                    </li>
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Advanced features
-                                    </li>
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Prioritary support
-                                    </li>
-                                </ul>
-                                <button class="tw-w-full tw-bg-yellow-600 hover:tw-bg-yellow-500 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
-                                    Upgrade to Gold
-                                </button>
+                            <div class="tw-text-center tw-mb-4">
+                                <span class="tw-text-3xl tw-font-bold tw-text-white">19.99€</span>
+                                <span class="tw-text-gray-400">/month</span>
                             </div>
+                            <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Everything in Beta
+                                </li>
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Advanced features
+                                </li>
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Prioritary support
+                                </li>
+                            </ul>
+                            <button class="tw-w-full tw-bg-yellow-600 hover:tw-bg-yellow-500 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
+                                Upgrade to Gold
+                            </button>
                         </div>
                         
                         <!-- Plan Platinum -->
-                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex tw-flex-col">
-                            <div class="tw-bg-gradient-to-r tw-from-blue-600 tw-to-purple-600 tw-p-4">
-                                <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Platinum</h4>
+                        <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden tw-flex-1 tw-p-6 tw-bg-gradient-to-r tw-from-blue-600 tw-to-purple-600">
+                            <h4 class="tw-text-xl tw-font-bold tw-text-white tw-text-center">Platinum</h4>
+                            <div class="tw-text-center tw-mb-4">
+                                <span class="tw-text-3xl tw-font-bold tw-text-white">99€</span>
+                                <span class="tw-text-gray-400">/mois</span>
                             </div>
-                            <div class="tw-p-6 tw-flex-1 tw-flex tw-flex-col">
-                                <div class="tw-text-center tw-mb-4">
-                                    <span class="tw-text-3xl tw-font-bold tw-text-white">99€</span>
-                                    <span class="tw-text-gray-400">/mois</span>
-                                </div>
-                                <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Everything in Gold
-                                    </li>
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Premium features
-                                    </li>
-                                    <li class="tw-flex tw-items-center tw-text-gray-300">
-                                        <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        24/7 support
-                                    </li>
-                                </ul>
-                                <button class="tw-w-full tw-bg-gradient-to-r tw-from-blue-600 tw-to-purple-600 hover:tw-from-blue-700 hover:tw-to-purple-700 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
-                                    Upgrade to Platinum
-                                </button>
-                            </div>
+                            <ul class="tw-space-y-2 tw-flex-1 tw-mb-6">
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Everything in Gold
+                                </li>
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Premium features
+                                </li>
+                                <li class="tw-flex tw-items-center tw-text-gray-300">
+                                    <svg class="tw-w-5 tw-h-5 tw-text-green-500 tw-mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    24/7 support
+                                </li>
+                            </ul>
+                            <button class="tw-w-full tw-bg-gradient-to-r tw-from-blue-600 tw-to-purple-600 hover:tw-from-blue-700 hover:tw-to-purple-700 tw-text-white tw-font-medium tw-py-2 tw-px-4 tw-rounded-lg tw-transition-colors tw-duration-200">
+                                Upgrade to Platinum
+                            </button>
                         </div>
                     </div>
                 </div>
