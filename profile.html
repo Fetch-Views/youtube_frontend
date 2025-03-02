@@ -227,30 +227,112 @@
                 <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden">
                     <!-- Navigation par onglets -->
                     <div class="tw-flex tw-border-b tw-border-gray-700">
-                        <button class="tw-px-6 tw-py-4 tw-text-white tw-font-medium tw-border-b-2 tw-border-blue-500">Personal Informations</button>
-                        <button class="tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200">Billing</button>
+                        <button id="personalInfoTab" class="tab-button tw-px-6 tw-py-4 tw-text-white tw-font-medium tw-border-b-2 tw-border-blue-500">Personal Informations</button>
+                        <button id="billingTab" class="tab-button tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200 tw-border-b-2 tw-border-transparent">Billing</button>
                     </div>
         
-                    <!-- Contenu de l'onglet actif -->
-                    <div class="tw-p-8">
+                    <div id="tabContents" class="tw-p-8">
                         <!-- Informations personnelles -->
-                        <div class="tw-mb-8">
-                            <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-6">Personal informations</h3>
-                            
-                            <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-6">
-                                <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
-                                    <p class="tw-text-gray-400 tw-text-sm tw-mb-1">First name</p>
-                                    <p id="firstName" class="tw-text-white tw-font-medium"></p>
+                        <div id="personalInfoContent" class="tab-content">
+                            <div class="tw-mb-8">
+                                <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-6">Personal informations</h3>
+                                
+                                <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-6">
+                                    <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
+                                        <p class="tw-text-gray-400 tw-text-sm tw-mb-1">First name</p>
+                                        <p id="firstName" class="tw-text-white tw-font-medium"></p>
+                                    </div>
+                                    
+                                    <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
+                                        <p class="tw-text-gray-400 tw-text-sm tw-mb-1">Last name</p>
+                                        <p id="lastName" class="tw-text-white tw-font-medium"></p>
+                                    </div>
+                                    
+                                    <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
+                                        <p class="tw-text-gray-400 tw-text-sm tw-mb-1">Email</p>
+                                        <p id="userEmailInfo" class="tw-text-white tw-font-medium"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- Informations de facturation -->
+                        <div id="billingContent" class="tab-content tw-hidden">
+                            <div class="tw-mb-8">
+                                <h3 class="tw-text-xl tw-font-semibold tw-text-white tw-mb-6">Billing Information</h3>
+                                
+                                <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6 tw-mb-8">
+                                    <div class="tw-bg-gray-700 tw-rounded-lg tw-p-6">
+                                        <div class="tw-flex tw-items-center tw-justify-between tw-mb-4">
+                                            <h4 class="tw-text-lg tw-font-medium tw-text-white">Payment Method</h4>
+                                            <button class="tw-text-sm tw-text-blue-400 hover:tw-text-blue-300">Edit</button>
+                                        </div>
+                                        <div class="tw-flex tw-items-center tw-space-x-3">
+                                            <div class="tw-bg-gray-800 tw-p-2 tw-rounded">
+                                                <svg class="tw-w-8 tw-h-8" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect width="40" height="24" rx="4" fill="#1434CB" />
+                                                    <path d="M16.4698 15.7895H13.9397L15.6198 8.21053H18.1499L16.4698 15.7895Z" fill="white" />
+                                                    <path d="M25.4693 8.44737C24.9176 8.24211 24.0656 8 23.0091 8C20.5373 8 18.793 9.25263 18.793 11.0737C18.793 12.4211 20.0389 13.1579 20.9768 13.6C21.9146 14.0421 22.2274 14.3368 22.2274 14.7368C22.2274 15.3263 21.499 15.6211 20.8139 15.6211C19.8761 15.6211 19.3677 15.4579 18.5588 15.0579L18.2027 14.9368L17.8466 17.1368C18.5158 17.4316 19.7617 17.6789 21.0508 17.6789C23.6671 17.6789 25.3903 16.4474 25.3903 14.4842C25.3903 13.4105 24.6619 12.5895 23.2007 11.9158C22.2996 11.4947 21.7912 11.2 21.7912 10.7579C21.7912 10.3579 22.2996 9.95789 23.2374 9.95789C24.0232 9.95789 24.591 10.1211 25.0561 10.3105L25.3059 10.4105L25.4693 8.44737Z" fill="white" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M30.412 8.21053H32.5079L34.1879 15.7895H31.9287C31.9287 15.7895 31.7233 14.8842 31.6445 14.6158H28.4785C28.3574 14.8842 27.9593 15.7895 27.9593 15.7895H25.4292L29.0803 8.90526C29.3302 8.44737 29.7704 8.21053 30.412 8.21053ZM30.0559 11.0737C30.0559 11.0737 29.0803 13.3158 28.9169 13.6H31.0973C31.0128 13.2947 30.4986 11.0737 30.4986 11.0737H30.0559Z" fill="white" />
+                                                    <path d="M11.5525 8.21053L9.20068 13.3158L8.9876 12.3263C8.57936 11.0737 7.31058 9.70526 5.92155 9.01053L8.17739 15.7895H10.8201L14.7239 8.21053H11.5525Z" fill="white" />
+                                                    <path d="M7.05962 8.21053H3.01099L3 8.42105C6.01165 9.22105 8.0493 10.6 8.98758 12.3263L8.17736 9.01053C8.02387 8.44737 7.59069 8.24211 7.05962 8.21053Z" fill="#FFC01F" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="tw-text-white tw-font-medium">Visa •••• •••• •••• 4242</p>
+                                                <p class="tw-text-gray-400 tw-text-sm">Expires 09/2025</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tw-bg-gray-700 tw-rounded-lg tw-p-6">
+                                        <div class="tw-flex tw-items-center tw-justify-between tw-mb-4">
+                                            <h4 class="tw-text-lg tw-font-medium tw-text-white">Current Plan</h4>
+                                            <span class="tw-bg-blue-600 tw-text-white tw-text-xs tw-font-medium tw-px-2.5 tw-py-0.5 tw-rounded">Active</span>
+                                        </div>
+                                        <p class="tw-text-white tw-text-xl tw-font-bold tw-mb-1">Gold Plan</p>
+                                        <p class="tw-text-gray-400 tw-mb-4">$19.99/month</p>
+                                        <div class="tw-flex tw-justify-between tw-items-center">
+                                            <p class="tw-text-gray-400 tw-text-sm">Next billing on <span class="tw-text-white">April 02, 2025</span></p>
+                                            <button class="tw-bg-red-600 hover:tw-bg-red-700 tw-text-white tw-font-medium tw-py-1.5 tw-px-3 tw-rounded tw-text-sm tw-transition-colors tw-duration-200">Cancel Plan</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
-                                    <p class="tw-text-gray-400 tw-text-sm tw-mb-1">Last name</p>
-                                    <p id="lastName" class="tw-text-white tw-font-medium"></p>
-                                </div>
-                                
-                                <div class="tw-bg-gray-700 tw-rounded-lg tw-p-4">
-                                    <p class="tw-text-gray-400 tw-text-sm tw-mb-1">Email</p>
-                                    <p id="userEmailInfo" class="tw-text-white tw-font-medium"></p>
+                                <div class="tw-bg-gray-700 tw-rounded-lg tw-p-6">
+                                    <h4 class="tw-text-lg tw-font-medium tw-text-white tw-mb-4">Billing History</h4>
+                                    <div class="tw-overflow-x-auto">
+                                        <table class="tw-w-full tw-text-sm tw-text-left tw-text-gray-400">
+                                            <thead class="tw-text-xs tw-uppercase tw-bg-gray-800 tw-text-gray-400">
+                                                <tr>
+                                                    <th scope="col" class="tw-px-6 tw-py-3">Date</th>
+                                                    <th scope="col" class="tw-px-6 tw-py-3">Amount</th>
+                                                    <th scope="col" class="tw-px-6 tw-py-3">Status</th>
+                                                    <th scope="col" class="tw-px-6 tw-py-3">Invoice</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="tw-border-b tw-border-gray-600">
+                                                    <td class="tw-px-6 tw-py-4">March 02, 2025</td>
+                                                    <td class="tw-px-6 tw-py-4 tw-text-white">$19.99</td>
+                                                    <td class="tw-px-6 tw-py-4"><span class="tw-bg-green-900 tw-text-green-300 tw-text-xs tw-font-medium tw-px-2.5 tw-py-0.5 tw-rounded">Paid</span></td>
+                                                    <td class="tw-px-6 tw-py-4"><a href="#" class="tw-text-blue-400 hover:tw-underline">Download</a></td>
+                                                </tr>
+                                                <tr class="tw-border-b tw-border-gray-600">
+                                                    <td class="tw-px-6 tw-py-4">February 02, 2025</td>
+                                                    <td class="tw-px-6 tw-py-4 tw-text-white">$19.99</td>
+                                                    <td class="tw-px-6 tw-py-4"><span class="tw-bg-green-900 tw-text-green-300 tw-text-xs tw-font-medium tw-px-2.5 tw-py-0.5 tw-rounded">Paid</span></td>
+                                                    <td class="tw-px-6 tw-py-4"><a href="#" class="tw-text-blue-400 hover:tw-underline">Download</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="tw-px-6 tw-py-4">January 02, 2025</td>
+                                                    <td class="tw-px-6 tw-py-4 tw-text-white">$19.99</td>
+                                                    <td class="tw-px-6 tw-py-4"><span class="tw-bg-green-900 tw-text-green-300 tw-text-xs tw-font-medium tw-px-2.5 tw-py-0.5 tw-rounded">Paid</span></td>
+                                                    <td class="tw-px-6 tw-py-4"><a href="#" class="tw-text-blue-400 hover:tw-underline">Download</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
