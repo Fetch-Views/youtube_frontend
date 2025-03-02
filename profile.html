@@ -227,8 +227,8 @@
                 <div class="tw-bg-gray-800 tw-rounded-xl tw-shadow-lg tw-overflow-hidden">
                     <!-- Navigation par onglets -->
                     <div class="tw-flex tw-border-b tw-border-gray-700">
-                        <button id="personalInfoTab" class="tab-button tw-px-6 tw-py-4 tw-text-white tw-font-medium tw-border-b-2 tw-border-blue-500">Personal Informations</button>
-                        <button id="billingTab" class="tab-button tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200 tw-border-b-2 tw-border-transparent">Billing</button>
+                        <button id="personalInfoTab" class="tab-button tw-px-6 tw-py-4 tw-text-white tw-font-medium tw-border-b-2 tw-border-blue-500" data-tab="personalInfoContent">Personal Informations</button>
+                        <button id="billingTab" class="tab-button tw-px-6 tw-py-4 tw-text-gray-400 hover:tw-text-white tw-font-medium tw-transition-colors tw-duration-200 tw-border-b-2 tw-border-transparent" data-tab="billingContent">Billing</button>
                     </div>
         
                     <div id="tabContents" class="tw-p-8">
@@ -484,6 +484,31 @@
         }
 
         window.onload = fetchUserData;
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetTab = this.getAttribute('data-tab');
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('tw-text-white', 'tw-border-blue-500');
+                        btn.classList.add('tw-text-gray-400', 'tw-border-transparent');
+                    });
+
+                    tabContents.forEach(content => {
+                        content.classList.add('tw-hidden');
+                    });
+
+                    this.classList.add('tw-text-white', 'tw-border-blue-500');
+                    this.classList.remove('tw-text-gray-400', 'tw-border-transparent');
+                    document.getElementById(targetTab).classList.remove('tw-hidden');
+                });
+            });
+        });
     </script>
 </body>
 </html>
