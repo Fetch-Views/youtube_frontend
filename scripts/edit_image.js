@@ -20,7 +20,7 @@ export const generateThumbnailWithImage = async () => {
     }
 
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', {
+        const response = await fetchWithAuth('http://127.0.0.1:8000/api/gallery/thumbnails_generation/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

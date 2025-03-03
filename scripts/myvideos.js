@@ -3,7 +3,7 @@ const loadMyVideos = async () => {
     const emptyState = document.getElementById('empty-state');
 
     try {
-        const myThumbnails = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/my_videos/");
+        const myThumbnails = await fetchWithAuth("http://127.0.0.1:8000/api/users/my_videos/");
 
         if (myThumbnails) {
             

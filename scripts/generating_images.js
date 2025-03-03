@@ -62,7 +62,7 @@ async function handleGenerateThumbnail() {
     };
 
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', options);
+        const response = await fetchWithAuth('http://127.0.0.1:8000/api/gallery/thumbnails_generation/', options);
         
         if (!response) {  
             throw new Error('Failed to fetch image');

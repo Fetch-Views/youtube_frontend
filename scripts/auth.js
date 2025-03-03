@@ -13,7 +13,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
     }
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/sign_up/', {
+        const response = await fetch('http://127.0.0.1:8000/api/users/sign_up/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/', {
+        const response = await fetch('http://127.0.0.1:8000/api/users/token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ async function refreshToken() {
     }
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/refresh/', {
+        const response = await fetch('http://127.0.0.1:8000/api/users/token/refresh/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh: refreshToken }),
@@ -139,7 +139,7 @@ async function refreshToken() {
 
 async function checkAuth() {
     try {
-        let response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/user_profile/');
+        let response = await fetchWithAuth('http://127.0.0.1:8000/api/users/user_profile/');
 
         if (response) {
             localStorage.setItem('email', response.email);
@@ -202,7 +202,7 @@ const CREDIT_TYPES = {
 
 async function fetchAllCredits() {
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/credits/', {
+        const response = await fetchWithAuth('http://127.0.0.1:8000/api/users/credits/', {
             method: 'GET',
         });
         if (!response) {
@@ -240,23 +240,25 @@ async function updateAllCredits() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    updateAllCredits();
+// document.addEventListener('DOMContentLoaded', function() {
+//     updateAllCredits();
+//     updateYoutubeButtonColor();
 
-    if (isProtectedPage()) {
-        checkAuth();
-        displayUserEmail(); 
-    }
+//     if (isProtectedPage()) {
+//         console.log('Checking authentication...');
+//         checkAuth();
+//         displayUserEmail(); 
+//     }
     
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('profileDropdown');
-        const profileButton = event.target.closest('button');
+//     document.addEventListener('click', function(event) {
+//         const dropdown = document.getElementById('profileDropdown');
+//         const profileButton = event.target.closest('button');
         
-        if (!profileButton && !dropdown?.contains(event.target)) {
-            dropdown?.classList.add('tw-hidden');
-        }
-    });
-});
+//         if (!profileButton && !dropdown?.contains(event.target)) {
+//             dropdown?.classList.add('tw-hidden');
+//         }
+//     });
+// });
 
 
 async function updateYoutubeButtonColor() {
@@ -276,5 +278,3 @@ async function updateYoutubeButtonColor() {
         youtubeButton.textContent = 'Connect to YouTube'; 
     }
 }
-
-document.addEventListener('DOMContentLoaded', updateYoutubeButtonColor);

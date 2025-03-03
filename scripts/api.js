@@ -1,4 +1,4 @@
-const API_URL = 'https://web-production-5b55f.up.railway.app/api';
+const API_URL = 'http://127.0.0.1:8000/api';
 
 export const fetchThumbnails = async (page = 1, filters = {}) => { 
     console.log(filters);   

@@ -1,6 +1,6 @@
 async function fetchDashboardStats() {
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/statistics/');
+        const response = await fetchWithAuth('http://127.0.0.1:8000/api/users/statistics/');
 
         if (!response) {  
             throw new Error('Failed to fetch dashboard stats');

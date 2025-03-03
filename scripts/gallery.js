@@ -876,7 +876,7 @@ window.toggleLike = async function(button) {
     };
 
     try {
-        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", options);
+        const response = await fetchWithAuth("http://127.0.0.1:8000/api/users/favorites/", options);
 
         if (response) {  
             button.classList.toggle('liked'); 

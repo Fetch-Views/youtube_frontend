@@ -300,7 +300,7 @@
                     }
                 }
 
-                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/upload_video/', {
+                const response = await fetchWithAuth('http://127.0.0.1:8000/api/users/upload_video/', {
                     method: 'POST',
                     body: formData,  
                 });
