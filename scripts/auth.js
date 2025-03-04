@@ -240,25 +240,23 @@ async function updateAllCredits() {
     }
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     updateAllCredits();
-//     updateYoutubeButtonColor();
-
-//     if (isProtectedPage()) {
-//         console.log('Checking authentication...');
-//         checkAuth();
-//         displayUserEmail(); 
-//     }
+document.addEventListener('DOMContentLoaded', function() {
+    if (isProtectedPage()) {
+        checkAuth();
+        displayUserEmail(); 
+        updateAllCredits();
+        updateYoutubeButtonColor();
+    }
     
-//     document.addEventListener('click', function(event) {
-//         const dropdown = document.getElementById('profileDropdown');
-//         const profileButton = event.target.closest('button');
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('profileDropdown');
+        const profileButton = event.target.closest('button');
         
-//         if (!profileButton && !dropdown?.contains(event.target)) {
-//             dropdown?.classList.add('tw-hidden');
-//         }
-//     });
-// });
+        if (!profileButton && !dropdown?.contains(event.target)) {
+            dropdown?.classList.add('tw-hidden');
+        }
+    });
+});
 
 
 async function updateYoutubeButtonColor() {
