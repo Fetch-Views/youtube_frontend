@@ -241,11 +241,10 @@ async function updateAllCredits() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    updateAllCredits();
-
     if (isProtectedPage()) {
         checkAuth();
         displayUserEmail(); 
+        updateAllCredits();
     }
     
     document.addEventListener('click', function(event) {
