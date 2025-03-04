@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
         checkAuth();
         displayUserEmail(); 
         updateAllCredits();
+        updateYoutubeButtonColor();
     }
     
     document.addEventListener('click', function(event) {
@@ -275,5 +276,3 @@ async function updateYoutubeButtonColor() {
         youtubeButton.textContent = 'Connect to YouTube'; 
     }
 }
-
-document.addEventListener('DOMContentLoaded', updateYoutubeButtonColor);
