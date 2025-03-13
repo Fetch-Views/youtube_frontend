@@ -1,3 +1,7 @@
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
 document.getElementById('registerForm')?.addEventListener('submit', async function (event) {
     event.preventDefault(); 
 
@@ -13,7 +17,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
     }
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/sign_up/', {
+        const response = await fetch(`${BACKEND_URL}/api/users/sign_up/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +52,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/', {
+        const response = await fetch(`${BACKEND_URL}/api/users/token/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +120,7 @@ async function refreshToken() {
     }
 
     try {
-        const response = await fetch('https://web-production-5b55f.up.railway.app/api/users/token/refresh/', {
+        const response = await fetch(`${BACKEND_URL}/api/users/token/refresh/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh: refreshToken }),
@@ -139,7 +143,7 @@ async function refreshToken() {
 
 async function checkAuth() {
     try {
-        let response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/user_profile/');
+        let response = await fetchWithAuth(`${BACKEND_URL}/api/users/user_profile/`);
 
         if (response) {
             localStorage.setItem('email', response.email);
@@ -202,7 +206,7 @@ const CREDIT_TYPES = {
 
 async function fetchAllCredits() {
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/credits/', {
+        const response = await fetchWithAuth(`${BACKEND_URL}/api/users/credits/`, {
             method: 'GET',
         });
         if (!response) {

@@ -1,3 +1,7 @@
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
 function gonext() {
     localStorage.setItem('previous_page', 'thumbnails_generator.html');
     window.location.href = 'planify_video.html';
@@ -39,30 +43,40 @@ function savePrompt() {
 
 
 async function handleGenerateThumbnail() {
-    const promptElement = document.getElementById('prompt');
+    const video_topicElement = document.getElementById('video_topic');
+    const default_titleElement = document.getElementById('default-title');
+    const titleElement = document.getElementById('title');
     const loadingText = document.getElementById('loadingText');
     const imageElement = document.getElementById('generatedThumbnail');
 
-    const prompt = promptElement.value.trim();
+    const video_topic = video_topicElement.value.trim();
+    const default_title = default_titleElement.checked; 
+    const title = titleElement.value.trim(); 
 
-    if (!prompt) {
-        alert('Please fill in the prompt field before generating.');
+    if (!video_topic) {
+        alert('Please fill in the video topic field before generating.');
         return;
     }
 
-    localStorage.setItem('prompt', prompt);
+    localStorage.setItem('video_topic', video_topic);
 
     loadingText.style.display = 'block';
     loadingText.innerText = 'Generating...';
 
+    const requestData = {
+        video_topic: video_topic,
+        default_title: default_title, 
+        title: title 
+    };
+
     const options = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: prompt })
+        body: JSON.stringify(requestData)
     };
 
     try {
-        const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/thumbnails_generation/', options);
+        const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/thumbnails_generation/`, options);
         
         if (!response) {  
             throw new Error('Failed to fetch image');

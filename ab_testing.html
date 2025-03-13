@@ -362,7 +362,7 @@
             };
 
             try {
-                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/ab_testing/', options);
+                const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/ab_testing/`, options);
 
                 if (response) {
                     document.getElementById('scoreValue').textContent = 

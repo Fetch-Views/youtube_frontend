@@ -1,8 +1,10 @@
-const API_URL = 'https://web-production-5b55f.up.railway.app/api';
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
 
 export const fetchThumbnails = async (page = 1, filters = {}) => { 
     console.log(filters);   
-    let url = `${API_URL}/gallery/thumbnails/?page=${page}`;
+    let url = `${BACKEND_URL}/api/gallery/thumbnails/?page=${page}`;
 
     if (filters.order) url += `&order=${filters.order}`;
     if (filters.search) url += `&search=${encodeURIComponent(filters.search)}`;

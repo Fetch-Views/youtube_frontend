@@ -255,6 +255,10 @@
         </div>
     </div>
 <script>
+    const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('titleGeneratorForm');
         const generateButton = document.getElementById('generateButton');
@@ -298,7 +302,7 @@
             };
 
             try {
-                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/gallery/title_generation/', options);
+                const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/title_generation/`, options);
 
                 if (!response) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

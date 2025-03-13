@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <style>
+    :root {
+      --background-dark: #121212;
+      --background-medium: #1E1E1E;
+      --background-light: #2A2A2A;
+      --primary: #4361EE;
+      --primary-light: #5A7AFF;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B0B0B0;
+      --border-color: #333333;
+      --success: #10B981;
+      --error: #EF4444;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background-color: var(--background-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    #card-element {
+    background-color: var(--background-dark);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary); /* Ensure white text */
+    }
+
+    #card-element input {
+        background-color: transparent; /* Keep background transparent */
+        color: var(--text-primary); /* White text color */
+        caret-color: var(--text-primary); /* Ensure white cursor */
+    }
+
+    #card-element input::placeholder {
+        color: var(--text-secondary); /* Lighter color for placeholders */
+    }
+
+    .card-container:hover {
+        box-shadow: 0 0 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      color: var(--success);
+      font-size: 0.9rem;
+    }
+    
+    .secure-badge i {
+      margin-right: 5px;
+    }
+    
+    .card-number {
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    
+    .checkout-form {
+      flex: 1 1 650px;
+      background-color: var(--background-medium);
+      border-radius: 16px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .plan-summary {
+      flex: 1 1 350px;
+      background-color: var(--background-light);
+      border-radius: 16px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      height: fit-content;
+      position: sticky;
+      top: 40px;
+      border: 1px solid var(--border-color);
+    }
+    
+    h1, h2, h3 {
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--background-light);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .input-group .form-group {
+      flex: 1;
+    }
+    
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 18px 24px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    button:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .plan-details {
+      background-color: var(--background-dark);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .features-list {
+      list-style: none;
+      margin: 20px 0;
+    }
+    
+    .features-list li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      color: var(--text-secondary);
+    }
+    
+    .features-list i {
+      color: #FFD700;
+      margin-right: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .security-notice {
+      background-color: var(--background-light);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .security-notice i {
+      color: var(--success);
+      margin-right: 15px;
+      font-size: 1.5rem;
+    }
+    
+    .security-text {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .input-group {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .plan-summary {
+        position: static;
+      }
+    }
+    
+    .billing-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--background-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 60px;
+      height: 34px;
+      background-color: var(--background-light);
+      border-radius: 34px;
+      cursor: pointer;
+    }
+    
+    .toggle-switch::before {
+      content: '';
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    
+    .toggle-switch.annual::before {
+      transform: translateX(26px);
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      background-color: var(--background-dark);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+    }
+    
+    .logo svg {
+      margin-right: 10px;
+    }
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="logo">
+      <img src="assets/logo/logo3.png" alt="Company Logo" style="height: 40px;">
+  </div>
+  </header>
+  <div class="container">
+    <div class="checkout-form">
+      <h1>Activate your subscription</h1>
+      
+      <h3>Personal Information</h3>
+      <div class="input-group">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" name="first-name" placeholder="Jean" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" name="last-name" placeholder="Dupont" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="jean.dupont@provider.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Billing Address</label>
+        <input type="text" id="address" name="address" placeholder="123 Rue des Champs Elysées" required>
+      </div>
+      
+      <div class="input-group">
+        <div class="form-group">
+          <label for="postal-code">ZIP Code</label>
+          <input type="text" id="postal-code" name="postal-code" placeholder="75001" required>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Paris" required>
+        </div>
+      </div>
+      
+      <!-- Billing cycle toggle switch
+      <div class="billing-toggle">
+        <span>Cycle de facturation</span>
+        <div class="toggle-switch" id="billing-toggle">
+          <div class="toggle-switch-inner"></div>
+        </div>
+        <span>Annuel <strong>-20%</strong></span>
+      </div>
+      -->
+
+      <h3>Payment informations</h3>
+      <div class="card-container">
+          <div id="card-element"></div>
+          <div id="card-errors" role="alert"></div>
+      </div>
+      
+      <button id="pay-button">Activate your account</button>
+      
+      <div class="security-notice">
+        <i class="fas fa-shield-alt"></i>
+        <div class="security-text">
+          100% secure payment. Your data is encrypted and protected in accordance with PCI DSS standards.
+        </div>
+      </div>
+    </div>
+    
+    <div class="plan-summary">
+      <h2>Subscription summary</h2>
+      
+      <div class="plan-details">
+        <h3>Beta Plan</h3>
+        <ul class="features-list">
+          <li><i class="fas fa-check"></i> +100 Images Generation Credits</li>
+          <li><i class="fas fa-check"></i> +100 Text Generation Credits</li>
+          <li><i class="fas fa-check"></i> +100 A/B Testing Credits</li>
+          <li><i class="fas fa-check"></i> Full Access to Our Curated-List of YouTube Videos</li>
+          <li><i class="fas fa-check"></i> Advanced Analytics and Metrics</li>
+          <li><i class="fas fa-check"></i> Client Support</li>
+        </ul>
+      </div>
+      
+      <div class="price-details">
+        <div class="price-row">
+          <span>Beta Plan</span>
+          <span id="plan-price">0 €/mois</span>
+        </div>
+        <div class="price-row" id="discount-row" style="display: none;">
+          <span>Remise annuelle (20%)</span>
+          <span id="discount-amount">-237,60 €</span>
+        </div>
+        <div class="total-row">
+          <strong>Total</strong>
+          <strong id="total-price">0 €/mois</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const stripe = Stripe('pk_test_xxxxxxxxxxxxxxxxxxxxx'); 
+      const elements = stripe.elements();
+      const cardElement = elements.create('card');
+      cardElement.mount('#card-element');
+
+      document.getElementById('pay-button').addEventListener('click', async function() {
+          const token = localStorage.getItem('access_token');
+          if (!token) {
+              alert('Vous devez être connecté pour payer.');
+              return;
+          }
+
+          const {error, paymentMethod} = await stripe.createPaymentMethod({
+              type: 'card',
+              card: cardElement
+          });
+
+          if (error) {
+              document.getElementById('card-errors').innerText = error.message;
+              return;
+          }
+
+          const response = await fetch(`${BACKEND_URL}/api/payments/create-subscription/`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                  price_id: 'price_1QyzUsGffKn97RRDyaIJRAzm',  
+                  payment_method_id: paymentMethod.id
+              })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+              alert('Subscription activated successfully!');
+              window.location.href = '/dashboard';  
+          } else {
+              alert(data.error || 'An error occurred during subscription.');
+          }
+      });
+    });
+    </script>

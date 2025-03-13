@@ -1,9 +1,13 @@
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
 const loadLikedThumbnails = async () => {
     const container = document.getElementById('heartlist-container');
     const emptyState = document.getElementById('empty-state');
 
     try {
-        const likedThumbnails = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/");
+        const likedThumbnails = await fetchWithAuth(`${BACKEND_URL}/api/users/favorites/`);
 
         if (likedThumbnails) {
             if (likedThumbnails.length === 0) {
@@ -56,7 +60,7 @@ const loadLikedThumbnails = async () => {
 
 async function deleteThumbnail(thumbnailId) {    
     try {
-        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", {
+        const response = await fetchWithAuth(`${BACKEND_URL}/api/users/favorites/`, {
             method: "DELETE",
             body: JSON.stringify({
                 thumbnail_id: thumbnailId

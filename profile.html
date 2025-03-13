@@ -465,7 +465,7 @@
     <script>
         async function fetchUserData() {
             try {
-                const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/users/user_profile/');
+                const response = await fetchWithAuth(`${BACKEND_URL}/api/users/user_profile/`);
 
                 if (!response) {
                     throw new Error('Failed to fetch user data');

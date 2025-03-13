@@ -377,7 +377,7 @@
 
             if (button.classList.contains('tw-bg-red-600')) {
                 try {
-                    const response = await fetchWithAuth('https://web-production-5b55f.up.railway.app/api/oauth/init/', {
+                    const response = await fetchWithAuth(`${BACKEND_URL}/api/oauth/init/`, {
                         method: 'GET',
                     });
 

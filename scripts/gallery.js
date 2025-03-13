@@ -864,6 +864,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
 window.toggleLike = async function(button) {
     const thumbnailId = button.getAttribute('data-thumbnail-id');
     const isLiked = button.classList.contains('liked');
@@ -876,7 +880,7 @@ window.toggleLike = async function(button) {
     };
 
     try {
-        const response = await fetchWithAuth("https://web-production-5b55f.up.railway.app/api/users/favorites/", options);
+        const response = await fetchWithAuth(`${BACKEND_URL}/api/users/favorites/`, options);
 
         if (response) {  
             button.classList.toggle('liked'); 

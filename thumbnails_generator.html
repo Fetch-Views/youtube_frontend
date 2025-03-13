@@ -209,7 +209,7 @@
                                 
                                 <span id="loadingText" class="tw-absolute tw-top-1/2 tw-left-1/2 tw-transform tw-translate-x-[-50%] tw-translate-y-[-50%] tw-text-white">Loading...</span>
                     
-                                <a href="edit_thumbnail.html" class="tw-absolute tw-top-2 tw-right-2 tw-bg-black/50 tw-p-2 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
+                                <a href="#" class="tw-absolute tw-top-2 tw-right-2 tw-bg-black/50 tw-p-2 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
                                     <i class="bi bi-pencil-fill tw-text-white"></i>
                                 </a>
                             </div>
@@ -220,31 +220,45 @@
                         </div>
                     </div>
 
-                    <div class="tw-flex tw-gap-4 tw-justify-center tw-items-center">
+                    <div class="tw-flex tw-flex-col tw-gap-4 tw-justify-center tw-items-center">
                         <!-- Section Prompt -->
-                        <div class="tw-w-full tw-max-w-2xl"> <!-- Largeur augmentée -->
-                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2 text-center">Prompt</label>
-                            <div class="tw-flex tw-items-center">
+                        <div class="tw-w-full tw-max-w-2xl">
+                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2 text-center">Video Topic</label>
+                            <textarea
+                                id="video_topic"
+                                class="tw-w-full tw-h-[10px] tw-px-4 tw-py-3 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors"
+                                placeholder="Describe the topic of the video..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Section Text with Checkbox -->
+                        <div class="tw-w-full tw-max-w-2xl">
+                            <label class="tw-block tw-text-sm tw-font-medium tw-mb-2 text-center">Title</label>
+                            <div class="tw-flex tw-items-center tw-gap-4">
+                                <input id="default-title" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
                                 <textarea
-                                    id="prompt"
-                                    class="tw-w-[80%] tw-h-[90px] tw-px-4 tw-py-3 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors"
-                                    placeholder="Describe how you want to generate your thumbnail..."
+                                    id="title"
+                                    class="tw-w-full tw-h-[10px] tw-px-4 tw-py-3 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors"
+                                    placeholder="Write the text you want to display on the thumbnail..."
                                 ></textarea>
-                                
-                                <!-- Bouton Generate -->
-                                <button id="generate-thumbnail" 
-                                        class="tw-h-[90px] tw-px-8 tw-bg-[#6366f1] tw-text-white tw-rounded-lg hover:tw-bg-[#5558e3] tw-transition-colors tw-ml-4">
-                                    Generate
-                                </button>
                             </div>
                         </div>
-                    </div>                                                                                                                             
-                    
-                    <div class="tw-flex tw-justify-center tw-gap-4 tw-mt-12">
-                        <button id="download-thumbnail" 
-                                class="tw-px-8 tw-py-3 tw-border dark:tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors tw-whitespace-normal tw-text-center">
-                            Download thumbnail
-                        </button>
+
+                        <!-- Buttons -->
+                        <div class="tw-w-full tw-max-w-2xl tw-flex tw-justify-center tw-items-center tw-gap-4">
+                            <button id="generate-thumbnail" 
+                            class="tw-px-8 tw-py-3 tw-border dark:tw-border-gray-700 tw-rounded-lg tw-bg-[#6366f1] hover:tw-bg-[#5558e3] tw-transition-colors tw-whitespace-normal tw-text-center">
+                                Generate
+                            </button>
+                            <button id="download-thumbnail" 
+                                    class="tw-px-8 tw-py-3 tw-border dark:tw-border-gray-700 tw-rounded-lg hover:tw-bg-gray-100 dark:hover:tw-bg-gray-800 tw-transition-colors tw-whitespace-normal tw-text-center">
+                                Download thumbnail
+                            </button>
+                        </div>
+
+                        <div>
+
+                        </div>
                     </div>                                                     
                 </div>
             </main>                        
