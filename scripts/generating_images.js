@@ -1,3 +1,7 @@
+const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
 function gonext() {
     localStorage.setItem('previous_page', 'thumbnails_generator.html');
     window.location.href = 'planify_video.html';
@@ -72,7 +76,7 @@ async function handleGenerateThumbnail() {
     };
 
     try {
-        const response = await fetchWithAuth('http://127.0.0.1:8000/api/gallery/thumbnails_generation/', options);
+        const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/thumbnails_generation/`, options);
         
         if (!response) {  
             throw new Error('Failed to fetch image');

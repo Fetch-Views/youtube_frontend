@@ -406,6 +406,10 @@
   </div>
 
   <script>
+    const BACKEND_URL = window.location.hostname === "127.0.0.1" 
+        ? "http://127.0.0.1:8000" 
+        : "https://web-production-5b55f.up.railway.app";
+
     document.addEventListener('DOMContentLoaded', function() {
       const stripe = Stripe('pk_test_xxxxxxxxxxxxxxxxxxxxx'); 
       const elements = stripe.elements();
@@ -429,7 +433,7 @@
               return;
           }
 
-          const response = await fetch('http://127.0.0.1:8000/api/payments/create-subscription/', {
+          const response = await fetch(`${BACKEND_URL}/api/payments/create-subscription/`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

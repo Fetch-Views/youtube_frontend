@@ -465,7 +465,7 @@
     <script>
         async function fetchUserData() {
             try {
-                const response = await fetchWithAuth('http://127.0.0.1:8000/api/users/user_profile/');
+                const response = await fetchWithAuth(`${BACKEND_URL}/api/users/user_profile/`);
 
                 if (!response) {
                     throw new Error('Failed to fetch user data');

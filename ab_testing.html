@@ -362,7 +362,7 @@
             };
 
             try {
-                const response = await fetchWithAuth('http://127.0.0.1:8000/api/gallery/ab_testing/', options);
+                const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/ab_testing/`, options);
 
                 if (response) {
                     document.getElementById('scoreValue').textContent = 
