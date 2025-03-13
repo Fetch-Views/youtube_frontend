@@ -1,7 +1,3 @@
-const BACKEND_URL = window.location.hostname === "127.0.0.1" 
-        ? "http://127.0.0.1:8000" 
-        : "https://web-production-5b55f.up.railway.app";
-
 async function fetchDashboardStats() {
     try {
         const response = await fetchWithAuth(`${BACKEND_URL}/api/users/statistics/`);
