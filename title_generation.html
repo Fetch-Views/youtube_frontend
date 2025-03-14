@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/tailwind-runtime.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
-    <script src="scripts/auth.js"></script>
 </head>
 <body class="tw-bg-[#fcfcfc] dark:tw-bg-black tw-text-black dark:tw-text-white">
     <!-- En-tête -->
@@ -254,139 +253,138 @@
             </div>
         </div>
     </div>
-<script>
-    const BACKEND_URL = window.location.hostname === "127.0.0.1" 
-        ? "http://127.0.0.1:8000" 
-        : "https://web-production-5b55f.up.railway.app";
+    <script src="scripts/auth.js"></script>    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('titleGeneratorForm');
+            const generateButton = document.getElementById('generateButton');
+            const generatedTitleContainer = document.getElementById('generatedTitle');
+            const titleContainer = document.getElementById('titleContainer');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('titleGeneratorForm');
-        const generateButton = document.getElementById('generateButton');
-        const generatedTitleContainer = document.getElementById('generatedTitle');
-        const titleContainer = document.getElementById('titleContainer');
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const prompt = document.getElementById('videoTopic').value;
+                const language = document.getElementById('language').value;
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const prompt = document.getElementById('videoTopic').value;
-            const language = document.getElementById('language').value;
-
-            generateButton.disabled = true;
-            generateButton.innerHTML = `
-                <i class="bi bi-arrow-repeat tw-animate-spin"></i>
-                Generating...
-            `;
-
-            try {
-                const titles = await generateTitleFromAPI(prompt, language);
-                displayGeneratedTitles(titles);
-            } catch (error) {
-                console.error('Error generating title:', error);
-                titleContainer.innerHTML = `
-                    <div class="tw-text-red-600 dark:tw-text-red-400">
-                        Failed to generate titles. Please try again later.
-                    </div>
+                generateButton.disabled = true;
+                generateButton.innerHTML = `
+                    <i class="bi bi-arrow-repeat tw-animate-spin"></i>
+                    Generating...
                 `;
-            } finally {
-                generateButton.disabled = false;
-                generateButton.textContent = 'Generate YouTube Title';
-                generatedTitleContainer.classList.remove('tw-hidden');
+
+                try {
+                    const titles = await generateTitleFromAPI(prompt, language);
+                    displayGeneratedTitles(titles);
+                } catch (error) {
+                    console.error('Error generating title:', error);
+                    titleContainer.innerHTML = `
+                        <div class="tw-text-red-600 dark:tw-text-red-400">
+                            Failed to generate titles. Please try again later.
+                        </div>
+                    `;
+                } finally {
+                    generateButton.disabled = false;
+                    generateButton.textContent = 'Generate YouTube Title';
+                    generatedTitleContainer.classList.remove('tw-hidden');
+                }
+            });
+
+            async function generateTitleFromAPI(description, language) {
+                const options = {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: description, language:language })
+                };
+
+                try {
+                    const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/title_generation/`, options);
+
+                    if (!response) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    if (response.status === 402) {
+                        alert("You don't have enough credits to generate a title.");
+                        loadingText.style.display = 'none';  
+                        return;  
+                    }
+
+                    const data = response;
+                    return data.titles || []; 
+                } catch (error) {
+                    console.error("Error fetching API:", error);
+                    throw error;
+                }
             }
-        });
 
-        async function generateTitleFromAPI(description, language) {
-            const options = {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: description, language:language })
-            };
-
-            try {
-                const response = await fetchWithAuth(`${BACKEND_URL}/api/gallery/title_generation/`, options);
-
-                if (!response) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+            function displayGeneratedTitles(titles) {
+                if (!titles.length) {
+                    titleContainer.innerHTML = `
+                        <div class="tw-text-red-600 dark:tw-text-red-400">
+                            No titles generated. Try again.
+                        </div>
+                    `;
+                    return;
                 }
 
-                if (response.status === 402) {
-                    alert("You don't have enough credits to generate a title.");
-                    loadingText.style.display = 'none';  
-                    return;  
-                }
+                const colors = [
+                    'tw-from-pink-500 tw-to-violet-500',
+                    'tw-from-cyan-500 tw-to-blue-500',
+                    'tw-from-green-400 tw-to-teal-500',
+                    'tw-from-orange-400 tw-to-pink-500',
+                    'tw-from-indigo-400 tw-to-purple-500'
+                ];
 
-                const data = response;
-                return data.titles || []; 
-            } catch (error) {
-                console.error("Error fetching API:", error);
-                throw error;
-            }
-        }
-
-        function displayGeneratedTitles(titles) {
-            if (!titles.length) {
                 titleContainer.innerHTML = `
-                    <div class="tw-text-red-600 dark:tw-text-red-400">
-                        No titles generated. Try again.
-                    </div>
-                `;
-                return;
-            }
-
-            const colors = [
-                'tw-from-pink-500 tw-to-violet-500',
-                'tw-from-cyan-500 tw-to-blue-500',
-                'tw-from-green-400 tw-to-teal-500',
-                'tw-from-orange-400 tw-to-pink-500',
-                'tw-from-indigo-400 tw-to-purple-500'
-            ];
-
-            titleContainer.innerHTML = `
-                <ul class="tw-space-y-4">
-                    ${titles.map((title, index) => `
-                        <li class="group tw-transform tw-transition-all tw-duration-300 hover:tw-scale-102 hover:tw-translate-x-2">
-                            <div class="tw-bg-gradient-to-r ${colors[index % colors.length]} tw-p-[2px] tw-rounded-xl">
-                                <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl">
-                                    <div class="tw-p-4 tw-cursor-pointer tw-bg-opacity-90 tw-rounded-xl 
-                                            tw-transition-all tw-duration-300 
-                                            group-hover:tw-bg-opacity-0 
-                                            dark:tw-text-white">
-                                        <div class="tw-flex tw-items-center tw-gap-3">
-                                            <span class="tw-text-lg tw-font-medium">${title}</span>
-                                            <i class="bi bi-arrow-right tw-opacity-0 tw-transition-all 
-                                                tw-duration-300 group-hover:tw-opacity-100 
-                                                group-hover:tw-translate-x-2"></i>
+                    <ul class="tw-space-y-4">
+                        ${titles.map((title, index) => `
+                            <li class="group tw-transform tw-transition-all tw-duration-300 hover:tw-scale-102 hover:tw-translate-x-2">
+                                <div class="tw-bg-gradient-to-r ${colors[index % colors.length]} tw-p-[2px] tw-rounded-xl">
+                                    <div class="tw-bg-white dark:tw-bg-[#17181b] tw-rounded-xl">
+                                        <div class="tw-p-4 tw-cursor-pointer tw-bg-opacity-90 tw-rounded-xl 
+                                                tw-transition-all tw-duration-300 
+                                                group-hover:tw-bg-opacity-0 
+                                                dark:tw-text-white">
+                                            <div class="tw-flex tw-items-center tw-gap-3">
+                                                <span class="tw-text-lg tw-font-medium">${title}</span>
+                                                <i class="bi bi-arrow-right tw-opacity-0 tw-transition-all 
+                                                    tw-duration-300 group-hover:tw-opacity-100 
+                                                    group-hover:tw-translate-x-2"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    `).join('')}
-                </ul>
-            `;
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
 
-            const titleElements = titleContainer.querySelectorAll('li');
-            titleElements.forEach((element, index) => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    element.style.transition = 'all 0.5s ease';
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 150);
-            });
+                const titleElements = titleContainer.querySelectorAll('li');
+                titleElements.forEach((element, index) => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        element.style.transition = 'all 0.5s ease';
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, index * 150);
+                });
 
-            titleElements.forEach(element => {
-                element.addEventListener('click', function() {
-                    const titleText = this.querySelector('span').textContent;
-                    navigator.clipboard.writeText(titleText).then(() => {
-                        const originalBackground = this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background;
-                        this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = 'rgba(99, 102, 241, 0.1)';
-                        setTimeout(() => {
-                            this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = originalBackground;
-                        }, 300);
+                titleElements.forEach(element => {
+                    element.addEventListener('click', function() {
+                        const titleText = this.querySelector('span').textContent;
+                        navigator.clipboard.writeText(titleText).then(() => {
+                            const originalBackground = this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background;
+                            this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = 'rgba(99, 102, 241, 0.1)';
+                            setTimeout(() => {
+                                this.querySelector('.tw-bg-white, .dark\\:tw-bg-\\[\\#17181b\\]').style.background = originalBackground;
+                            }, 300);
+                        });
                     });
                 });
-            });
-        }
-    });
-</script>
+            }
+        });
+    </script>
+</body>
+</html>

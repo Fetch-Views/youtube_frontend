@@ -263,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
 async function updateYoutubeButtonColor() {
     const youtubeButton = document.getElementById('youtubeButton');
     if (!youtubeButton) {
