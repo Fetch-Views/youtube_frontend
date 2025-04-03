@@ -1,7 +1,7 @@
 
 ## Usage
 
-During development add the following to head tag
+During development add the following to head tag :
 
 ```html
 <link rel="stylesheet" href="./css/tailwind-runtime.css">
