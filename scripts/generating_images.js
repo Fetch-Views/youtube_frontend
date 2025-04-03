@@ -48,6 +48,7 @@ async function handleGenerateThumbnail() {
     const titleElement = document.getElementById('title');
     const loadingText = document.getElementById('loadingText');
     const imageElement = document.getElementById('generatedThumbnail');
+    const category = document.getElementById('category').value;
 
     const video_topic = video_topicElement.value.trim();
     const default_title = default_titleElement.checked; 
@@ -66,7 +67,8 @@ async function handleGenerateThumbnail() {
     const requestData = {
         video_topic: video_topic,
         default_title: default_title, 
-        title: title 
+        title: title,
+        category: category,
     };
 
     const options = {
