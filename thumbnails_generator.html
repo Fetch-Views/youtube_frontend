@@ -220,18 +220,10 @@
                     </div>
 
                     <div class="tw-flex tw-flex-col tw-gap-4 tw-justify-center tw-items-center">
-                        <!-- Section Prompt avec selecteur -->
+                        <!-- Section Prompt -->
                         <div class="tw-w-full tw-max-w-2xl">
                             <label class="tw-block tw-text-sm tw-font-medium tw-mb-2 text-center">Video Topic</label>
                             <div class="tw-flex tw-items-center tw-gap-4">
-                                <!-- Sélecteur -->
-                                <select id="contentType" 
-                                        class="tw-px-4 tw-py-2 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors">
-                                    <option value="entertainment">🎬 Entertainment</option>
-                                    <option value="vlog">📹 Vlog</option>
-                                    <option value="podcast">🎙️ Podcast</option>
-                                </select>
-
                                 <!-- Zone de texte -->
                                 <textarea
                                     id="video_topic"
@@ -248,8 +240,14 @@
                                 <textarea
                                     id="title"
                                     class="tw-w-full tw-h-[10px] tw-px-4 tw-py-3 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors"
-                                    placeholder="Write the text you want to display on the thumbnail..."
-                                ></textarea>
+                                    placeholder="Write the text you want to display on the thumbnail..."></textarea>
+                                <!-- Sélecteur de type à droite -->
+                                <select id="contentType" 
+                                        class="tw-w-48 tw-px-4 tw-py-2 tw-rounded-lg tw-bg-white dark:tw-bg-[#17181b] tw-border dark:tw-border-gray-800 focus:tw-border-[#6366f1] focus:tw-ring-1 focus:tw-ring-[#6366f1] tw-outline-none tw-transition-colors">
+                                    <option value="entertainment">🎬 Entertainment</option>
+                                    <option value="vlog">📹 Vlog</option>
+                                    <option value="podcast">🎙️ Podcast</option>
+                                </select>
                             </div>
                         </div>
 
