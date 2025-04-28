@@ -34,7 +34,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
 
         if (response.ok) {
             alert('Your account needs to be reviewed by someone from the team. To join the beta, contact: contact@fetchviews.com');
-            //window.location.href = '/login.html';
+            window.location.href = '/login.html';
         } else {
             alert(data.error || 'An error occurred during registration.');
         }
@@ -66,7 +66,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async function 
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
             
-            window.location.href = '/dashboard.html';
+            window.location.href = '/thumbnails_generator.html';
         } else {
             console.log(data.error);
             alert(data.error || 'Invalid credentials.');
@@ -163,18 +163,10 @@ async function checkAuth() {
 
 function isProtectedPage() {
     const protectedPages = [
-        'edit_thumbnail.html',
-        'dashboard.html',
         'thumbnails_generator.html',
-        'thumbnails_generator_with_thumbnail.html',
         'heartlist.html',
-        'workflow.html',
-        'planify_video.html',
         'profile.html',
         'gallery.html',
-        'myvideos.html',
-        'title_generation.html',
-        'ab_testing.html',
     ];
     
     const currentPage = window.location.pathname.split('/').pop();
@@ -249,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
         checkAuth();
         displayUserEmail(); 
         updateAllCredits();
-        updateYoutubeButtonColor();
     }
     
     document.addEventListener('click', function(event) {
@@ -261,23 +252,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-
-
-async function updateYoutubeButtonColor() {
-    const youtubeButton = document.getElementById('youtubeButton');
-    if (!youtubeButton) {
-        console.error('Button with ID "youtubeButton" not found.');
-        return;
-    }
-
-    const refreshToken = localStorage.getItem('has_refresh_token');
-
-    if (refreshToken == "true") {
-        youtubeButton.style.backgroundColor = 'green';
-        youtubeButton.textContent = 'YouTube Connected';
-    } else {
-        youtubeButton.style.backgroundColor = 'red';
-        youtubeButton.textContent = 'Connect to YouTube'; 
-    }
-}

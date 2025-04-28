@@ -2,34 +2,6 @@ const BACKEND_URL = window.location.hostname === "127.0.0.1"
         ? "http://127.0.0.1:8000" 
         : "https://web-production-5b55f.up.railway.app";
 
-function gonext() {
-    localStorage.setItem('previous_page', 'thumbnails_generator.html');
-    window.location.href = 'planify_video.html';
-}
-
-function selectThumbnail(element) {
-    document.querySelectorAll('.tw-cursor-pointer > div').forEach(el => {
-        el.classList.remove('tw-border-[#6366f1]');
-        el.classList.add('tw-border-transparent');
-    });
-    
-    element.querySelector('div').classList.remove('tw-border-transparent');
-    element.querySelector('div').classList.add('tw-border-[#6366f1]');
-
-    const selectedImage = element.querySelector('img').src;
-    localStorage.setItem('selectedThumbnail', selectedImage);
-}
-
-function editThumbnail(element) {
-    localStorage.setItem('previous_page', 'thumbnails_generator.html');
-    const imageToEdit = element.parentElement.querySelector('img').src;
-    
-    localStorage.setItem('imageToEdit', imageToEdit);
-    localStorage.setItem('sourcePage', window.location.pathname.split('/').pop());
-    
-    window.location.href = 'edit_thumbnail.html?source=generator';
-}
-
 function savePrompt() {
     const prompt = document.getElementById('prompt').value;
 
@@ -40,7 +12,6 @@ function savePrompt() {
 
     localStorage.setItem('prompt', prompt);
 }
-
 
 async function handleGenerateThumbnail() {
     const video_topicElement = document.getElementById('video_topic');
